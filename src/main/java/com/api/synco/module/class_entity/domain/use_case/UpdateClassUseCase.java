@@ -2,6 +2,7 @@ package com.api.synco.module.class_entity.domain.use_case;
 
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.domain.ClassEntity;
+import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutUpdateClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
@@ -21,14 +22,19 @@ public class UpdateClassUseCase {
     }
 
     @Transactional
-    public ClassEntity execute(UpdateClassRequest updateClassRequest, long idClass, long idUser){
+    public ClassEntity execute(UpdateClassRequest updateClassRequest, long idUser){
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
         if(!ClassEntity.havePermissionToModify(userEntity.getRole())) throw new UserWithoutUpdateClassPermissionException();
 
-        ClassEntity classEntity = classRepository.findById(idClass)
-                .orElseThrow(() -> new ClassNotFoundException(idClass));
+        ClassEntityId id = new ClassEntityId(
+                updateClassRequest.idCourse(),
+                updateClassRequest.number()
+        );
+
+        ClassEntity classEntity = classRepository.findById(id)
+                .orElseThrow(ClassNotFoundException::new);
 
         classEntity.update(
                 updateClassRequest.totalHours(),
