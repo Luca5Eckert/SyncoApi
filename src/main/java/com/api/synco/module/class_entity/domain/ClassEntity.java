@@ -1,9 +1,13 @@
 package com.api.synco.module.class_entity.domain;
 
 import com.api.synco.module.class_entity.domain.enumerator.Shift;
+import com.api.synco.module.class_entity.domain.exception.ClassDomainException;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -31,6 +35,11 @@ public class ClassEntity {
     }
 
 
+    public void update(int totalHours, Shift shift) {
+        setTotalHours(totalHours);
+        setShift(shift);
+    }
+
     public ClassEntity(ClassEntityId id, CourseEntity course, int totalHours, Shift shift) {
         this.id = id;
         this.course = course;
@@ -54,6 +63,9 @@ public class ClassEntity {
     }
 
     public void setCourse(CourseEntity course) {
+        if (course == null){
+            throw new ClassDomainException("The course can't be null");
+        }
         this.course = course;
     }
 
@@ -61,8 +73,13 @@ public class ClassEntity {
     public int getTotalHours() {
         return totalHours;
     }
-
     public void setTotalHours(int totalHours) {
+        if (totalHours < 0) {
+            throw new ClassDomainException("The total hours cannot be negative.");
+        }
+        if (totalHours > 10000){
+            throw new ClassDomainException("The total hours exceeds the maximum allowed (10000).");
+        }
         this.totalHours = totalHours;
     }
 
@@ -71,6 +88,9 @@ public class ClassEntity {
     }
 
     public void setShift(Shift shift) {
+        if(shift == null){
+            throw new ClassDomainException("The shift can't be null");
+        }
         this.shift = shift;
     }
 
@@ -85,5 +105,4 @@ public class ClassEntity {
     public int hashCode() {
         return Objects.hash(id, course, totalHours, shift);
     }
-
 }
