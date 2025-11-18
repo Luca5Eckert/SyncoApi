@@ -10,4 +10,6 @@ public interface ClassRepository {
     void save(ClassEntity classEntity);
 
     int getNextNumberOfCourse(CourseEntity course);
+
+    Optional<ClassEntity> findById(long idClass);
 }

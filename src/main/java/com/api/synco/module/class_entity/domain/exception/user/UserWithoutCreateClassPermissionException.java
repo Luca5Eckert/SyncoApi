@@ -3,10 +3,11 @@ package com.api.synco.module.class_entity.domain.exception.user;
 import com.api.synco.module.class_entity.domain.exception.ClassDomainException;
 
 public class UserWithoutCreateClassPermissionException extends ClassDomainException {
-  public UserWithoutCreateClassPermissionException(String message) {
-      super(message);
-  }
-  public UserWithoutCreateClassPermissionException() {
-      super("The user can't create a class");
-  }
+    public UserWithoutCreateClassPermissionException(String message) {
+        super(message);
+    }
+
+    public UserWithoutCreateClassPermissionException() {
+        super("The user can't create a class");
+    }
 }

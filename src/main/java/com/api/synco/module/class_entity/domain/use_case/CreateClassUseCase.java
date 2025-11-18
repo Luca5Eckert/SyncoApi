@@ -4,6 +4,7 @@ import com.api.synco.module.class_entity.application.dto.create.CreateClassReque
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutCreateClassPermissionException;
+import com.api.synco.module.class_entity.domain.exception.user.UserWithoutUpdateClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
@@ -29,8 +30,10 @@ public class CreateClassUseCase {
 
     @Transactional
     public ClassEntity execute(CreateClassRequest createClassRequest, long idUser){
-        if(!havePermissionToCreate(idUser)) throw new UserWithoutCreateClassPermissionException();
+        UserEntity userEntity = userRepository.findById(idUser)
+                .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
+        if(!ClassEntity.havePermissionToModify(userEntity.getRole())) throw new UserWithoutCreateClassPermissionException();
         CourseEntity course = courseRepository.findById(createClassRequest.courseId())
                 .orElseThrow( () -> new CourseNotFoundException(createClassRequest.courseId()));
 
@@ -43,12 +46,6 @@ public class CreateClassUseCase {
         return classEntity;
     }
 
-    private boolean havePermissionToCreate(long idUser) {
-        UserEntity userEntity = userRepository.findById(idUser)
-                .orElseThrow( () -> new UserNotFoundDomainException(idUser));
-
-        return ClassEntity.havePermissionToModify(userEntity.getRole());
-    }
 
 
 
