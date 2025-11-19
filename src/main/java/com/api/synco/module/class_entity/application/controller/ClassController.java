@@ -37,7 +37,7 @@ public class ClassController {
         return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class created with success", createResponse));
     }
 
-    @PutMapping("/{idCourse/numberClass")
+    @PutMapping("/{idCourse}/{numberClass}")
     public ResponseEntity<CustomApiResponse<UpdateClassResponse>> update(@Valid @RequestBody UpdateClassRequest updateClassRequest, @PathVariable long idCourse, int numberClass){
         long idUser = userAuthenticationService.getAuthenticatedUserId();
 
