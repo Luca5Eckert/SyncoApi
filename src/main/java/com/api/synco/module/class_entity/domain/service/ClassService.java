@@ -7,12 +7,8 @@ import com.api.synco.module.class_entity.application.dto.update.UpdateClassRespo
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.mapper.ClassMapper;
-import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.class_entity.domain.use_case.CreateClassUseCase;
 import com.api.synco.module.class_entity.domain.use_case.UpdateClassUseCase;
-import com.api.synco.module.course.domain.CourseEntity;
-import com.api.synco.module.course.domain.use_cases.CreateCourseUseCase;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
