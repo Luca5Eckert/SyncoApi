@@ -5,14 +5,13 @@ import com.api.synco.core.UserAuthenticationService;
 import com.api.synco.infrastructure.api.CustomApiResponse;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassRequest;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassResponse;
+import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
+import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
 import com.api.synco.module.class_entity.domain.service.ClassService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/classes")
 @RestController
@@ -37,5 +36,17 @@ public class ClassController {
 
         return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class created with success", createResponse));
     }
+
+    @PutMapping("/{idCourse/numberClass")
+    public ResponseEntity<CustomApiResponse<UpdateClassResponse>> update(@Valid @RequestBody UpdateClassRequest updateClassRequest, @PathVariable long idCourse, int numberClass){
+        long idUser = userAuthenticationService.getAuthenticatedUserId();
+
+        var updateResponse = classService.update(updateClassRequest, idCourse, numberClass, idUser);
+
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class updated with success", updateResponse));
+    }
+
 
 }
