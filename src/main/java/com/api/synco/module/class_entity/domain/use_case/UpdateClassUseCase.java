@@ -26,18 +26,13 @@ public class UpdateClassUseCase {
     }
 
     @Transactional
-    public ClassEntity execute(UpdateClassRequest updateClassRequest, long idUser){
+    public ClassEntity execute(UpdateClassRequest updateClassRequest, ClassEntityId classEntityId, long idUser){
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
         if(!permissionService.canModifyClass(userEntity.getRole())) throw new UserWithoutUpdateClassPermissionException();
 
-        ClassEntityId id = new ClassEntityId(
-                updateClassRequest.idCourse(),
-                updateClassRequest.number()
-        );
-
-        ClassEntity classEntity = classRepository.findById(id)
+        ClassEntity classEntity = classRepository.findById(classEntityId)
                 .orElseThrow(ClassNotFoundException::new);
 
         classEntity.update(
