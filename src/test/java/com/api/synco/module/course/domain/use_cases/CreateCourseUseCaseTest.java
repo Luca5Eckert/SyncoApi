@@ -5,6 +5,7 @@ import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotUniqueException;
 import com.api.synco.module.course.domain.exception.UserWithoutCreateCoursePermissionException;
 import com.api.synco.module.course.domain.port.CourseRepository;
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -33,6 +34,9 @@ class CreateCourseUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
+    private PermissionService permissionService;
+
+    @Mock
     private CourseRepository courseRepository;
 
     @InjectMocks
@@ -56,6 +60,7 @@ class CreateCourseUseCaseTest {
         // arrange
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
         when(courseRepository.existsByNameOrAcronym(any(String.class), any(String.class))).thenReturn(false);
+        when(permissionService.canModifyCourse(any(RoleUser.class))).thenReturn(true);
 
         // act
         var response = createCourseUseCase.execute(createCourseRequest, id);
@@ -114,6 +119,7 @@ class CreateCourseUseCaseTest {
         // arrange
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
         when(courseRepository.existsByNameOrAcronym(any(String.class), any(String.class))).thenReturn(true);
+        when(permissionService.canModifyCourse(any(RoleUser.class))).thenReturn(true);
 
         // act and assert
         assertThatThrownBy( () -> createCourseUseCase.execute(createCourseRequest, id))

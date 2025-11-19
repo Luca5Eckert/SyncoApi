@@ -4,6 +4,7 @@ import com.api.synco.module.course.application.dto.delete.DeleteCourseRequest;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.exception.UserWithoutDeleteCoursePermissionException;
 import com.api.synco.module.course.domain.port.CourseRepository;
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -25,6 +26,9 @@ class DeleteCourseUseCaseTest {
 
     @Mock
     private CourseRepository courseRepository;
+
+    @Mock
+    private PermissionService permissionService;
 
     @Mock
     private UserRepository userRepository;
@@ -51,6 +55,7 @@ class DeleteCourseUseCaseTest {
         //arrange
         when(courseRepository.existById(any(Long.class))).thenReturn(true);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
+        when(permissionService.canModifyCourse(any(RoleUser.class))).thenReturn(true);
 
         //act
         deleteCourseUseCase.execute(deleteCourseRequest, idUser);
@@ -80,6 +85,7 @@ class DeleteCourseUseCaseTest {
         //arrange
         when(courseRepository.existById(any(Long.class))).thenReturn(false);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
+        when(permissionService.canModifyCourse(any(RoleUser.class))).thenReturn(true);
 
         // act and assert
         assertThatThrownBy( () -> deleteCourseUseCase.execute(deleteCourseRequest, idUser))

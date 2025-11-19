@@ -1,5 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +29,9 @@ class UserEditUseCaseTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private PermissionService permissionService;
 
     @InjectMocks
     private UserEditUseCase userEditUseCase;
@@ -58,6 +63,7 @@ class UserEditUseCaseTest {
         //arrange
         when(userRepository.findById(id)).thenReturn(Optional.of(userToEdit));
         when(userRepository.findById(idAuthenticateUser)).thenReturn(Optional.of(authenticateUser));
+        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
 
         //act
         var user = userEditUseCase.execute(userEditRequest, idAuthenticateUser);
