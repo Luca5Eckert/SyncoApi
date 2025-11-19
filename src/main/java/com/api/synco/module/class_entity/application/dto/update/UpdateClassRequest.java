@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public record UpdateClassRequest(
         @NotNull @Size(max = 10, message = "The total hours exceeds the maximum allowed (10000).") @Min(value = 0, message = "The total hours cannot be negative.") int totalHours,
-        @NotNull Shift shift,
-        @NotBlank long idCourse,
-        @NotBlank int number
+        @NotNull Shift shift
 ) {
 
 }
