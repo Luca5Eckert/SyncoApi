@@ -93,14 +93,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    public boolean canDeleteUser() {
-        return role == RoleUser.ADMIN;
-    }
-
-    public boolean canEditUser() {
-        return role == RoleUser.ADMIN;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

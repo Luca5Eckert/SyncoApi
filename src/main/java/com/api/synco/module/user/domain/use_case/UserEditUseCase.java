@@ -1,5 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -12,9 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserEditUseCase {
 
+    private final PermissionService permissionService;
+
     private final UserRepository userRepository;
 
-    public UserEditUseCase(UserRepository userRepository) {
+    public UserEditUseCase(PermissionService permissionService, UserRepository userRepository) {
+        this.permissionService = permissionService;
         this.userRepository = userRepository;
     }
 
@@ -53,7 +57,7 @@ public class UserEditUseCase {
     }
 
     private boolean canEditUser(UserEntity userAutenticated, UserEntity userEdit) {
-        if(userAutenticated.canEditUser()) return true;
+        if(permissionService.canModifyUser(userAutenticated.getRole())) return true;
 
         return userEdit.equals(userAutenticated);
     }
