@@ -6,6 +6,7 @@ import com.api.synco.module.course.domain.exception.CourseNotUniqueException;
 import com.api.synco.module.course.domain.exception.UserWithoutCreateCoursePermissionException;
 import com.api.synco.module.course.domain.exception.UserWithoutDeleteCoursePermissionException;
 import com.api.synco.module.course.domain.port.CourseRepository;
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -14,10 +15,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateCourseUseCase {
 
+    private final PermissionService permissionService;
+
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
 
-    public CreateCourseUseCase(UserRepository userRepository, CourseRepository courseRepository) {
+    public CreateCourseUseCase(PermissionService permissionService, UserRepository userRepository, CourseRepository courseRepository) {
+        this.permissionService = permissionService;
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
     }
@@ -49,7 +53,7 @@ public class CreateCourseUseCase {
     public CourseEntity execute(CreateCourseRequest createCourseRequest, long idUser) {
         var user = userRepository.findById(idUser).orElseThrow(() -> new UserNotFoundDomainException(idUser));
 
-        if (!CourseEntity.havePermissionToModify(user.getRole())) throw new UserWithoutCreateCoursePermissionException();
+        if (!permissionService.canModifyCourse(user.getRole())) throw new UserWithoutCreateCoursePermissionException();
 
         CourseEntity course = new CourseEntity(
                 createCourseRequest.name(),

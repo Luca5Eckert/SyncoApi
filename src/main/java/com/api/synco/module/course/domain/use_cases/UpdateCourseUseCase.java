@@ -4,6 +4,7 @@ import com.api.synco.module.course.application.dto.update.UpdateCourseRequest;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.port.CourseRepository;
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.exception.permission.UserWithoutEditPermissionDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -13,10 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateCourseUseCase {
 
+    private final PermissionService permissionService;
+
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public UpdateCourseUseCase(CourseRepository courseRepository, UserRepository userRepository) {
+    public UpdateCourseUseCase(PermissionService permissionService, CourseRepository courseRepository, UserRepository userRepository) {
+        this.permissionService = permissionService;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
     }
@@ -48,7 +52,7 @@ public class UpdateCourseUseCase {
     public CourseEntity execute(UpdateCourseRequest updateCourseRequest, long idCourse, long idUserAuthenticated){
         var user = userRepository.findById(idUserAuthenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAuthenticated));
 
-        if (!CourseEntity.havePermissionToModify(user.getRole())) throw new UserWithoutEditPermissionDomainException();
+        if (!permissionService.canModifyCourse(user.getRole())) throw new UserWithoutEditPermissionDomainException();
 
         CourseEntity course = courseRepository.findById(idCourse).orElseThrow( () -> new CourseNotFoundException(idCourse));
 

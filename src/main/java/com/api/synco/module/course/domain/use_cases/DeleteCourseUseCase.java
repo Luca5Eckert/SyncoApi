@@ -5,6 +5,7 @@ import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.exception.UserWithoutDeleteCoursePermissionException;
 import com.api.synco.module.course.domain.port.CourseRepository;
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import org.springframework.stereotype.Component;
@@ -12,10 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteCourseUseCase {
 
+    private final PermissionService permissionService;
+
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public DeleteCourseUseCase(CourseRepository courseRepository, UserRepository userRepository) {
+    public DeleteCourseUseCase(PermissionService permissionService, CourseRepository courseRepository, UserRepository userRepository) {
+        this.permissionService = permissionService;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
     }
@@ -39,7 +43,7 @@ public class DeleteCourseUseCase {
     public void execute(DeleteCourseRequest deleteCourseRequest, long idUser){
         var user = userRepository.findById(idUser).orElseThrow(() -> new UserNotFoundDomainException(idUser));
 
-        if (!CourseEntity.havePermissionToModify(user.getRole())) throw new UserWithoutDeleteCoursePermissionException();
+        if (!permissionService.canModifyCourse(user.getRole())) throw new UserWithoutDeleteCoursePermissionException();
 
         if(!courseRepository.existById(deleteCourseRequest.id())) throw new CourseNotFoundException(deleteCourseRequest.id());
 

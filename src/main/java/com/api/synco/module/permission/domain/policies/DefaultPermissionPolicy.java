@@ -1,7 +1,9 @@
 package com.api.synco.module.permission.domain.policies;
 
 import com.api.synco.module.user.domain.enumerator.RoleUser;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DefaultPermissionPolicy implements PermissionPolicy {
 
     @Override
