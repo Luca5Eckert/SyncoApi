@@ -8,6 +8,14 @@ import com.api.synco.module.class_entity.application.dto.create.CreateClassRespo
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
 import com.api.synco.module.class_entity.domain.service.ClassService;
+import com.api.synco.module.course.application.dto.create.CreateCourseResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/classes")
 @RestController
+@Tag(name = "Classes", description = "Endpoints for the class management")
+@SecurityRequirement(name = "bearer-jwt")
 public class ClassController {
 
     private final ClassService classService;
@@ -26,6 +36,28 @@ public class ClassController {
         this.userAuthenticationService = userAuthenticationService;
     }
 
+    @Operation(
+            summary = "Create a new class",
+            description = "Creates a new class in the system. Requires authentication"
+    )
+    @ApiResponses( value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Class created with success.",
+                    content = @Content(schema = @Schema(implementation = CreateClassResponse.class))
+            ),
+            @ApiResponse (
+                    responseCode = "400",
+                    description = "The user don't have permission to create class.",
+                    content = @Content
+            ),
+            @ApiResponse (
+                    responseCode = "404",
+                    description = "User not found",
+                    content = @Content
+            )
+    }
+    )
     @PostMapping
     public ResponseEntity<CustomApiResponse<CreateClassResponse>> create(@Valid @RequestBody CreateClassRequest createClassRequest){
         long idUser = userAuthenticationService.getAuthenticatedUserId();
@@ -34,9 +66,31 @@ public class ClassController {
 
         HttpStatus status = HttpStatus.CREATED;
 
-        return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class created with success", createResponse));
+        return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class created with success.", createResponse));
     }
 
+    @Operation(
+            summary = "Update a class",
+            description = "Update a class in the system. Requires authentication"
+    )
+    @ApiResponses( value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Class updated with success.",
+                    content = @Content(schema = @Schema(implementation = CreateClassResponse.class))
+            ),
+            @ApiResponse (
+                    responseCode = "400",
+                    description = "The user don't have permission to update class.",
+                    content = @Content
+            ),
+            @ApiResponse (
+                    responseCode = "404",
+                    description = "User not found",
+                    content = @Content
+            )
+    }
+    )
     @PutMapping("/{idCourse}/{numberClass}")
     public ResponseEntity<CustomApiResponse<UpdateClassResponse>> update(@Valid @RequestBody UpdateClassRequest updateClassRequest, @PathVariable long idCourse, int numberClass){
         long idUser = userAuthenticationService.getAuthenticatedUserId();
@@ -45,7 +99,7 @@ public class ClassController {
 
         HttpStatus status = HttpStatus.ACCEPTED;
 
-        return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class updated with success", updateResponse));
+        return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class updated with success.", updateResponse));
     }
 
 
