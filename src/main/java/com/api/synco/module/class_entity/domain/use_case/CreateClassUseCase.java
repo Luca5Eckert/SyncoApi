@@ -32,6 +32,21 @@ public class CreateClassUseCase {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Creates a new Class entity after validating user permissions and the existence of the associated Course.
+     * The method also determines the next sequential class number within the course.
+     * *
+     *
+     * @param createClassRequest The DTO (Data Transfer Object) containing the necessary data for class creation,
+     * such as the Course ID, total hours, and shift.
+     * @param idUser The ID of the authenticated user attempting the creation operation.
+     *
+     * @return The newly persisted {@link ClassEntity} object.
+     *
+     * @throws UserNotFoundDomainException If the user with the provided {@code idUser} is not found.
+     * @throws UserWithoutCreateClassPermissionException If the authenticated user's role lacks the permission to create classes.
+     * @throws CourseNotFoundException If the course referenced by {@code createClassRequest.courseId()} is not found.
+     */
     @Transactional
     public ClassEntity execute(CreateClassRequest createClassRequest, long idUser){
         UserEntity userEntity = userRepository.findById(idUser)
