@@ -27,6 +27,20 @@ public class UpdateClassUseCase {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Updates the Class entity after validating user permissions and the existence of the associated Class.
+     *
+     * @param updateClassRequest The DTO (Data Transfer Object) containing the necessary data for class update,
+     * such as total hours, and shift.
+     * @param classEntityId Class's id who will be updated
+     * @param idUser The ID of the authenticated user attempting the update operation.
+     *
+     * @return The newly persisted {@link ClassEntity} object.
+     *
+     * @throws UserNotFoundDomainException If the user with the provided {@code idUser} is not found.
+     * @throws UserWithoutUpdateClassPermissionException If the authenticated user's role lacks the permission to update classes.
+     * @throws ClassNotFoundException If the class referenced by {@code classEntityId} is not found.
+     */
     @Transactional
     public ClassEntity execute(UpdateClassRequest updateClassRequest, ClassEntityId classEntityId, long idUser){
         UserEntity userEntity = userRepository.findById(idUser)
