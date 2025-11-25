@@ -46,7 +46,8 @@ public class UpdateClassUseCase {
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
-        if(!permissionService.canModifyClass(userEntity.getRole())) throw new UserWithoutUpdateClassPermissionException();
+        if(!permissionService.canModifyClass(userEntity.getRole()))
+            throw new UserWithoutUpdateClassPermissionException();
 
         ClassEntity classEntity = classRepository.findById(classEntityId)
                 .orElseThrow(ClassNotFoundException::new);

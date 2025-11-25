@@ -33,7 +33,6 @@ public class DeleteCourseUseCase {
      *          <li>Find the user by {@code idUser}</li>
      *          <li>Valid the user permission</li>
      *          <li>Verify if the course exist</li>
-     *          <li></li>
      *     </ol>
      * </p>
      *
