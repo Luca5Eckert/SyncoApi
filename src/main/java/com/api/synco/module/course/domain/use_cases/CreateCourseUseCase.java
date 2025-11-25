@@ -30,15 +30,14 @@ public class CreateCourseUseCase {
      * Create the course
      *
      * <p>
-     *  The method performs in the following steps:
-     *  <ol>
-     *      <li>Find the user by {@code idUser}</li>
-     *      <li>Valid the user permission</li>
-     *      <li>Create the course entity</li>
-     *      <li>Verify if the course is unique</li>
-     *      <li>Save the user in Database</li>
-     *  </ol>
-     * </p>
+     * The method performs in the following steps:
+     <ol>
+     <li>Find the user by {@code idUser}</li>
+     <li>Valid the user permission</li>
+     <li>Create the course entity</li>
+     <li>Verify if the course is unique</li>
+     <li>Save the **course** in Database</li>
+     </ol>
      *
      * @param createCourseRequest Request containg the data for create a new course
      * @param idUser The id of User who wants to create a course

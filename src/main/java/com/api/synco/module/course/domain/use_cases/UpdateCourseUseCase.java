@@ -26,19 +26,17 @@ public class UpdateCourseUseCase {
     }
 
     /**
-     *
      * Update the Course
      *
      * <p>
-     *     The method performs in the following steps:
-     *     <ol>
-     *         <li>Find the user authenticated</li>
-     *         <li>Verify if the user have permission to update</li>
-     *         <li>Find the course</li>
-     *         <li>Update the atributes</li>
-     *         <li>Save the course in database</li>
-     *     </ol>
-     * </p>
+     * The method performs the following steps:
+     * <ol>
+     * <li>Find the user authenticated</li>
+     * <li>Verify if the user have permission to update</li>
+     * <li>Find the course</li>
+     * <li>Update the atributes</li>
+     * <li>Save the course in database</li>
+     * </ol>
      *
      * @param updateCourseRequest The record with data of request
      * @param idCourse The id of the course who will be update

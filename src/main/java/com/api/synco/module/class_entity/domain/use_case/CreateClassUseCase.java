@@ -15,6 +15,12 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class responsible for the creation of Course
+ *
+ * @author lucas_eckert
+ * @version 1.0.0
+ */
 @Component
 public class CreateClassUseCase {
 

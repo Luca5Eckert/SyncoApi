@@ -18,15 +18,14 @@ public class GetCourseUseCase {
      * Get the course.
      *
      * <p>
-     *     The method perform in following steps:
-     *     <ol>
-     *         <il>Get the user.</il>
-     *     </ol>
-     * </p>
+     * The method performs the following steps:
+     * <ol>
+     * <li>Find the course by ID.</li>
+     * </ol>
      *
      * @param id The id of course
      * @throws CourseNotFoundException If course is not found
-     * @return The entity course get from the database
+     * @return The entity course retrieved from the database
      */
     public CourseEntity execute(long id){
         return courseRepository.findById(id).orElseThrow( () -> new CourseNotFoundException(id));

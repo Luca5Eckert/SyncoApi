@@ -28,13 +28,12 @@ public class DeleteCourseUseCase {
      * Delete the course
      *
      * <p>
-     *     The method performs in the following steps:
-     *     <ol>
-     *          <li>Find the user by {@code idUser}</li>
-     *          <li>Valid the user permission</li>
-     *          <li>Verify if the course exist</li>
-     *     </ol>
-     * </p>
+     * The method performs in the following steps:
+     * <ol>
+     * <li>Find the user by {@code idUser}</li>
+     * <li>Valid the user permission</li>
+     * <li>Verify if the course exist</li>
+     * </ol>
      *
      * @param deleteCourseRequest Record with date of the request
      * @param idUser The id of the user authenticated
