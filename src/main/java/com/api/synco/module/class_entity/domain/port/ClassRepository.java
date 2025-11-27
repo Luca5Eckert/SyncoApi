@@ -13,4 +13,8 @@ public interface ClassRepository {
     int getNextNumberOfCourse(CourseEntity course);
 
     Optional<ClassEntity> findById(ClassEntityId idClass);
+
+    boolean existById(ClassEntityId idClass);
+
+    void deleteById(ClassEntityId idClass);
 }
