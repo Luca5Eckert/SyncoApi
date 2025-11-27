@@ -16,7 +16,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 /**
- * Class responsible for the creation of Course
+ * Use case responsible for creation class
  *
  * @author lucas_eckert
  * @version 1.0.0

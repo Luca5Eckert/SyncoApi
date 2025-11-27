@@ -11,6 +11,10 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+/**
+ *
+ * The class
+ */
 @Component
 public class UpdateCourseUseCase {
 

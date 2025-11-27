@@ -13,6 +13,12 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
+/**
+ * Use case responsible for update class
+ *
+ * @author lucas_eckert
+ * @version 1.0
+ */
 @Component
 public class UpdateClassUseCase {
 
