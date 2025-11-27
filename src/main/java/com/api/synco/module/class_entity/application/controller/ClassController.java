@@ -8,7 +8,6 @@ import com.api.synco.module.class_entity.application.dto.create.CreateClassRespo
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
 import com.api.synco.module.class_entity.domain.service.ClassService;
-import com.api.synco.module.course.application.dto.create.CreateCourseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -102,5 +101,40 @@ public class ClassController {
         return ResponseEntity.status(status).body(CustomApiResponse.success(status.value(), "Class updated with success.", updateResponse));
     }
 
+    @Operation(
+            summary = "Delete a class",
+            description = "Delete a class in the system. Requires authentication"
+    )
+    @ApiResponses( value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Class deleted with success.",
+                    content = @Content
+            ),
+            @ApiResponse (
+                    responseCode = "400",
+                    description = "The user don't have permission to delete class.",
+                    content = @Content
+            ),
+            @ApiResponse (
+                    responseCode = "404",
+                    description = "User not found",
+                    content = @Content
+            ),
+            @ApiResponse (
+                    responseCode = "404",
+                    description = "Class not found",
+                    content = @Content
+            )
+    })
+    @DeleteMapping("/{idCourse}/{numberClass}")
+    public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable long idCourse, int numberClass){
+        long idUser = userAuthenticationService.getAuthenticatedUserId();
+
+        classService.delete(idCourse, numberClass, idUser);
+
+        return ResponseEntity.ok(CustomApiResponse.success(200, "Class deleted with success."));
+
+    }
 
 }

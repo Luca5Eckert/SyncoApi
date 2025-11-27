@@ -8,6 +8,7 @@ import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.mapper.ClassMapper;
 import com.api.synco.module.class_entity.domain.use_case.CreateClassUseCase;
+import com.api.synco.module.class_entity.domain.use_case.DeleteClassUseCase;
 import com.api.synco.module.class_entity.domain.use_case.UpdateClassUseCase;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,15 @@ public class ClassService {
 
     private final CreateClassUseCase createClassUseCase;
     private final UpdateClassUseCase updateClassUseCase;
+    private final DeleteClassUseCase deleteClassUseCase;
 
-    public ClassService(ClassMapper classMapper, CreateClassUseCase createClassUseCase, UpdateClassUseCase updateClassUseCase) {
+    public ClassService(ClassMapper classMapper, CreateClassUseCase createClassUseCase, UpdateClassUseCase updateClassUseCase, DeleteClassUseCase deleteClassUseCase) {
         this.classMapper = classMapper;
         this.createClassUseCase = createClassUseCase;
         this.updateClassUseCase = updateClassUseCase;
+        this.deleteClassUseCase = deleteClassUseCase;
     }
+
 
     public CreateClassResponse create(CreateClassRequest createClassRequest, long idUser) {
         ClassEntity classEntity = createClassUseCase.execute(createClassRequest, idUser);
@@ -38,5 +42,13 @@ public class ClassService {
 
         return classMapper.toUpdateResponse(classEntity);
     }
+
+    public void delete(long idCourse, int numberClass, long idUser){
+        ClassEntityId classEntityId = new ClassEntityId(idCourse, numberClass);
+
+        deleteClassUseCase.execute(classEntityId, idUser);
+
+    }
+
 
 }

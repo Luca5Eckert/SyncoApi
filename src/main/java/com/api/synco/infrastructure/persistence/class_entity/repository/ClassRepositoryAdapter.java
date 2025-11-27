@@ -32,4 +32,14 @@ public class ClassRepositoryAdapter implements ClassRepository {
     public Optional<ClassEntity> findById(ClassEntityId idClass) {
         return classRepositoryJpa.findById(idClass);
     }
+
+    @Override
+    public boolean existById(ClassEntityId idClass) {
+        return classRepositoryJpa.existsById(idClass);
+    }
+
+    @Override
+    public void deleteById(ClassEntityId idClass) {
+        classRepositoryJpa.deleteById(idClass);
+    }
 }

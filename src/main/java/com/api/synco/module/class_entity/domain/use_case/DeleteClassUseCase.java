@@ -8,6 +8,7 @@ import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.stereotype.Component;
 
 /**
  * Use case responsible for deleting a class entity.
@@ -15,6 +16,7 @@ import com.api.synco.module.user.domain.port.UserRepository;
  * @author lucas_eckert
  * @version 1.0
  */
+@Component
 public class DeleteClassUseCase {
 
     private final ClassRepository classRepository;
