@@ -5,7 +5,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class CourseSpecifications {
 
-
     public static Specification<CourseEntity> nameContains(String name){
         return (root, query, cb) -> {
             if (name == null || name.isBlank()) return null;
