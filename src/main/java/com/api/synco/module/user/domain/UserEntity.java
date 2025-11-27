@@ -11,7 +11,11 @@ import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_tb")
+@Table(name = "user_tb", indexes = {
+        @Index(name = "idx_user_email", columnList = "email", unique = true),
+        @Index(name = "idx_user_role", columnList = "role"),
+        @Index(name = "idx_user_create_at", columnList = "createAt")
+})
 public class UserEntity {
 
     @Id

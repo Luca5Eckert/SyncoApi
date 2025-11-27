@@ -105,8 +105,8 @@ public class CourseController {
     )
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CustomApiResponse<Void>> delele(@PathVariable long idUser){
-        DeleteCourseRequest request = new DeleteCourseRequest(idUser);
+    public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable long id){
+        DeleteCourseRequest request = new DeleteCourseRequest(id);
 
         long idUserAuthenticated = authenticationService.getAuthenticatedUserId();
 

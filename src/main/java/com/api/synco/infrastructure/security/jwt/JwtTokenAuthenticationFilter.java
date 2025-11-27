@@ -79,14 +79,13 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                filterChain.doFilter(request, response);
             }
 
+            filterChain.doFilter(request, response);
 
         } catch (Exception ex) {
 
-            logger.error("Authentication filter error ");
+            logger.error("Authentication filter error: " + ex.getMessage());
 
             this.handlerExceptionResolver.resolveException(request, response, null, ex);
 

@@ -17,14 +17,14 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Blog API")
+                        .title("Synco API")
                         .version("1.0.0")
-                        .description("API REST para gerenciamento de blog com autenticação JWT. " +
-                                "Esta API permite criar, listar, atualizar e deletar usuários, " +
+                        .description("API REST para gestão acadêmica com autenticação JWT. " +
+                                "Esta API permite criar, listar, atualizar e deletar usuários e cursos, " +
                                 "além de realizar autenticação e registro de novos usuários.")
                         .contact(new Contact()
                                 .name("Luca5Eckert")
-                                .url("https://github.com/Luca5Eckert/blog-api"))
+                                .url("https://github.com/Luca5Eckert/SyncoApi"))
                         .license(new License()
                                 .name("MIT License")
                                 .url("https://opensource.org/licenses/MIT")))
@@ -33,7 +33,7 @@ public class OpenApiConfig {
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
                                 .bearerFormat("JWT")
-                                .description("Insira o token JWT obtido no endpoint /api/blog/auth/login")))
+                                .description("Insira o token JWT obtido no endpoint /api/auth/login")))
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"));
     }
 }

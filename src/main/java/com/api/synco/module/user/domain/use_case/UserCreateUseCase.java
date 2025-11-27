@@ -10,6 +10,7 @@ import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserCreateUseCase {
@@ -33,6 +34,7 @@ public class UserCreateUseCase {
      * @param userCreateRequest Request with user data.
      * @return The created user.
      */
+    @Transactional
     public UserEntity execute(UserCreateRequest userCreateRequest) {
 
         Name name = new Name(userCreateRequest.name());

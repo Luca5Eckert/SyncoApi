@@ -7,6 +7,7 @@ import com.api.synco.module.user.domain.exception.permission.UserWithoutDeletePe
 import com.api.synco.module.user.domain.port.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserDeleteUseCase {
@@ -20,6 +21,7 @@ public class UserDeleteUseCase {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public void execute(@Valid UserDeleteRequest userDeleteRequest, long idUserAutenticated) {
 
         if(!userRepository.existsById(userDeleteRequest.id())) throw new UserNotFoundDomainException(userDeleteRequest.id());
