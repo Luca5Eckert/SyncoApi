@@ -2,10 +2,14 @@ package com.api.synco.module.class_entity.domain.mapper;
 
 import com.api.synco.module.class_entity.application.dto.ClassIdResponse;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassResponse;
+import com.api.synco.module.class_entity.application.dto.get.GetAllResponse;
+import com.api.synco.module.class_entity.application.dto.get.GetClassResponse;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ClassMapper {
@@ -30,6 +34,22 @@ public class ClassMapper {
         );
     }
 
+    public GetClassResponse toGetResponse(ClassEntity classEntity) {
+        return new GetClassResponse(
+                toIdResponse(classEntity.getId()),
+                classEntity.getTotalHours(),
+                classEntity.getShift()
+        );
+    }
+
+    public GetAllResponse toGetAllResponse(ClassEntity classEntity) {
+        return new GetAllResponse(
+                toIdResponse(classEntity.getId()),
+                classEntity.getTotalHours(),
+                classEntity.getShift()
+        );
+    }
+
     private ClassIdResponse toIdResponse(ClassEntityId id) {
         return new ClassIdResponse(
                 id.getCourseId(),
@@ -37,4 +57,5 @@ public class ClassMapper {
         );
 
     }
+
 }

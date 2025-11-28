@@ -6,6 +6,8 @@ import com.api.synco.module.class_entity.domain.filter.ClassFilter;
 import com.api.synco.module.class_entity.domain.filter.PageClass;
 import com.api.synco.module.course.domain.CourseEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 
@@ -21,5 +23,6 @@ public interface ClassRepository {
 
     void deleteById(ClassEntityId idClass);
 
-    Page<ClassEntity> findAll(ClassFilter classFilter, PageClass pageClass);
+    Page<ClassEntity> findAll(Specification<ClassEntity> classEntitySpecification, PageRequest pageRequest);
+
 }

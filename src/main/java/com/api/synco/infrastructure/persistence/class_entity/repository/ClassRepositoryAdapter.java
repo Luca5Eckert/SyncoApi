@@ -50,15 +50,7 @@ public class ClassRepositoryAdapter implements ClassRepository {
     }
 
     @Override
-    public Page<ClassEntity> findAll(ClassFilter classFilter, PageClass pageClass) {
-        Specification<ClassEntity> classSearchProvider = ClassSearchProvider.of(classFilter);
-
-        PageRequest pageRequest =  PageRequest.of(
-                pageClass.pageNumber(),
-                pageClass.pageSize()
-
-        );
-
-       return classRepositoryJpa.findAll(classSearchProvider, pageRequest);
+    public Page<ClassEntity> findAll(Specification<ClassEntity> classEntitySpecification, PageRequest pageRequest) {
+       return classRepositoryJpa.findAll(classEntitySpecification, pageRequest);
     }
 }

@@ -3,9 +3,12 @@ package com.api.synco.module.class_entity.domain.use_case;
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.enumerator.Shift;
 import com.api.synco.module.class_entity.domain.filter.ClassFilter;
+import com.api.synco.module.class_entity.domain.filter.ClassSearchProvider;
 import com.api.synco.module.class_entity.domain.filter.PageClass;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,17 +20,16 @@ public class GetAllClassUseCase {
         this.classRepository = classRepository;
     }
 
-    public Page<ClassEntity> execute(int pageNumber, int pageSize, long courseId, int classNumber, Shift shift){
 
-        ClassFilter classFilter = ClassFilter.builder()
-                .setCourseIdContains(courseId)
-                .setClassNumberContains(classNumber)
-                .setShiftContains(shift)
-                .build();
+    public Page<ClassEntity> execute(PageClass pageClass, ClassFilter classFilter){
+        Specification<ClassEntity> classEntitySpecification = ClassSearchProvider.of(classFilter);
 
-        PageClass pageClass = new PageClass(pageNumber, pageSize);
+        PageRequest pageRequest =  PageRequest.of(
+                pageClass.pageNumber(),
+                pageClass.pageSize()
+        );
 
-        return classRepository.findAll(classFilter, pageClass);
+        return classRepository.findAll(classEntitySpecification, pageRequest);
     }
 
 }
