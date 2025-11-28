@@ -112,7 +112,7 @@ class UserControllerIntegrationTest {
 
         // Create user with proper authentication token
         mockMvc.perform(post("/api/users")
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createRequest)))
                 .andExpect(status().isCreated())
