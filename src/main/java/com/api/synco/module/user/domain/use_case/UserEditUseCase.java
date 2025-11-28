@@ -4,7 +4,7 @@ import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
-import com.api.synco.module.user.domain.exception.permission.UserWithoutEditPermissionDomainException;
+import com.api.synco.module.user.domain.exception.permission.UserWithoutEditUserPermissionException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
@@ -40,7 +40,7 @@ public class UserEditUseCase {
         UserEntity userAuthenticated = userRepository.findById(idUserAutenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAutenticated));
         UserEntity userEdit = userRepository.findById(userEditRequest.id()).orElseThrow( () -> new UserNotFoundDomainException(userEditRequest.id()));
 
-        if(!canEditUser(userAuthenticated, userEdit) ) throw new UserWithoutEditPermissionDomainException();
+        if(!canEditUser(userAuthenticated, userEdit) ) throw new UserWithoutEditUserPermissionException();
 
         editUser(userEdit, userEditRequest);
 

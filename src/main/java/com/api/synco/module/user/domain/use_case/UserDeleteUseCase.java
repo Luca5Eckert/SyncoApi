@@ -3,7 +3,7 @@ package com.api.synco.module.user.domain.use_case;
 import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.application.dto.delete.UserDeleteRequest;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
-import com.api.synco.module.user.domain.exception.permission.UserWithoutDeletePermissionDomainException;
+import com.api.synco.module.user.domain.exception.permission.UserWithoutDeleteUserPermissionException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class UserDeleteUseCase {
         var userAuthenticated = userRepository.findById(idUserAutenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAutenticated));
 
         if(!permissionService.canModifyUser(userAuthenticated.getRole())) {
-            throw new UserWithoutDeletePermissionDomainException();
+            throw new UserWithoutDeleteUserPermissionException();
         }
 
         userRepository.deleteById(userDeleteRequest.id());

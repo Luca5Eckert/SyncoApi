@@ -61,7 +61,9 @@ public class UserController {
                     content = @Content)
     })
     public ResponseEntity<CustomApiResponse<UserCreateResponse>> create(@RequestBody @Valid UserCreateRequest userCreateRequest){
-        var response = userService.create(userCreateRequest);
+        long userId = authenticationService.getAuthenticatedUserId();
+
+        var response = userService.create(userCreateRequest, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(CustomApiResponse.success(HttpStatus.CREATED.value(), "User created successfully", response));
     }
 

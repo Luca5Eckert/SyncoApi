@@ -34,8 +34,8 @@ public class UserService {
         this.userGetAllUseCase = userGetAllUseCase;
     }
 
-    public UserCreateResponse create(UserCreateRequest userCreateRequest) {
-        var user = userCreateUseCase.execute(userCreateRequest);
+    public UserCreateResponse create(UserCreateRequest userCreateRequest, long userId) {
+        var user = userCreateUseCase.execute(userCreateRequest, userId);
 
         return userMapper.toCreateResponse(user);
     }
