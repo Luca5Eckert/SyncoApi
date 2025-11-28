@@ -2,7 +2,7 @@ package com.api.synco.module.class_entity.domain.service;
 
 import com.api.synco.module.class_entity.application.dto.create.CreateClassRequest;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassResponse;
-import com.api.synco.module.class_entity.application.dto.get.GetAllResponse;
+import com.api.synco.module.class_entity.application.dto.get.GetAllClassResponse;
 import com.api.synco.module.class_entity.application.dto.get.GetClassResponse;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
@@ -67,7 +67,7 @@ public class ClassService {
         return classMapper.toGetResponse(classEntity);
     }
 
-    public List<GetAllResponse> getAll(
+    public List<GetAllClassResponse> getAll(
             long courseId,
             int numberClass,
             int pageNumber,
