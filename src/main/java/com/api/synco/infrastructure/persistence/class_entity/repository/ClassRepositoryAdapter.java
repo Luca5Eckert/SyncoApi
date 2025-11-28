@@ -2,8 +2,14 @@ package com.api.synco.infrastructure.persistence.class_entity.repository;
 
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
+import com.api.synco.module.class_entity.domain.filter.ClassFilter;
+import com.api.synco.module.class_entity.domain.filter.ClassSearchProvider;
+import com.api.synco.module.class_entity.domain.filter.PageClass;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -41,5 +47,18 @@ public class ClassRepositoryAdapter implements ClassRepository {
     @Override
     public void deleteById(ClassEntityId idClass) {
         classRepositoryJpa.deleteById(idClass);
+    }
+
+    @Override
+    public Page<ClassEntity> findAll(ClassFilter classFilter, PageClass pageClass) {
+        Specification<ClassEntity> classSearchProvider = ClassSearchProvider.of(classFilter);
+
+        PageRequest pageRequest =  PageRequest.of(
+                pageClass.pageNumber(),
+                pageClass.pageSize()
+
+        );
+
+       return classRepositoryJpa.findAll(classSearchProvider, pageRequest);
     }
 }
