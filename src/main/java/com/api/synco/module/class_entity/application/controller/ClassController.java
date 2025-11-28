@@ -5,6 +5,7 @@ import com.api.synco.core.UserAuthenticationService;
 import com.api.synco.infrastructure.api.CustomApiResponse;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassRequest;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassResponse;
+import com.api.synco.module.class_entity.application.dto.get.GetClassResponse;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassResponse;
 import com.api.synco.module.class_entity.domain.service.ClassService;
@@ -91,7 +92,7 @@ public class ClassController {
     }
     )
     @PutMapping("/{idCourse}/{numberClass}")
-    public ResponseEntity<CustomApiResponse<UpdateClassResponse>> update(@Valid @RequestBody UpdateClassRequest updateClassRequest, @PathVariable long idCourse, int numberClass){
+    public ResponseEntity<CustomApiResponse<UpdateClassResponse>> update(@Valid @RequestBody UpdateClassRequest updateClassRequest, @PathVariable long idCourse, @PathVariable int numberClass){
         long idUser = userAuthenticationService.getAuthenticatedUserId();
 
         var updateResponse = classService.update(updateClassRequest, idCourse, numberClass, idUser);
@@ -128,7 +129,7 @@ public class ClassController {
             )
     })
     @DeleteMapping("/{idCourse}/{numberClass}")
-    public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable long idCourse, int numberClass){
+    public ResponseEntity<CustomApiResponse<Void>> delete(@PathVariable long idCourse,@PathVariable int numberClass){
         long idUser = userAuthenticationService.getAuthenticatedUserId();
 
         classService.delete(idCourse, numberClass, idUser);
@@ -136,5 +137,25 @@ public class ClassController {
         return ResponseEntity.ok(CustomApiResponse.success(200, "Class deleted with success."));
 
     }
+
+    @Operation(
+            summary = "Get class",
+            description = "Get the class with the ID correspondent in System"
+    )
+    @ApiResponses( value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Class retrieved with success.",
+                    content = @Content( schema = @Schema(implementation = GetClassResponse.class))
+            )
+    }
+    )
+    @GetMapping("/{idCourse}/{numberClass}")
+    public ResponseEntity<CustomApiResponse<GetClassResponse>> get(@PathVariable long idCourse, @PathVariable int numberClass){
+        GetClassResponse classResponse = classService.get(idCourse, numberClass);
+
+        return ResponseEntity.ok(CustomApiResponse.success(200, "Class retrieved with success.", classResponse));
+    }
+
 
 }
