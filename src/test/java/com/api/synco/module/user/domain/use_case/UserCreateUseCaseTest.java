@@ -3,6 +3,7 @@ package com.api.synco.module.user.domain.use_case;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.api.synco.module.permission.domain.service.PermissionService;
 import com.api.synco.module.user.application.dto.create.UserCreateRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
@@ -21,6 +22,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class UserCreateUseCaseTest {
 
@@ -32,6 +35,9 @@ class UserCreateUseCaseTest {
 
     @Mock
     private PasswordValidatorImpl passwordValidator;
+
+    @Mock
+    private PermissionService permissionService;
 
     @InjectMocks
     private UserCreateUseCase userCreateUseCase;
@@ -55,12 +61,14 @@ class UserCreateUseCaseTest {
     @Test
     public void shouldCreateUser(){
         //arrange
+        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
+        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
         when(passwordEncoder.encode(password)).thenReturn("hash");
         when(passwordValidator.isValid(password)).thenReturn(true);
         when(userRepository.existsByEmail(any(Email.class))).thenReturn(false);
 
         //act
-        var user = userCreateUseCase.execute(request);
+        var user = userCreateUseCase.execute(request, -1);
 
         //assert -- returned entity has expected email and encoded passowod
         assertThat(user).isNotNull();
@@ -83,12 +91,14 @@ class UserCreateUseCaseTest {
     @Test
     public void shouldThrowEmailNotUniqueException(){
         //arrange
+        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
+        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
         when(passwordEncoder.encode(password)).thenReturn("hash");
         when(passwordValidator.isValid(password)).thenReturn(true);
         when(userRepository.existsByEmail(new Email(email))).thenReturn(true);
 
         //act and assert
-        assertThatThrownBy( () -> userCreateUseCase.execute(request))
+        assertThatThrownBy( () -> userCreateUseCase.execute(request, -1))
                 .isInstanceOf(EmailNotUniqueDomainException.class);
 
         verify(userRepository, never()).save(any());
@@ -98,9 +108,11 @@ class UserCreateUseCaseTest {
     @DisplayName("Should Throw PasswordNotValidDomainException")
     @Test
     public void shouldThrowPasswordNotValidException(){
+        when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
+        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
         when(passwordValidator.isValid(password)).thenReturn(false);
 
-        assertThatThrownBy( () -> userCreateUseCase.execute(request))
+        assertThatThrownBy( () -> userCreateUseCase.execute(request, -1))
                 .isExactlyInstanceOf(PasswordNotValidDomainException.class);
 
         verify(passwordEncoder, never()).encode(any());
