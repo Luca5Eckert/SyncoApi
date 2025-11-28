@@ -9,6 +9,7 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserEditUseCase {
@@ -34,6 +35,7 @@ public class UserEditUseCase {
      * @param idUserAutenticated id of the user who will edit
      * @return The user edited
      */
+    @Transactional
     public UserEntity execute(UserEditRequest userEditRequest, long idUserAutenticated) {
         UserEntity userAuthenticated = userRepository.findById(idUserAutenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAutenticated));
         UserEntity userEdit = userRepository.findById(userEditRequest.id()).orElseThrow( () -> new UserNotFoundDomainException(userEditRequest.id()));

@@ -8,6 +8,7 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import com.api.synco.module.user.domain.validator.PasswordValidatorImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class UserResetPasswordUseCase {
@@ -32,6 +33,7 @@ public class UserResetPasswordUseCase {
      * @param userResetRequest the request containing the data for the reset
      * @param idUser the user's ID
      */
+    @Transactional
     public void execute(UserResetRequest userResetRequest, long idUser) {
         var userDetails = userRepository.findById(idUser).orElseThrow( () -> new UserNotFoundDomainException(idUser) );
 

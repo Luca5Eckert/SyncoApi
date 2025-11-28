@@ -22,7 +22,7 @@ public class PermissionService {
     }
 
     public boolean canModifyUser(RoleUser roleUser){
-        return permissionPolicy.canModifyCourse(roleUser);
+        return permissionPolicy.canModifyUser(roleUser);
     }
 
 }

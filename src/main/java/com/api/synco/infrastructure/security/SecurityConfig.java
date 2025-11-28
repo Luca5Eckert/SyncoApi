@@ -41,9 +41,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/api/blog/users/*").authenticated();
-                    auth.requestMatchers("/api/blog/courses/*").authenticated();
-                    auth.requestMatchers("/api/blog/auth/password").authenticated();
+                    auth.requestMatchers("/api/users/**").authenticated();
+                    auth.requestMatchers("/api/courses/**").authenticated();
+                    auth.requestMatchers("/api/auth/password").authenticated();
                     auth.anyRequest().permitAll();
                 })
 
