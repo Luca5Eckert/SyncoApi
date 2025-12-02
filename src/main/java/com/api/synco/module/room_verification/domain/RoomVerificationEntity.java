@@ -2,10 +2,7 @@ package com.api.synco.module.room_verification.domain;
 
 import com.api.synco.module.period.domain.PeriodEntity;
 import com.api.synco.module.room_verification.domain.value_object.RoomVerificationForm;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -16,10 +13,12 @@ public class RoomVerificationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private PeriodEntity period;
 
     private LocalDate dateRegister;
 
+    @Embedded
     private RoomVerificationForm roomVerificationForm;
 
     public RoomVerificationEntity(long id, PeriodEntity period, LocalDate dateRegister, RoomVerificationForm roomVerificationForm) {

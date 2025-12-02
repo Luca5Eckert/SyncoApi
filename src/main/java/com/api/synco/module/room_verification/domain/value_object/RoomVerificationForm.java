@@ -1,5 +1,8 @@
 package com.api.synco.module.room_verification.domain.value_object;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class RoomVerificationForm {
 
     private boolean allOrganized;
@@ -9,6 +12,9 @@ public class RoomVerificationForm {
     private String observations;
 
     private String ticket;
+
+    private RoomVerificationForm() {
+    }
 
     public RoomVerificationForm(Builder builder) {
         this.allOrganized = builder.allOrganized;
