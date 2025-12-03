@@ -70,4 +70,7 @@ public class ClassUser {
         return Objects.hash(classUserId, classEntity, userEntity, typeUserClass);
     }
 
+    public void update(TypeUserClass typeUserClass) {
+        setTypeUserClass(typeUserClass);
+    }
 }

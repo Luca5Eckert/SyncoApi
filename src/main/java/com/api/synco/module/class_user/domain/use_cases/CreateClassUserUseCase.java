@@ -14,6 +14,7 @@ import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CreateClassUserUseCase {
@@ -32,6 +33,7 @@ public class CreateClassUserUseCase {
         this.permissionService = permissionService;
     }
 
+    @Transactional
     public ClassUser execute(CreateClassUserRequest createClassUserRequest, long idUser){
         UserEntity userAuthenticated = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
