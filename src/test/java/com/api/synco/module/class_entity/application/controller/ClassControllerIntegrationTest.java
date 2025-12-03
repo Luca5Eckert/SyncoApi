@@ -118,6 +118,9 @@ class ClassControllerIntegrationTest {
     @DisplayName("POST /api/classes - Should fail when user lacks permission")
     @Test
     void shouldFailCreateClassWhenUserLacksPermission() throws Exception {
+        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
+        // Expected behavior: should return 403 Forbidden.
+        // Current behavior: returns 500 Internal Server Error.
         var createRequest = new CreateClassRequest(
             course.getId(),
             700,
@@ -128,7 +131,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createRequest)))
-                .andExpect(status().is5xxServerError()); // Application throws unhandled exception
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("POST /api/classes - Should fail when course not found")
@@ -160,30 +163,40 @@ class ClassControllerIntegrationTest {
     @DisplayName("GET /api/classes/{idCourse}/{numberClass} - Should fail when class not found")
     @Test
     void shouldFailGetClassWhenNotFound() throws Exception {
+        // TODO: Application throws unhandled exception instead of returning 404 Not Found.
+        // Expected behavior: should return 404 Not Found.
+        // Current behavior: returns 500 Internal Server Error.
         mockMvc.perform(get("/api/classes/" + course.getId() + "/999")
                 .header("Authorization", "Bearer " + userToken))
-                .andExpect(status().is5xxServerError()); // Application throws unhandled exception
+                .andExpect(status().isNotFound());
     }
 
-    @DisplayName("PUT /api/classes/{idCourse}/{numberClass} - Should handle update request")
+    @DisplayName("PUT /api/classes/{idCourse}/{numberClass} - Should update class as admin")
     @Test
     void shouldUpdateClassAsAdmin() throws Exception {
+        // TODO: Application throws unhandled exception during update.
+        // Expected behavior: should return 202 Accepted with updated class data.
+        // Current behavior: returns 500 Internal Server Error.
         var updateRequest = new UpdateClassRequest(
             1000,
             Shift.SECOND_SHIFT
         );
 
-        // Note: This may return an error due to class entity handling in the application
         mockMvc.perform(put("/api/classes/" + course.getId() + "/1")
                 .header("Authorization", "Bearer " + adminToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.data.totalHours").value(1000))
+                .andExpect(jsonPath("$.data.shift").value("SECOND_SHIFT"));
     }
 
     @DisplayName("PUT /api/classes/{idCourse}/{numberClass} - Should fail when user lacks permission")
     @Test
     void shouldFailUpdateClassWhenUserLacksPermission() throws Exception {
+        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
+        // Expected behavior: should return 403 Forbidden.
+        // Current behavior: returns 500 Internal Server Error.
         var updateRequest = new UpdateClassRequest(
             500,
             Shift.FIRST_SHIFT
@@ -193,7 +206,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
-                .andExpect(status().is5xxServerError()); // Application throws unhandled exception
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should delete class as admin")
@@ -207,16 +220,22 @@ class ClassControllerIntegrationTest {
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should fail when user lacks permission")
     @Test
     void shouldFailDeleteClassWhenUserLacksPermission() throws Exception {
+        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
+        // Expected behavior: should return 403 Forbidden.
+        // Current behavior: returns 500 Internal Server Error.
         mockMvc.perform(delete("/api/classes/" + course.getId() + "/1")
                 .header("Authorization", "Bearer " + userToken))
-                .andExpect(status().is5xxServerError()); // Application throws unhandled exception
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should fail when class not found")
     @Test
     void shouldFailDeleteClassWhenNotFound() throws Exception {
+        // TODO: Application throws unhandled exception instead of returning 404 Not Found.
+        // Expected behavior: should return 404 Not Found.
+        // Current behavior: returns 500 Internal Server Error.
         mockMvc.perform(delete("/api/classes/" + course.getId() + "/999")
                 .header("Authorization", "Bearer " + adminToken))
-                .andExpect(status().is5xxServerError()); // Application throws unhandled exception
+                .andExpect(status().isNotFound());
     }
 }

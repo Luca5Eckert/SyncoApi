@@ -181,18 +181,21 @@ class CourseControllerIntegrationTest {
                 .andExpect(jsonPath("$.data[0].name").value("Computer Science"));
     }
 
-    @DisplayName("PATCH /api/courses/{id} - Should handle update request")
+    @DisplayName("PATCH /api/courses/{id} - Should update course as admin")
     @Test
     void shouldUpdateCourseAsAdmin() throws Exception {
-        // Note: The controller uses form-data binding for UpdateCourseRequest 
-        // but the validation fails without @RequestBody annotation
+        // TODO: Controller lacks @RequestBody annotation for UpdateCourseRequest.
+        // Expected behavior: should return 202 Accepted with updated course data.
+        // Current behavior: returns 400 Bad Request due to form-data binding issue.
         mockMvc.perform(patch("/api/courses/" + course.getId())
                 .header("Authorization", "Bearer " + adminToken)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", "Updated CS")
                 .param("acronym", "UCS")
                 .param("description", "Updated"))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.data.name").value("Updated CS"))
+                .andExpect(jsonPath("$.data.acronym").value("UCS"));
     }
 
     @DisplayName("PATCH /api/courses/{id} - Should fail when user is not admin")
