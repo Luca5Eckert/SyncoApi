@@ -5,6 +5,8 @@ import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class ClassUserRepositoryAdapter implements ClassUserRepository {
 
@@ -27,6 +29,11 @@ public class ClassUserRepositoryAdapter implements ClassUserRepository {
     @Override
     public void deleteById(ClassUserId classUserId) {
         classUserRepositoryJpa.deleteById(classUserId);
+    }
+
+    @Override
+    public Optional<ClassUser> findById(ClassUserId classUserId) {
+        return classUserRepositoryJpa.findById(classUserId);
     }
 
 }
