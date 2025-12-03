@@ -23,19 +23,20 @@ public class CreateClassUserUseCase {
     private final ClassRepository classRepository;
     private final UserRepository userRepository;
 
-    private PermissionService permissionService;
+    private final PermissionService permissionService;
 
-    public CreateClassUserUseCase(ClassUserRepository classUserRepository, ClassRepository classRepository, UserRepository userRepository) {
+    public CreateClassUserUseCase(ClassUserRepository classUserRepository, ClassRepository classRepository, UserRepository userRepository, PermissionService permissionService) {
         this.classUserRepository = classUserRepository;
         this.classRepository = classRepository;
         this.userRepository = userRepository;
+        this.permissionService = permissionService;
     }
 
     public ClassUser execute(CreateClassUserRequest createClassUserRequest, long idUser){
         UserEntity userAuthenticated = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
-        if(permissionService.canModifyClassUser(userAuthenticated.getRole())){
+        if(!permissionService.canModifyClassUser(userAuthenticated.getRole())){
             throw new UserWithoutCreateClassUserPermissionException();
         }
 
