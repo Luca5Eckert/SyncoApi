@@ -11,6 +11,22 @@ import com.api.synco.module.user.domain.vo.Name;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Use case for editing existing users in the system.
+ *
+ * <p>This use case handles the business logic for user profile editing, including:</p>
+ * <ul>
+ *   <li>Permission verification (admin can edit anyone, users can edit themselves)</li>
+ *   <li>Validation of updated user data</li>
+ *   <li>Persistence of changes</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserRepository
+ * @see PermissionService
+ */
 @Component
 public class UserEditUseCase {
 
@@ -18,22 +34,29 @@ public class UserEditUseCase {
 
     private final UserRepository userRepository;
 
+    /**
+     * Constructs a new user edit use case.
+     *
+     * @param permissionService the service for permission checks
+     * @param userRepository the repository for user persistence
+     */
     public UserEditUseCase(PermissionService permissionService, UserRepository userRepository) {
         this.permissionService = permissionService;
         this.userRepository = userRepository;
     }
 
     /**
-     * This Method is responsible for executing the
-     * use case of edit a user
+     * Executes the user edit use case.
      *
-     * <p> In this use case will happen the validation if user
-     * can edit another, or himself, user. After the validation
-     * the user will be edit and save in Database.</p>
+     * <p>Validates that the authenticated user has permission to edit the target
+     * user. Administrators can edit any user, while regular users can only edit
+     * their own profile.</p>
      *
-     * @param userEditRequest Data of the edit
-     * @param idUserAutenticated id of the user who will edit
-     * @return The user edited
+     * @param userEditRequest the request containing updated user data
+     * @param idUserAutenticated the ID of the authenticated user performing the edit
+     * @return the updated user entity
+     * @throws UserNotFoundDomainException if either user is not found
+     * @throws UserWithoutEditUserPermissionException if the user lacks permission
      */
     @Transactional
     public UserEntity execute(UserEditRequest userEditRequest, long idUserAutenticated) {
@@ -50,6 +73,12 @@ public class UserEditUseCase {
 
     }
 
+    /**
+     * Updates the user entity with the new values.
+     *
+     * @param userEdit the user entity to update
+     * @param userEditRequest the request containing the new values
+     */
     private void editUser(UserEntity userEdit, UserEditRequest userEditRequest) {
         Name name = new Name(userEditRequest.name());
         Email email = new Email(userEditRequest.email());
@@ -58,6 +87,13 @@ public class UserEditUseCase {
         userEdit.setEmail(email);
     }
 
+    /**
+     * Checks if the authenticated user can edit the target user.
+     *
+     * @param userAutenticated the authenticated user
+     * @param userEdit the user to be edited
+     * @return {@code true} if the edit is permitted, {@code false} otherwise
+     */
     private boolean canEditUser(UserEntity userAutenticated, UserEntity userEdit) {
         if(permissionService.canModifyUser(userAutenticated.getRole())) return true;
 
