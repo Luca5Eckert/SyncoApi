@@ -27,6 +27,26 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.List;
 
+/**
+ * REST controller for user management operations.
+ *
+ * <p>This controller provides endpoints for creating, reading, updating, and
+ * deleting users in the system. All endpoints require authentication via JWT.</p>
+ *
+ * <p>The controller supports:</p>
+ * <ul>
+ *   <li>User creation with role assignment</li>
+ *   <li>User deletion (with permission checks)</li>
+ *   <li>User profile editing</li>
+ *   <li>User retrieval by ID</li>
+ *   <li>Paginated user listing with filters</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserService
+ */
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "Users", description = "Endpoints for user management")
@@ -36,11 +56,26 @@ public class UserController {
     private final UserService userService;
     private final UserAuthenticationService authenticationService;
 
+    /**
+     * Constructs a new user controller.
+     *
+     * @param userService the service for user business logic
+     * @param authenticationService the service for accessing authenticated user information
+     */
     public UserController(UserService userService, UserAuthenticationService authenticationService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
     }
 
+    /**
+     * Creates a new user in the system.
+     *
+     * <p>This endpoint requires administrative privileges. The authenticated user
+     * must have permission to create new users.</p>
+     *
+     * @param userCreateRequest the request containing user data
+     * @return the created user data with HTTP 201 status
+     */
     @PostMapping
     @Operation(
             summary = "Create new user",
@@ -67,6 +102,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(CustomApiResponse.success(HttpStatus.CREATED.value(), "User created successfully", response));
     }
 
+    /**
+     * Deletes a user from the system.
+     *
+     * <p>Only users with appropriate permissions can delete other users.
+     * A user cannot delete themselves if they are the last administrator.</p>
+     *
+     * @param userDeleteRequest the request containing the user ID to delete
+     * @return success message with HTTP 202 status
+     */
     @DeleteMapping
     @Operation(
             summary = "Delete user",
@@ -98,6 +142,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(CustomApiResponse.success(HttpStatus.ACCEPTED.value(), "User deleted with success", null));
     }
 
+    /**
+     * Updates an existing user's information.
+     *
+     * <p>Only users with appropriate permissions can edit other users' profiles.
+     * Users can always edit their own profile information.</p>
+     *
+     * @param userEditRequest the request containing updated user data
+     * @return the updated user data with HTTP 202 status
+     */
     @PatchMapping
     @Operation(
             summary = "Edit user",
@@ -124,6 +177,12 @@ public class UserController {
     }
 
 
+    /**
+     * Retrieves a specific user by their unique identifier.
+     *
+     * @param id the unique identifier of the user to retrieve
+     * @return the user data with HTTP 200 status
+     */
     @GetMapping("/{id}")
     @Operation(
             summary = "Search user by ID",
@@ -146,6 +205,26 @@ public class UserController {
         return ResponseEntity.ok(CustomApiResponse.success(HttpStatus.OK.value(), "User found", user));
     }
 
+    /**
+     * Retrieves a paginated list of users with optional filters.
+     *
+     * <p>This endpoint supports filtering by:</p>
+     * <ul>
+     *   <li>Name (partial match, case-insensitive)</li>
+     *   <li>Email (partial match, case-insensitive)</li>
+     *   <li>Role (exact match)</li>
+     *   <li>Creation date range</li>
+     * </ul>
+     *
+     * @param name filter by name containing this value (optional)
+     * @param email filter by email containing this value (optional)
+     * @param role filter by user role (optional)
+     * @param createAt filter users created from this date onwards (optional)
+     * @param updateAt filter users updated up to this date (optional)
+     * @param pageNumber the page number to retrieve (0-based)
+     * @param pageSize the number of users per page
+     * @return a list of users matching the criteria
+     */
     @GetMapping()
     @Operation(
             summary = "List and filter users with pagination",

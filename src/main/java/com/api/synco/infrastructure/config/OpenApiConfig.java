@@ -10,9 +10,36 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for OpenAPI/Swagger documentation.
+ *
+ * <p>This class configures the OpenAPI specification for the Synco API, including
+ * API metadata, contact information, license details, and JWT authentication scheme.</p>
+ *
+ * <p>The generated documentation is accessible via Swagger UI at {@code /swagger-ui.html}
+ * and the OpenAPI specification at {@code /v3/api-docs}.</p>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see io.swagger.v3.oas.models.OpenAPI
+ */
 @Configuration
 public class OpenApiConfig {
 
+    /**
+     * Creates and configures the OpenAPI specification bean.
+     *
+     * <p>This method configures:</p>
+     * <ul>
+     *   <li>API title, version, and description</li>
+     *   <li>Contact information for API support</li>
+     *   <li>MIT License details</li>
+     *   <li>JWT Bearer authentication scheme</li>
+     * </ul>
+     *
+     * @return a configured {@link OpenAPI} instance for Swagger documentation
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
