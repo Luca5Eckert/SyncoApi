@@ -10,4 +10,5 @@ public interface PermissionPolicy {
 
     boolean canModifyUser(RoleUser roleUser);
 
+    boolean canModifyClassUser(RoleUser role);
 }

@@ -25,4 +25,7 @@ public class PermissionService {
         return permissionPolicy.canModifyUser(roleUser);
     }
 
+    public boolean canModifyClassUser(RoleUser role) {
+        return permissionPolicy.canModifyClassUser(role);
+    }
 }

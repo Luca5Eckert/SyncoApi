@@ -21,5 +21,10 @@ public class DefaultPermissionPolicy implements PermissionPolicy {
         return roleUser == RoleUser.ADMIN;
     }
 
+    @Override
+    public boolean canModifyClassUser(RoleUser roleUser) {
+        return roleUser == RoleUser.ADMIN;
+    }
+
 
 }
