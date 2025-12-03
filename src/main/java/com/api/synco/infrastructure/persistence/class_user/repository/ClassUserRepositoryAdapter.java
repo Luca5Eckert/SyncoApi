@@ -1,6 +1,7 @@
 package com.api.synco.infrastructure.persistence.class_user.repository;
 
 import com.api.synco.module.class_user.domain.ClassUser;
+import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,16 @@ public class ClassUserRepositoryAdapter implements ClassUserRepository {
     @Override
     public void save(ClassUser classUser) {
         classUserRepositoryJpa.save(classUser);
+    }
+
+    @Override
+    public boolean existById(ClassUserId classUserId) {
+        return classUserRepositoryJpa.existsById(classUserId);
+    }
+
+    @Override
+    public void deleteById(ClassUserId classUserId) {
+        classUserRepositoryJpa.deleteById(classUserId);
     }
 
 }
