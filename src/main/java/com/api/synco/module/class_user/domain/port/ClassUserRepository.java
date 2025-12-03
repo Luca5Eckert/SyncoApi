@@ -2,6 +2,9 @@ package com.api.synco.module.class_user.domain.port;
 
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 
@@ -13,4 +16,6 @@ public interface ClassUserRepository {
     void deleteById(ClassUserId classUserId);
 
     Optional<ClassUser> findById(ClassUserId classUserId);
+
+    Page<ClassUser> findAll(Specification<ClassUser> classUserSpecification, PageRequest pageRequest);
 }

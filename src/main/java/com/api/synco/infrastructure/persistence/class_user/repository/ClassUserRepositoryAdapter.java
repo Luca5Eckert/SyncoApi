@@ -3,6 +3,9 @@ package com.api.synco.infrastructure.persistence.class_user.repository;
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -34,6 +37,11 @@ public class ClassUserRepositoryAdapter implements ClassUserRepository {
     @Override
     public Optional<ClassUser> findById(ClassUserId classUserId) {
         return classUserRepositoryJpa.findById(classUserId);
+    }
+
+    @Override
+    public Page<ClassUser> findAll(Specification<ClassUser> classUserSpecification, PageRequest pageRequest) {
+        return classUserRepositoryJpa.findAll(classUserSpecification, pageRequest);
     }
 
 }
