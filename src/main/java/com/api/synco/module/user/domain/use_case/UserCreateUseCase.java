@@ -15,6 +15,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Use case for creating new users in the system.
+ *
+ * <p>This use case handles the business logic for user creation, including:</p>
+ * <ul>
+ *   <li>Permission verification for the requesting user</li>
+ *   <li>Validation of user data (name, email, password)</li>
+ *   <li>Password encoding before storage</li>
+ *   <li>Email uniqueness verification</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserRepository
+ * @see PermissionService
+ */
 @Component
 public class UserCreateUseCase {
 
@@ -24,6 +41,14 @@ public class UserCreateUseCase {
     private final PasswordEncoder passwordEncoder;
     private final PasswordValidatorImpl passwordValidator;
 
+    /**
+     * Constructs a new user creation use case.
+     *
+     * @param userRepository the repository for user persistence
+     * @param permissionService the service for permission checks
+     * @param passwordEncoder the encoder for password hashing
+     * @param passwordValidator the validator for password requirements
+     */
     public UserCreateUseCase(UserRepository userRepository, PermissionService permissionService, PasswordEncoder passwordEncoder, PasswordValidatorImpl passwordValidator) {
         this.userRepository = userRepository;
         this.permissionService = permissionService;
@@ -32,14 +57,18 @@ public class UserCreateUseCase {
     }
 
     /**
-     * Method responsible for executing the use case.
+     * Executes the user creation use case.
      *
      * <p>This method validates the name, email, and password. After validation,
      * the user will be saved in the database.</p>
      *
-     * @param userCreateRequest Request with user data.
-     * @param userId The ID of the authenticated user attempting the creation operation.
-     * @return The created user.
+     * @param userCreateRequest request containing the new user's data
+     * @param userId the ID of the authenticated user attempting the creation
+     * @return the created user entity
+     * @throws UserNotFoundDomainException if the authenticated user is not found
+     * @throws UserWithoutCreateUserPermissionException if the user lacks permission
+     * @throws PasswordNotValidDomainException if the password doesn't meet requirements
+     * @throws EmailNotUniqueDomainException if the email is already in use
      */
     @Transactional
     public UserEntity execute(UserCreateRequest userCreateRequest, long userId) {

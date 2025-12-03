@@ -26,6 +26,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for course management operations.
+ *
+ * <p>This controller provides endpoints for creating, reading, updating, and
+ * deleting courses in the system. Most operations require authentication and
+ * ADMIN role.</p>
+ *
+ * <p>The controller supports:</p>
+ * <ul>
+ *   <li>Course creation (ADMIN only)</li>
+ *   <li>Course deletion (ADMIN only)</li>
+ *   <li>Course updates (ADMIN only)</li>
+ *   <li>Course retrieval by ID</li>
+ *   <li>Paginated course listing with filters</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see CourseService
+ */
 @RestController
 @RequestMapping("/api/courses")
 @Tag(name = "Courses", description = "Endpoints for the course management")
@@ -36,13 +57,27 @@ public class CourseController {
 
     private final CourseService courseService;
 
-
+    /**
+     * Constructs a new course controller.
+     *
+     * @param authenticationService the service for accessing authenticated user information
+     * @param courseService the service for course business logic
+     */
     public CourseController(UserAuthenticationService authenticationService, CourseService courseService) {
         this.authenticationService = authenticationService;
         this.courseService = courseService;
     }
 
 
+    /**
+     * Creates a new course in the system.
+     *
+     * <p>This endpoint requires ADMIN role. The authenticated user must have
+     * permission to create new courses.</p>
+     *
+     * @param createCourseRequest the request containing course data
+     * @return the created course data with HTTP 201 status
+     */
     @Operation(
             summary = "Create the new course",
             description = "Creates a new course in the system. Requires authentication"
@@ -81,6 +116,14 @@ public class CourseController {
     }
 
 
+    /**
+     * Deletes a course from the system.
+     *
+     * <p>This endpoint requires ADMIN role.</p>
+     *
+     * @param id the unique identifier of the course to delete
+     * @return success message with HTTP 202 status
+     */
     @Operation(
             summary = "Delete the course",
             description = "Delete the course in the System. Requires authentication"
@@ -115,6 +158,15 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(CustomApiResponse.success(202, "The course is deleted success"));
     }
 
+    /**
+     * Updates an existing course.
+     *
+     * <p>This endpoint requires ADMIN role.</p>
+     *
+     * @param updateCourseRequest the request containing updated course data
+     * @param id the unique identifier of the course to update
+     * @return the updated course data with HTTP 202 status
+     */
     @Operation(
             summary = "Update the course",
             description = "Update the course in the System. Requires authentication"
@@ -152,6 +204,15 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(CustomApiResponse.success(202, "THe course is updated success", response));
     }
 
+    /**
+     * Retrieves a paginated list of courses with optional filters.
+     *
+     * @param name filter by name containing this value (optional)
+     * @param acronym filter by acronym containing this value (optional)
+     * @param pageNumber the page number to retrieve (0-based)
+     * @param pageSize the number of courses per page
+     * @return a list of courses matching the criteria
+     */
     @Operation(
             summary = "Get All Courses",
             description = "Get all courses following the filters"
@@ -184,6 +245,12 @@ public class CourseController {
 
     }
 
+    /**
+     * Retrieves a specific course by its unique identifier.
+     *
+     * @param id the unique identifier of the course to retrieve
+     * @return the course data with HTTP 200 status
+     */
     @Operation(
             summary = "Get a Course",
             description = "Get the course "

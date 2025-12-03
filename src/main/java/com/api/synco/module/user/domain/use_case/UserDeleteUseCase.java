@@ -9,6 +9,22 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Use case for deleting users from the system.
+ *
+ * <p>This use case handles the business logic for user deletion, including:</p>
+ * <ul>
+ *   <li>Verification that the user to delete exists</li>
+ *   <li>Permission verification for the requesting user</li>
+ *   <li>Actual deletion from the database</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserRepository
+ * @see PermissionService
+ */
 @Component
 public class UserDeleteUseCase {
 
@@ -16,11 +32,28 @@ public class UserDeleteUseCase {
 
     private final UserRepository userRepository;
 
+    /**
+     * Constructs a new user deletion use case.
+     *
+     * @param permissionService the service for permission checks
+     * @param userRepository the repository for user persistence
+     */
     public UserDeleteUseCase(PermissionService permissionService, UserRepository userRepository) {
         this.permissionService = permissionService;
         this.userRepository = userRepository;
     }
 
+    /**
+     * Executes the user deletion use case.
+     *
+     * <p>Validates that the target user exists and that the authenticated
+     * user has permission to perform the deletion.</p>
+     *
+     * @param userDeleteRequest the request containing the user ID to delete
+     * @param idUserAutenticated the ID of the authenticated user performing the deletion
+     * @throws UserNotFoundDomainException if either user is not found
+     * @throws UserWithoutDeleteUserPermissionException if the user lacks permission
+     */
     @Transactional
     public void execute(@Valid UserDeleteRequest userDeleteRequest, long idUserAutenticated) {
 

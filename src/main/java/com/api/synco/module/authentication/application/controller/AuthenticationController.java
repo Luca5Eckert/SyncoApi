@@ -19,6 +19,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * REST controller for authentication operations.
+ *
+ * <p>This controller provides endpoints for user authentication including:</p>
+ * <ul>
+ *   <li>User registration (creating new accounts)</li>
+ *   <li>User login (obtaining JWT tokens)</li>
+ *   <li>Password reset (changing authenticated user's password)</li>
+ * </ul>
+ *
+ * <p>The registration and login endpoints are publicly accessible, while
+ * password reset requires authentication.</p>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see AuthenticationService
+ */
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Authentication", description = "Endpoints for user registration and login")
@@ -27,11 +45,26 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserAuthenticationService userAuthenticationService;
 
+    /**
+     * Constructs a new authentication controller.
+     *
+     * @param authenticationService the service for authentication operations
+     * @param userAuthenticationService the service for accessing authenticated user information
+     */
     public AuthenticationController(AuthenticationService authenticationService, UserAuthenticationService userAuthenticationService) {
         this.authenticationService = authenticationService;
         this.userAuthenticationService = userAuthenticationService;
     }
 
+    /**
+     * Registers a new user in the system.
+     *
+     * <p>This endpoint is publicly accessible and creates a new user account
+     * with the USER role.</p>
+     *
+     * @param userRegisterRequest the request containing user registration data
+     * @return the created user data with HTTP 201 status
+     */
     @PostMapping("/register")
     @Operation(
             summary = "Register new user",
@@ -60,6 +93,15 @@ public class AuthenticationController {
     }
 
 
+    /**
+     * Authenticates a user and returns a JWT token.
+     *
+     * <p>This endpoint validates user credentials and returns a JWT token
+     * that can be used for accessing protected endpoints.</p>
+     *
+     * @param userLoginRequest the request containing login credentials
+     * @return the login response with JWT token and HTTP 202 status
+     */
     @PostMapping("/login")
     @Operation(
             summary = "User login",
@@ -82,6 +124,15 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(CustomApiResponse.success(HttpStatus.CREATED.value(), "Login successful", user));
     }
 
+    /**
+     * Resets the password for the authenticated user.
+     *
+     * <p>This endpoint requires authentication. The user must provide their
+     * current password for verification before setting a new password.</p>
+     *
+     * @param userResetRequest the request containing current and new passwords
+     * @return success message with HTTP 202 status
+     */
     @PatchMapping("/password")
     @Operation (
             summary = "Reset password",

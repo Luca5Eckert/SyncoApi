@@ -10,6 +10,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Use case for resetting user passwords.
+ *
+ * <p>This use case handles password reset for authenticated users including:</p>
+ * <ul>
+ *   <li>Current password verification</li>
+ *   <li>New password validation</li>
+ *   <li>Password encoding and persistence</li>
+ * </ul>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserRepository
+ * @see PasswordValidatorImpl
+ */
 @Component
 public class UserResetPasswordUseCase {
 
@@ -17,6 +33,13 @@ public class UserResetPasswordUseCase {
     private final PasswordValidatorImpl passwordValidator;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructs a new password reset use case.
+     *
+     * @param userRepository the repository for user persistence
+     * @param passwordValidator the validator for password requirements
+     * @param passwordEncoder the encoder for password hashing
+     */
     public UserResetPasswordUseCase(UserRepository userRepository, PasswordValidatorImpl passwordValidator, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordValidator = passwordValidator;
@@ -24,14 +47,16 @@ public class UserResetPasswordUseCase {
     }
 
     /**
-     * Resets the user's password
+     * Executes the password reset use case.
      *
-     * <p>First, validates the password's correctness and validity.
-     * The password is then encoded, assigned to the user, and saved
-     * in the database.</p>
+     * <p>Validates the current password, verifies the new password meets
+     * requirements, encodes it, and saves the updated user.</p>
      *
-     * @param userResetRequest the request containing the data for the reset
-     * @param idUser the user's ID
+     * @param userResetRequest the request containing current and new passwords
+     * @param idUser the ID of the user requesting the password reset
+     * @throws UserNotFoundDomainException if the user is not found
+     * @throws PasswordNotMatchesException if the current password is incorrect
+     * @throws PasswordNotValidDomainException if the new password doesn't meet requirements
      */
     @Transactional
     public void execute(UserResetRequest userResetRequest, long idUser) {
