@@ -13,6 +13,25 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Use case for user registration.
+ *
+ * <p>This use case handles the creation of new user accounts including:</p>
+ * <ul>
+ *   <li>Validation of user data (name, email, password)</li>
+ *   <li>Password strength verification</li>
+ *   <li>Email uniqueness check</li>
+ *   <li>Password encoding before storage</li>
+ * </ul>
+ *
+ * <p>New users are created with the USER role by default.</p>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see UserRepository
+ * @see PasswordValidatorImpl
+ */
 @Component
 public class UserRegisterUseCase {
 
@@ -20,6 +39,13 @@ public class UserRegisterUseCase {
     private final PasswordEncoder passwordEncoder;
     private final PasswordValidatorImpl passwordValidator;
 
+    /**
+     * Constructs a new user registration use case.
+     *
+     * @param userRepository the repository for user persistence
+     * @param passwordEncoder the encoder for password hashing
+     * @param passwordValidator the validator for password requirements
+     */
     public UserRegisterUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder, PasswordValidatorImpl passwordValidator) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -27,13 +53,15 @@ public class UserRegisterUseCase {
     }
 
     /**
-     * Method responsible for executing the use case.
+     * Executes the user registration use case.
      *
-     * <p>This method will validate the name, email, and password. After validation,
-     * the user will be saved in the database.</p>
+     * <p>Validates the name, email, and password. After validation,
+     * the user will be saved in the database with the USER role.</p>
      *
-     * @param userRegisterRequest Request with user data.
-     * @return The created user.
+     * @param userRegisterRequest request containing the registration data
+     * @return the created user entity
+     * @throws PasswordNotValidDomainException if the password doesn't meet requirements
+     * @throws EmailNotUniqueDomainException if the email is already in use
      */
     @Transactional
     public UserEntity execute(UserRegisterRequest userRegisterRequest) {
