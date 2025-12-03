@@ -7,26 +7,63 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
+/**
+ * Domain entity representing the association between a class and a user.
+ *
+ * <p>This entity defines the relationship between classes and users, including
+ * the type of association (e.g., STUDENT, TEACHER).</p>
+ *
+ * @author Luca5Eckert
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see ClassUserId
+ * @see ClassEntity
+ * @see UserEntity
+ * @see TypeUserClass
+ */
 @Entity
 public class ClassUser {
 
+    /**
+     * The composite identifier for this class-user association.
+     */
     @EmbeddedId
     private ClassUserId classUserId;
 
+    /**
+     * The associated class entity.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("classEntityId")
     private ClassEntity classEntity;
 
+    /**
+     * The associated user entity.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     private UserEntity userEntity;
 
+    /**
+     * The type of association between the user and the class.
+     */
     @Enumerated(EnumType.STRING)
     private TypeUserClass typeUserClass;
 
+    /**
+     * Default constructor required by JPA.
+     */
     public ClassUser() {
     }
 
+    /**
+     * Constructs a new class-user association.
+     *
+     * @param classUserId the composite identifier
+     * @param classEntity the associated class
+     * @param userEntity the associated user
+     * @param typeUserClass the type of association
+     */
     public ClassUser(ClassUserId classUserId, ClassEntity classEntity, UserEntity userEntity, TypeUserClass typeUserClass) {
         this.classUserId = classUserId;
         this.classEntity = classEntity;
@@ -34,26 +71,56 @@ public class ClassUser {
         this.typeUserClass = typeUserClass;
     }
 
+    /**
+     * Returns the associated class entity.
+     *
+     * @return the class entity
+     */
     public ClassEntity getClassEntity() {
         return classEntity;
     }
 
+    /**
+     * Sets the associated class entity.
+     *
+     * @param classEntity the class entity
+     */
     public void setClassEntity(ClassEntity classEntity) {
         this.classEntity = classEntity;
     }
 
+    /**
+     * Returns the associated user entity.
+     *
+     * @return the user entity
+     */
     public UserEntity getUserEntity() {
         return userEntity;
     }
 
+    /**
+     * Sets the associated user entity.
+     *
+     * @param userEntity the user entity
+     */
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
 
+    /**
+     * Returns the type of class-user association.
+     *
+     * @return the association type
+     */
     public TypeUserClass getTypeUserClass() {
         return typeUserClass;
     }
 
+    /**
+     * Sets the type of class-user association.
+     *
+     * @param typeUserClass the association type
+     */
     public void setTypeUserClass(TypeUserClass typeUserClass) {
         this.typeUserClass = typeUserClass;
     }
@@ -70,6 +137,11 @@ public class ClassUser {
         return Objects.hash(classUserId, classEntity, userEntity, typeUserClass);
     }
 
+    /**
+     * Updates the association type.
+     *
+     * @param typeUserClass the new association type
+     */
     public void update(TypeUserClass typeUserClass) {
         setTypeUserClass(typeUserClass);
     }
