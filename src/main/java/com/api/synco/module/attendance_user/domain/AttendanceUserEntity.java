@@ -19,28 +19,16 @@ import jakarta.persistence.*;
 @Entity
 public class AttendanceUserEntity {
 
-    /**
-     * The unique identifier for this attendance record.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The period this attendance record refers to.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private PeriodEntity period;
 
-    /**
-     * The user this attendance record refers to.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity userEntity;
 
-    /**
-     * Flag indicating if the user was present.
-     */
     private boolean isPresent;
 
     /**

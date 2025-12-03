@@ -29,39 +29,21 @@ import java.time.LocalDate;
 @Setter
 public class PeriodEntity {
 
-    /**
-     * The unique identifier for the period.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The teacher assigned to this period.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity teacher;
 
-    /**
-     * The room where this period takes place.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private RoomEntity room;
 
-    /**
-     * The class entity this period belongs to.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private ClassEntity classEntity;
 
-    /**
-     * The date of the period.
-     */
     private LocalDate date;
 
-    /**
-     * The type of period.
-     */
     @Enumerated(EnumType.STRING)
     private TypePeriod typePeriod;
 

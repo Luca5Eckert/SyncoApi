@@ -21,27 +21,15 @@ import java.time.LocalDate;
 @Entity
 public class RoomVerificationEntity {
 
-    /**
-     * The unique identifier for this verification record.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The period this verification was performed for.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     private PeriodEntity period;
 
-    /**
-     * The date when the verification was registered.
-     */
     private LocalDate dateRegister;
 
-    /**
-     * The verification form data.
-     */
     @Embedded
     private RoomVerificationForm roomVerificationForm;
 

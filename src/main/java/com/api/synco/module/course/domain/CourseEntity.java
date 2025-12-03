@@ -22,31 +22,16 @@ import java.util.List;
 @Entity
 public class CourseEntity {
 
-    /**
-     * The unique identifier for the course.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The course name.
-     */
     private String name;
 
-    /**
-     * The course acronym/abbreviation.
-     */
     private String acronym;
 
-    /**
-     * The course description.
-     */
     private String description;
 
-    /**
-     * The list of class entities associated with this course.
-     */
     @OneToMany(fetch = FetchType.LAZY)
     private List<ClassEntity> classEntities;
 

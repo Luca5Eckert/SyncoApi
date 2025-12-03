@@ -24,29 +24,17 @@ import java.util.Objects;
 @Entity
 public class ClassUser {
 
-    /**
-     * The composite identifier for this class-user association.
-     */
     @EmbeddedId
     private ClassUserId classUserId;
 
-    /**
-     * The associated class entity.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("classEntityId")
     private ClassEntity classEntity;
 
-    /**
-     * The associated user entity.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     private UserEntity userEntity;
 
-    /**
-     * The type of association between the user and the class.
-     */
     @Enumerated(EnumType.STRING)
     private TypeUserClass typeUserClass;
 

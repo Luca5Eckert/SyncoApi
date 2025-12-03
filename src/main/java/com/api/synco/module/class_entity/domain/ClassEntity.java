@@ -30,27 +30,15 @@ import java.util.Objects;
 @Entity
 public class ClassEntity {
 
-    /**
-     * The composite identifier for the class.
-     */
     @EmbeddedId
     private ClassEntityId id;
 
-    /**
-     * The course that this class belongs to.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("courseId")
     private CourseEntity course;
 
-    /**
-     * The total hours for this class.
-     */
     private int totalHours;
 
-    /**
-     * The shift when this class is scheduled.
-     */
     private Shift shift;
 
     /**

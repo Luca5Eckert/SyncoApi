@@ -20,21 +20,12 @@ import jakarta.persistence.Id;
 @Entity
 public class RoomEntity {
 
-    /**
-     * The unique identifier for the room.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The room number.
-     */
     private int number;
 
-    /**
-     * The type of room.
-     */
     private TypeRoom typeRoom;
 
     /**

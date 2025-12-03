@@ -39,43 +39,22 @@ import java.util.Objects;
 })
 public class UserEntity {
 
-    /**
-     * The unique identifier for the user.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    /**
-     * The user's display name, stored as a value object.
-     */
     private Name name;
 
-    /**
-     * The user's email address, stored as a value object.
-     */
     private Email email;
 
-    /**
-     * The user's encoded password.
-     */
     private String password;
 
-    /**
-     * The user's authorization role.
-     */
     @Enumerated(EnumType.STRING)
     private RoleUser role;
 
-    /**
-     * Timestamp of when the user was created.
-     */
     @CreationTimestamp
     private Instant createAt;
 
-    /**
-     * Timestamp of the last update to the user record.
-     */
     @UpdateTimestamp
     private Instant updateAt;
 

@@ -22,14 +22,8 @@ import java.util.Objects;
 @Embeddable
 public class ClassUserId implements Serializable {
 
-    /**
-     * The user identifier.
-     */
     private long userId;
 
-    /**
-     * The class entity identifier.
-     */
     private ClassEntityId classEntityId;
 
     /**

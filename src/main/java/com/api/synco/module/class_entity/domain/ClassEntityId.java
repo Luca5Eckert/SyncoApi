@@ -18,14 +18,8 @@ import java.util.Objects;
 @Embeddable
 public class ClassEntityId {
 
-    /**
-     * The course identifier.
-     */
     private final long courseId;
 
-    /**
-     * The class number within the course.
-     */
     private final int number;
 
     /**
