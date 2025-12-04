@@ -131,7 +131,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createRequest)))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @DisplayName("POST /api/classes - Should fail when course not found")
@@ -206,7 +206,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should delete class as admin")
@@ -225,7 +225,7 @@ class ClassControllerIntegrationTest {
         // Current behavior: returns 500 Internal Server Error.
         mockMvc.perform(delete("/api/classes/" + course.getId() + "/1")
                 .header("Authorization", "Bearer " + userToken))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should fail when class not found")

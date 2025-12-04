@@ -196,7 +196,10 @@ public class CourseController {
     )
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CustomApiResponse<UpdateCourseResponse>> update(@Valid UpdateCourseRequest updateCourseRequest, @PathVariable long id){
+    public ResponseEntity<CustomApiResponse<UpdateCourseResponse>> update(
+            @Valid @RequestBody UpdateCourseRequest updateCourseRequest,
+            @PathVariable long id){
+
         long idUser = authenticationService.getAuthenticatedUserId();
 
         var response = courseService.update(updateCourseRequest, id, idUser);

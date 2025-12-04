@@ -3,9 +3,10 @@ package com.api.synco.infrastructure.exception;
 import com.api.synco.infrastructure.api.CustomApiResponse;
 import com.api.synco.infrastructure.exception.token.TokenException;
 import com.api.synco.module.authentication.domain.exception.AuthenticationException;
+import com.api.synco.module.class_entity.domain.exception.ClassDomainException;
+import com.api.synco.module.class_entity.domain.exception.user.UserWithoutClassPermisionException;
 import com.api.synco.module.course.domain.exception.CourseDomainException;
 import com.api.synco.module.user.domain.exception.UserDomainException;
-import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,41 @@ public class GlobalExceptionHandler {
         String path = httpServletRequest.getRequestURI();
 
         return ResponseEntity.badRequest().body(CustomApiResponse.error(HttpStatus.BAD_REQUEST.value(), "USER_EXCEPTION", e.getMessage(), path));
+    }
+
+    /**
+     * handles class domain-related exceptions
+     *
+     * @param e the class domain exception
+     * @param httpServletRequest the HTTP request that triggered the exception
+     * @return a {@link ResponseEntity} containing the error response with HTTP 400 status
+     */
+    @ExceptionHandler(ClassDomainException.class)
+    public ResponseEntity<CustomApiResponse<?>> handleClassException(ClassDomainException e, HttpServletRequest httpServletRequest){
+        String path = httpServletRequest.getRequestURI();
+
+        HttpStatus status = switch (e) {
+            case com.api.synco.module.class_entity.domain.exception.ClassNotFoundException cnf -> HttpStatus.NOT_FOUND;
+            case UserWithoutClassPermisionException cwcp -> HttpStatus.UNAUTHORIZED;
+            default -> HttpStatus.BAD_REQUEST;
+        };
+
+        return ResponseEntity.status(status).body(CustomApiResponse.error(status.value(), "USER_EXCEPTION", e.getMessage(), path));
+    }
+
+
+    /**
+     * handles class domain-related exceptions
+     *
+     * @param e the class domain exception
+     * @param httpServletRequest the HTTP request that triggered the exception
+     * @return a {@link ResponseEntity} containing the error response with HTTP 400 status
+     */
+    @ExceptionHandler(ClassNotFoundException.class)
+    public ResponseEntity<CustomApiResponse<?>> handleClassException(ClassNotFoundException e, HttpServletRequest httpServletRequest){
+        String path = httpServletRequest.getRequestURI();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomApiResponse.error(HttpStatus.NOT_FOUND.value(), "USER_EXCEPTION", e.getMessage(), path));
     }
 
     /**
