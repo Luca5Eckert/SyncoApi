@@ -118,9 +118,6 @@ class ClassControllerIntegrationTest {
     @DisplayName("POST /api/classes - Should fail when user lacks permission")
     @Test
     void shouldFailCreateClassWhenUserLacksPermission() throws Exception {
-        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
-        // Expected behavior: should return 403 Forbidden.
-        // Current behavior: returns 500 Internal Server Error.
         var createRequest = new CreateClassRequest(
             course.getId(),
             700,
@@ -131,7 +128,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(createRequest)))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("POST /api/classes - Should fail when course not found")
@@ -194,9 +191,6 @@ class ClassControllerIntegrationTest {
     @DisplayName("PUT /api/classes/{idCourse}/{numberClass} - Should fail when user lacks permission")
     @Test
     void shouldFailUpdateClassWhenUserLacksPermission() throws Exception {
-        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
-        // Expected behavior: should return 403 Forbidden.
-        // Current behavior: returns 500 Internal Server Error.
         var updateRequest = new UpdateClassRequest(
             500,
             Shift.FIRST_SHIFT
@@ -206,7 +200,7 @@ class ClassControllerIntegrationTest {
                 .header("Authorization", "Bearer " + userToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should delete class as admin")
@@ -220,12 +214,9 @@ class ClassControllerIntegrationTest {
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should fail when user lacks permission")
     @Test
     void shouldFailDeleteClassWhenUserLacksPermission() throws Exception {
-        // TODO: Application throws unhandled exception instead of returning 403 Forbidden.
-        // Expected behavior: should return 403 Forbidden.
-        // Current behavior: returns 500 Internal Server Error.
         mockMvc.perform(delete("/api/classes/" + course.getId() + "/1")
                 .header("Authorization", "Bearer " + userToken))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @DisplayName("DELETE /api/classes/{idCourse}/{numberClass} - Should fail when class not found")

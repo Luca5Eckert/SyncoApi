@@ -8,14 +8,13 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.springframework.beans.factory.annotation.Value;
 
 public record UpdateClassRequest(
-        @NotNull @Size(max = 10, message = "The total hours exceeds the maximum allowed (10000).") @Min(value = 0, message = "The total hours cannot be negative.") int totalHours,
+        @Max(value = 10000, message = "The total hours exceeds the maximum allowed (10000).")
+        @Min(value = 0, message = "The total hours cannot be negative.")
+        int totalHours,
         @NotNull Shift shift
 ) {
 

@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
 
         HttpStatus status = switch (e) {
             case com.api.synco.module.class_entity.domain.exception.ClassNotFoundException cnf -> HttpStatus.NOT_FOUND;
-            case UserWithoutClassPermisionException cwcp -> HttpStatus.UNAUTHORIZED;
+            case UserWithoutClassPermisionException cwcp -> HttpStatus.FORBIDDEN;
             default -> HttpStatus.BAD_REQUEST;
         };
 

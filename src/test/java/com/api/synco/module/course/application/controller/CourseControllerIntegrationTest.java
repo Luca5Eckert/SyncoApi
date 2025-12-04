@@ -181,18 +181,23 @@ class CourseControllerIntegrationTest {
                 .andExpect(jsonPath("$.data[0].name").value("Computer Science"));
     }
 
+
     @DisplayName("PATCH /api/courses/{id} - Should update course as admin")
     @Test
     void shouldUpdateCourseAsAdmin() throws Exception {
-        // TODO: Controller lacks @RequestBody annotation for UpdateCourseRequest.
-        // Expected behavior: should return 202 Accepted with updated course data.
-        // Current behavior: returns 400 Bad Request due to form-data binding issue.
+        // 1. Crie o objeto de request
+        UpdateCourseRequest request = new UpdateCourseRequest(
+                "Updated CS",
+                "UCS",
+                "Updated"
+        );
+
         mockMvc.perform(patch("/api/courses/" + course.getId())
-                .header("Authorization", "Bearer " + adminToken)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("name", "Updated CS")
-                .param("acronym", "UCS")
-                .param("description", "Updated"))
+                        .header("Authorization", "Bearer " + adminToken)
+                        // 2. Mude para APPLICATION_JSON
+                        .contentType(MediaType.APPLICATION_JSON)
+                        // 3. Converta o objeto para JSON String e envie no body (.content)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.data.name").value("Updated CS"))
                 .andExpect(jsonPath("$.data.acronym").value("UCS"));
