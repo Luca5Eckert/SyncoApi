@@ -97,7 +97,7 @@ public class CourseService {
      * @return the updated course data
      */
     public UpdateCourseResponse update(UpdateCourseRequest updateCourseRequest, long idCourse, long idUser){
-        CourseEntity course = updateCourseUseCase.execute(updateCourseRequest, idCourse, idCourse);
+        CourseEntity course = updateCourseUseCase.execute(updateCourseRequest, idCourse, idUser);
         return courseMapper.toUpdateResponse(course);
     }
 
