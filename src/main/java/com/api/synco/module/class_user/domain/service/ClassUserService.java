@@ -37,8 +37,13 @@ public class ClassUserService {
         deleteClassUserUseCase.execute(classUserId, userAuthenticatedId);
     }
 
+    public GetClassUserResponse get(long idCourse, int classNumber, long idUser){
+        ClassEntityId classEntityId = new ClassEntityId(idCourse, classNumber);
+        ClassUserId classUserId = new ClassUserId(idUser, classEntityId);
 
+        ClassUser classUser = getClassUserUseCase.execute(classUserId);
 
-
+        return classUserMapper.toGetResponse(classUser);
+    }
 
 }
