@@ -4,6 +4,8 @@ import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
 import com.api.synco.module.user.domain.UserEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -22,6 +24,8 @@ import java.util.Objects;
  * @see TypeUserClass
  */
 @Entity
+@Getter
+@Setter
 public class ClassUser {
 
     @EmbeddedId
@@ -59,59 +63,7 @@ public class ClassUser {
         this.typeUserClass = typeUserClass;
     }
 
-    /**
-     * Returns the associated class entity.
-     *
-     * @return the class entity
-     */
-    public ClassEntity getClassEntity() {
-        return classEntity;
-    }
 
-    /**
-     * Sets the associated class entity.
-     *
-     * @param classEntity the class entity
-     */
-    public void setClassEntity(ClassEntity classEntity) {
-        this.classEntity = classEntity;
-    }
-
-    /**
-     * Returns the associated user entity.
-     *
-     * @return the user entity
-     */
-    public UserEntity getUserEntity() {
-        return userEntity;
-    }
-
-    /**
-     * Sets the associated user entity.
-     *
-     * @param userEntity the user entity
-     */
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
-    /**
-     * Returns the type of class-user association.
-     *
-     * @return the association type
-     */
-    public TypeUserClass getTypeUserClass() {
-        return typeUserClass;
-    }
-
-    /**
-     * Sets the type of class-user association.
-     *
-     * @param typeUserClass the association type
-     */
-    public void setTypeUserClass(TypeUserClass typeUserClass) {
-        this.typeUserClass = typeUserClass;
-    }
 
     @Override
     public boolean equals(Object o) {
