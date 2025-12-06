@@ -1,11 +1,16 @@
 package com.api.synco.module.class_user.domain.service;
 
 import com.api.synco.module.class_entity.domain.ClassEntityId;
+import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetClassUserResponse;
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
+import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
+import com.api.synco.module.class_user.domain.filter.ClassUserFilter;
+import com.api.synco.module.class_user.domain.filter.PageClassUser;
 import com.api.synco.module.class_user.domain.mapper.ClassUserMapper;
 import com.api.synco.module.class_user.domain.use_cases.*;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +49,32 @@ public class ClassUserService {
         ClassUser classUser = getClassUserUseCase.execute(classUserId);
 
         return classUserMapper.toGetResponse(classUser);
+    }
+
+    public List<GetAllClassUserResponse> getAll(
+        long userId,
+        long courseId,
+        int numberClass,
+        TypeUserClass typeUserClass,
+        int pageNumber,
+        int pageSize
+    ){
+        ClassEntityId classEntityId = new ClassEntityId(courseId, numberClass);
+        ClassUserId classUserId = new ClassUserId(userId, classEntityId);
+
+        ClassUserFilter classUserFilter = ClassUserFilter.builder()
+                .setUserIdContains(userId)
+                .setClassUserIdContains(classUserId)
+                .setTypeUserClassContains(typeUserClass)
+                .build();
+
+        PageClassUser pageClassUser = new PageClassUser(pageNumber,pageSize);
+
+        Page<ClassUser> classUsers = getAllClassUserUseCase.execute(classUserFilter, pageClassUser);
+
+        return classUsers.stream()
+                .map(classUserMapper::toGetAllResponse)
+                .toList();
     }
 
 }

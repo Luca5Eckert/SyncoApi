@@ -33,7 +33,7 @@ public record ClassUserFilter(
             return this;
         }
 
-        public Builder setNameContains(long userIdContains) {
+        public Builder setUserIdContains(long userIdContains) {
             this.userIdContains = userIdContains;
             return this;
         }
