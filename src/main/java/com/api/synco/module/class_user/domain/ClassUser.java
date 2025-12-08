@@ -31,11 +31,11 @@ public class ClassUser {
     @EmbeddedId
     private ClassUserId classUserId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("classEntityId")
     private ClassEntity classEntity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("userId")
     private UserEntity userEntity;
 
