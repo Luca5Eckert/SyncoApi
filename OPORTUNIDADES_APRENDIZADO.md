@@ -58,7 +58,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-chat")
-                .setAllowedOrigins("*")
+                .setAllowedOriginPatterns("http://localhost:*", "https://yourdomain.com")
                 .withSockJS();
     }
 }
@@ -109,11 +109,13 @@ public class ChatController {
 @Service
 public class EmailService {
     
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+    private final TemplateEngine templateEngine;
     
-    @Autowired
-    private TemplateEngine templateEngine;
+    public EmailService(JavaMailSender mailSender, TemplateEngine templateEngine) {
+        this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
+    }
     
     @Async
     public void sendWelcomeEmail(String to, String name) {
@@ -307,8 +309,11 @@ public class UserService {
 @Service
 public class EventProducer {
     
-    @Autowired
-    private KafkaTemplate<String, UserEvent> kafkaTemplate;
+    private final KafkaTemplate<String, UserEvent> kafkaTemplate;
+    
+    public EventProducer(KafkaTemplate<String, UserEvent> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
     
     public void publishUserCreated(UserEntity user) {
         UserEvent event = new UserEvent(
@@ -1181,8 +1186,11 @@ public class I18nConfig {
 @Service
 public class MessageService {
     
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+    
+    public MessageService(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
     
     public String getMessage(String code, Object... args) {
         return messageSource.getMessage(
