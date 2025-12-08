@@ -219,26 +219,6 @@ O token expira após 24 horas (configurável via `jwt.token.validity`).
 - **Senha**: Mínimo 8 caracteres, incluindo: 1 maiúscula, 1 minúscula, 1 número, 1 caractere especial
 - **Nome**: Obrigatório (max 30 caracteres)
 
-## ⚡ Melhorias Implementadas
-
-### Performance
-- ✅ **Índices de banco de dados**: Adicionados índices em colunas frequentemente consultadas (email, role, createAt)
-- ✅ **Connection Pool otimizado**: Configuração do HikariCP com parâmetros adequados
-- ✅ **Open-in-view desabilitado**: Prevenção de lazy loading não intencional
-- ✅ **@Transactional(readOnly=true)**: Otimização em operações de leitura
-
-### Segurança
-- ✅ **Validação de entrada no login**: Adicionadas anotações @NotBlank e @Size no DTO de login
-- ✅ **Correção de bug de permissão**: Corrigido método canModifyUser() que estava chamando canModifyCourse()
-- ✅ **Rotas de segurança atualizadas**: Corrigido o padrão de URLs no SecurityConfig
-
-### Legibilidade e Qualidade de Código
-- ✅ **@RestController**: Corrigido UserController que estava usando @Controller
-- ✅ **OpenAPI Config**: Atualizado título e descrição para refletir o projeto Synco
-- ✅ **Typo corrigido**: Método `delele` renomeado para `delete` no CourseController
-- ✅ **@Transactional**: Adicionado em todos os use cases para garantir consistência de dados
-- ✅ **Filter chain fix**: Corrigido fluxo do JwtTokenAuthenticationFilter para sempre continuar a chain
-
 ## 📋 Plano de Ação para Melhorias Futuras
 
 ### Alta Prioridade (Segurança)
