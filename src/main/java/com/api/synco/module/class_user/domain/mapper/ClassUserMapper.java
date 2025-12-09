@@ -6,6 +6,8 @@ import com.api.synco.module.class_user.application.dto.ClassUserIdResponse;
 import com.api.synco.module.class_user.application.dto.create.CreateClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetClassUserResponse;
+import com.api.synco.module.class_user.application.dto.update.UpdateClassUserRequest;
+import com.api.synco.module.class_user.application.dto.update.UpdateClassUserResponse;
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import org.springframework.stereotype.Component;
@@ -44,6 +46,13 @@ public class ClassUserMapper {
 
     public CreateClassUserResponse toCreateResponse(ClassUser classUser) {
         return new CreateClassUserResponse(
+                toIdResponse(classUser.getClassUserId()),
+                classUser.getTypeUserClass()
+        );
+    }
+
+    public UpdateClassUserResponse toUpdateResponse(ClassUser classUser) {
+        return new UpdateClassUserResponse(
                 toIdResponse(classUser.getClassUserId()),
                 classUser.getTypeUserClass()
         );

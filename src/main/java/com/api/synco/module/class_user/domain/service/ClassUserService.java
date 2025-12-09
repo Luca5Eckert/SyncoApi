@@ -5,6 +5,8 @@ import com.api.synco.module.class_user.application.dto.create.CreateClassUserReq
 import com.api.synco.module.class_user.application.dto.create.CreateClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetClassUserResponse;
+import com.api.synco.module.class_user.application.dto.update.UpdateClassUserRequest;
+import com.api.synco.module.class_user.application.dto.update.UpdateClassUserResponse;
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
@@ -41,6 +43,14 @@ public class ClassUserService {
         ClassUser classUser = createClassUserUseCase.execute(createClassUserRequest, idUser);
 
         return classUserMapper.toCreateResponse(classUser);
+    }
+
+    public UpdateClassUserResponse update(UpdateClassUserRequest updateClassUserRequest, long idCourse, int classNumber, long idUser, long userIdAuthenticated){
+        ClassUserId classUserId = new ClassUserId(idUser, new ClassEntityId(idCourse, classNumber));
+
+        ClassUser classUser = updateClassUserUseCase.execute(updateClassUserRequest, classUserId, userIdAuthenticated);
+
+        return classUserMapper.toUpdateResponse(classUser);
     }
 
     public void delete(long idCourse, int classNumber, long idUser, long userAuthenticatedId){
