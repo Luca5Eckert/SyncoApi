@@ -1,6 +1,8 @@
 package com.api.synco.module.class_user.domain.service;
 
 import com.api.synco.module.class_entity.domain.ClassEntityId;
+import com.api.synco.module.class_user.application.dto.create.CreateClassUserRequest;
+import com.api.synco.module.class_user.application.dto.create.CreateClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetClassUserResponse;
 import com.api.synco.module.class_user.domain.ClassUser;
@@ -33,6 +35,12 @@ public class ClassUserService {
         this.deleteClassUserUseCase = deleteClassUserUseCase;
         this.getClassUserUseCase = getClassUserUseCase;
         this.getAllClassUserUseCase = getAllClassUserUseCase;
+    }
+
+    public CreateClassUserResponse create(CreateClassUserRequest createClassUserRequest, long idUser){
+        ClassUser classUser = createClassUserUseCase.execute(createClassUserRequest, idUser);
+
+        return classUserMapper.toCreateResponse(classUser);
     }
 
     public void delete(long idCourse, int classNumber, long idUser, long userAuthenticatedId){

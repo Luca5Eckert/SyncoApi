@@ -3,6 +3,7 @@ package com.api.synco.module.class_user.domain.mapper;
 import com.api.synco.module.class_entity.application.dto.ClassIdResponse;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_user.application.dto.ClassUserIdResponse;
+import com.api.synco.module.class_user.application.dto.create.CreateClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetClassUserResponse;
 import com.api.synco.module.class_user.domain.ClassUser;
@@ -41,4 +42,10 @@ public class ClassUserMapper {
         );
     }
 
+    public CreateClassUserResponse toCreateResponse(ClassUser classUser) {
+        return new CreateClassUserResponse(
+                toIdResponse(classUser.getClassUserId()),
+                classUser.getTypeUserClass()
+        );
+    }
 }
