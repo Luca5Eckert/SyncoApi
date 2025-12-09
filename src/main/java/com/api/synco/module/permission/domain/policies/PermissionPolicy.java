@@ -48,4 +48,12 @@ public interface PermissionPolicy {
      * @return {@code true} if modification is allowed, {@code false} otherwise
      */
     boolean canModifyClassUser(RoleUser role);
+
+    /**
+     * Checks if a user with the given role can modify room entity.
+     *
+     * @param role the user's role
+     * @return {@code true} if modification is allowed, {@code false} otherwise
+     */
+    boolean canModifyRoom(RoleUser role);
 }

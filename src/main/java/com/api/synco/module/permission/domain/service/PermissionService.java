@@ -68,4 +68,14 @@ public class PermissionService {
     public boolean canModifyClassUser(RoleUser role) {
         return permissionPolicy.canModifyClassUser(role);
     }
+
+    /**
+     * Checks if a user can modify room entity.
+     *
+     * @param role the user's role
+     * @return {@code true} if modification is allowed
+     */
+    public boolean canModifyRoom(RoleUser role) {
+        return permissionPolicy.canModifyRoom(role);
+    }
 }

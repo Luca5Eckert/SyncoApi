@@ -63,5 +63,10 @@ public class DefaultPermissionPolicy implements PermissionPolicy {
         return roleUser == RoleUser.ADMIN;
     }
 
+    @Override
+    public boolean canModifyRoom(RoleUser role) {
+        return role == RoleUser.ADMIN;
+    }
+
 
 }

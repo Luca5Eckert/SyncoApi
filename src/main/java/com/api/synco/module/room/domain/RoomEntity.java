@@ -48,6 +48,17 @@ public class RoomEntity {
     }
 
     /**
+     * Constructs a new room entity.
+     *
+     * @param number the room number
+     * @param typeRoom the type of room
+     */
+    public RoomEntity(int number, TypeRoom typeRoom) {
+        this.number = number;
+        this.typeRoom = typeRoom;
+    }
+
+    /**
      * Returns the room number.
      *
      * @return the room number
