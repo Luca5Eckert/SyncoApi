@@ -88,10 +88,10 @@ public class AcademicClass {
      * @return {@code true} if the user can modify classes, {@code false} otherwise
      */
     public static boolean havePermissionToModify(RoleUser role) {
-        return switch (role){
-            case ADMIN -> true;
-            case USER -> false;
-        };
+        if (role == RoleUser.ADMIN) {
+            return true;
+        }
+        return false;
     }
 
     /**

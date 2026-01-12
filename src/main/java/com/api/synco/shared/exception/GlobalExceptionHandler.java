@@ -80,17 +80,17 @@ public class GlobalExceptionHandler {
 
 
     /**
-     * handles class domain-related exceptions
+     * handles class not found exceptions
      *
-     * @param e the class domain exception
+     * @param e the class not found exception
      * @param httpServletRequest the HTTP request that triggered the exception
-     * @return a {@link ResponseEntity} containing the error response with HTTP 400 status
+     * @return a {@link ResponseEntity} containing the error response with HTTP 404 status
      */
     @ExceptionHandler(ClassNotFoundException.class)
-    public ResponseEntity<CustomApiResponse<?>> handleClassException(ClassNotFoundException e, HttpServletRequest httpServletRequest){
+    public ResponseEntity<CustomApiResponse<?>> handleClassNotFoundException(ClassNotFoundException e, HttpServletRequest httpServletRequest){
         String path = httpServletRequest.getRequestURI();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomApiResponse.error(HttpStatus.NOT_FOUND.value(), "USER_EXCEPTION", e.getMessage(), path));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(CustomApiResponse.error(HttpStatus.NOT_FOUND.value(), "CLASS_NOT_FOUND_EXCEPTION", e.getMessage(), path));
     }
 
     /**
