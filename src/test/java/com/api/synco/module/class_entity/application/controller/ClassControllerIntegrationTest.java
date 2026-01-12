@@ -1,6 +1,6 @@
 package com.api.synco.module.class_entity.application.controller;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
+import com.api.synco.shared.security.jwt.JwtTokenProvider;
 import com.api.synco.module.class_entity.application.dto.create.CreateClassRequest;
 import com.api.synco.module.class_entity.application.dto.update.UpdateClassRequest;
 import com.api.synco.module.class_entity.domain.ClassEntity;

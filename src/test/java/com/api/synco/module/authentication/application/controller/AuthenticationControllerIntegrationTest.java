@@ -1,6 +1,6 @@
 package com.api.synco.module.authentication.application.controller;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
+import com.api.synco.shared.security.jwt.JwtTokenProvider;
 import com.api.synco.module.authentication.application.dto.login.UserLoginRequest;
 import com.api.synco.module.authentication.application.dto.register.UserRegisterRequest;
 import com.api.synco.module.authentication.application.dto.reset_password.UserResetRequest;

@@ -1,6 +1,6 @@
 package com.api.synco.module.user.application.controller;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
+import com.api.synco.shared.security.jwt.JwtTokenProvider;
 import com.api.synco.module.user.application.dto.create.UserCreateRequest;
 import com.api.synco.module.user.application.dto.delete.UserDeleteRequest;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;

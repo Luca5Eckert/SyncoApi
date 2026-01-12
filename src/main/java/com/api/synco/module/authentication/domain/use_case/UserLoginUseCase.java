@@ -1,7 +1,7 @@
 package com.api.synco.module.authentication.domain.use_case;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
-import com.api.synco.infrastructure.security.user_details.UserDetailsImpl;
+import com.api.synco.shared.security.jwt.JwtTokenProvider;
+import com.api.synco.shared.security.user_details.UserDetailsImpl;
 import com.api.synco.module.authentication.application.dto.login.UserLoginRequest;
 import com.api.synco.module.authentication.application.dto.login.UserLoginResponse;
 import com.api.synco.module.authentication.domain.exception.AuthenticationValidationException;

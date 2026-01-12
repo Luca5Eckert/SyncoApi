@@ -1,7 +1,7 @@
 package com.api.synco.module.authentication.application.controller;
 
-import com.api.synco.core.UserAuthenticationService;
-import com.api.synco.infrastructure.api.CustomApiResponse;
+import com.api.synco.shared.core.UserAuthenticationService;
+import com.api.synco.shared.api.CustomApiResponse;
 import com.api.synco.module.authentication.application.dto.login.UserLoginRequest;
 import com.api.synco.module.authentication.application.dto.login.UserLoginResponse;
 import com.api.synco.module.authentication.application.dto.register.UserRegisterRequest;
