@@ -7,6 +7,7 @@ import com.api.synco.module.course.domain.port.CourseRepository;
 import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +18,11 @@ public class DeleteCourseUseCase {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public DeleteCourseUseCase(PermissionPolicy permissionPolicy, CourseRepository courseRepository, UserRepository userRepository) {
+    public DeleteCourseUseCase(
+            @Qualifier("coursePermissionPolicy") PermissionPolicy permissionPolicy,
+            CourseRepository courseRepository,
+            UserRepository userRepository
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
@@ -31,7 +36,7 @@ public class DeleteCourseUseCase {
      * <ol>
      * <li>Find the user by {@code idUser}</li>
      * <li>Valid the user permission</li>
-     * <li>Verify if the course exist</li>
+     * <li>Verify if the course exists</li>
      * </ol>
      *
      * @param deleteCourseRequest Record with date of the request

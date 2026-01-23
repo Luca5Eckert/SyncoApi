@@ -2,7 +2,11 @@ package com.api.synco.module.class_user.domain.permission;
 
 import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("classUserPermissionPolicy")
 public class ClassUserPermissionPolicy implements PermissionPolicy {
 
     @Override

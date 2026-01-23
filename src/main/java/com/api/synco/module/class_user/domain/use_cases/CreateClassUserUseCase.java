@@ -13,6 +13,7 @@ import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,12 @@ public class CreateClassUserUseCase {
 
     private final PermissionPolicy permissionPolicy;
 
-    public CreateClassUserUseCase(ClassUserRepository classUserRepository, ClassRepository classRepository, UserRepository userRepository, PermissionPolicy permissionPolicy) {
+    public CreateClassUserUseCase(
+            ClassUserRepository classUserRepository,
+            ClassRepository classRepository,
+            UserRepository userRepository,
+            @Qualifier("classUserPermissionPolicy") PermissionPolicy permissionPolicy
+    ) {
         this.classUserRepository = classUserRepository;
         this.classRepository = classRepository;
         this.userRepository = userRepository;

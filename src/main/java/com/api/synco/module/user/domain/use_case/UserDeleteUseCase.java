@@ -5,7 +5,10 @@ import com.api.synco.module.user.application.dto.delete.UserDeleteRequest;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.exception.permission.UserWithoutDeleteUserPermissionException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import com.api.synco.module.user.domain.validator.PasswordValidatorImpl;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +41,10 @@ public class UserDeleteUseCase {
      * @param permissionPolicy the service for permission checks
      * @param userRepository the repository for user persistence
      */
-    public UserDeleteUseCase(PermissionPolicy permissionPolicy, UserRepository userRepository) {
+    public UserDeleteUseCase(
+            UserRepository userRepository,
+            @Qualifier("userPermissionPolicy") PermissionPolicy permissionPolicy
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.userRepository = userRepository;
     }

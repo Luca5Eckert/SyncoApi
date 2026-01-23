@@ -8,6 +8,7 @@ import com.api.synco.module.user.domain.exception.permission.UserWithoutEditUser
 import com.api.synco.module.user.domain.port.UserRepository;
 import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +41,10 @@ public class UserEditUseCase {
      * @param permissionPolicy the service for permission checks
      * @param userRepository the repository for user persistence
      */
-    public UserEditUseCase(PermissionPolicy permissionPolicy, UserRepository userRepository) {
+    public UserEditUseCase(
+            UserRepository userRepository,
+            @Qualifier("userPermissionPolicy") PermissionPolicy permissionPolicy
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.userRepository = userRepository;
     }

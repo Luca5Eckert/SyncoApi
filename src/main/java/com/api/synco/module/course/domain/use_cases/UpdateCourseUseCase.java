@@ -8,6 +8,7 @@ import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.exception.permission.UserWithoutEditUserPermissionException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 
@@ -19,7 +20,11 @@ public class UpdateCourseUseCase {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public UpdateCourseUseCase(PermissionPolicy permissionPolicy, CourseRepository courseRepository, UserRepository userRepository) {
+    public UpdateCourseUseCase(
+            @Qualifier("coursePermissionPolicy") PermissionPolicy permissionPolicy,
+            CourseRepository courseRepository,
+            UserRepository userRepository
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;

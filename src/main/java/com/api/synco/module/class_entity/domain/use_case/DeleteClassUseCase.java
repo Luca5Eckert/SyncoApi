@@ -4,10 +4,12 @@ import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutDeleteClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
+import com.api.synco.module.course.domain.port.CourseRepository;
 import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,9 +23,15 @@ public class DeleteClassUseCase {
 
     private final ClassRepository classRepository;
     private final UserRepository userRepository;
+
     private final PermissionPolicy permissionPolicy;
 
-    public DeleteClassUseCase(ClassRepository classRepository, UserRepository userRepository, PermissionPolicy permissionPolicy) {
+    public DeleteClassUseCase(
+            @Qualifier("classPermissionPolicy") PermissionPolicy permissionPolicy,
+            ClassRepository classRepository,
+            CourseRepository courseRepository,
+            UserRepository userRepository
+    ) {
         this.classRepository = classRepository;
         this.userRepository = userRepository;
         this.permissionPolicy = permissionPolicy;

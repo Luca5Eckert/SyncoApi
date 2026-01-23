@@ -13,6 +13,7 @@ import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,7 +31,12 @@ public class CreateClassUseCase {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public CreateClassUseCase(PermissionPolicy permissionPolicy, ClassRepository classRepository, CourseRepository courseRepository, UserRepository userRepository) {
+    public CreateClassUseCase(
+            @Qualifier("classPermissionPolicy") PermissionPolicy permissionPolicy,
+            ClassRepository classRepository,
+            CourseRepository courseRepository,
+            UserRepository userRepository
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.classRepository = classRepository;
         this.courseRepository = courseRepository;

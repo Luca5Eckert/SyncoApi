@@ -1,5 +1,6 @@
 package com.api.synco.module.class_user.domain.use_cases;
 
+import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.exception.ClassUserNotFoundException;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
@@ -8,6 +9,7 @@ import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +18,14 @@ public class DeleteClassUserUseCase {
 
     private final ClassUserRepository classUserRepository;
     private final UserRepository userRepository;
+
     private final PermissionPolicy permissionPolicy;
 
-    public DeleteClassUserUseCase(ClassUserRepository classUserRepository,
-                                  UserRepository userRepository,
-                                  PermissionPolicy permissionPolicy) {
+    public DeleteClassUserUseCase(
+            ClassUserRepository classUserRepository,
+            UserRepository userRepository,
+            @Qualifier("classUserPermissionPolicy") PermissionPolicy permissionPolicy
+    ) {
         this.classUserRepository = classUserRepository;
         this.userRepository = userRepository;
         this.permissionPolicy = permissionPolicy;

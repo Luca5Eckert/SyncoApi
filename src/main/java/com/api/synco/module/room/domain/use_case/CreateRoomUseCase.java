@@ -9,6 +9,7 @@ import com.api.synco.module.room.domain.port.RoomRepository;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,11 @@ public class CreateRoomUseCase {
 
     private final PermissionPolicy permissionPolicy;
 
-    public CreateRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, PermissionPolicy permissionPolicy) {
+    public CreateRoomUseCase(
+            RoomRepository roomRepository,
+            UserRepository userRepository,
+            @Qualifier("roomPermissionPolicy") PermissionPolicy permissionPolicy
+    ) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.permissionPolicy = permissionPolicy;

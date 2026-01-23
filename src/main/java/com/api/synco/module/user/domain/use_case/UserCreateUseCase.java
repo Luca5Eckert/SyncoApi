@@ -11,6 +11,7 @@ import com.api.synco.module.user.domain.port.UserRepository;
 import com.api.synco.module.user.domain.validator.PasswordValidatorImpl;
 import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,7 @@ public class UserCreateUseCase {
     private final UserRepository userRepository;
 
     private final PermissionPolicy permissionPolicy;
+
     private final PasswordEncoder passwordEncoder;
     private final PasswordValidatorImpl passwordValidator;
 
@@ -45,13 +47,18 @@ public class UserCreateUseCase {
      * Constructs a new user creation use case.
      *
      * @param userRepository the repository for user persistence
-     * @param permisionPolicy the service for permission checks
+     * @param permissionPolicy the service for permission checks
      * @param passwordEncoder the encoder for password hashing
      * @param passwordValidator the validator for password requirements
      */
-    public UserCreateUseCase(UserRepository userRepository, PermissionPolicy permisionPolicy, PasswordEncoder passwordEncoder, PasswordValidatorImpl passwordValidator) {
+    public UserCreateUseCase(
+            UserRepository userRepository,
+            @Qualifier("userPermissionPolicy") PermissionPolicy permissionPolicy,
+            PasswordEncoder passwordEncoder,
+            PasswordValidatorImpl passwordValidator
+    ) {
         this.userRepository = userRepository;
-        this.permissionPolicy = permisionPolicy;
+        this.permissionPolicy = permissionPolicy;
         this.passwordEncoder = passwordEncoder;
         this.passwordValidator = passwordValidator;
     }

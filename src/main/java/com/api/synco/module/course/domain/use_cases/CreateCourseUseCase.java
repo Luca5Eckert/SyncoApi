@@ -8,6 +8,7 @@ import com.api.synco.module.course.domain.port.CourseRepository;
 import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,10 @@ public class CreateCourseUseCase {
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
 
-    public CreateCourseUseCase(PermissionPolicy permissionPolicy, UserRepository userRepository, CourseRepository courseRepository) {
+    public CreateCourseUseCase(@Qualifier("coursePermissionPolicy") PermissionPolicy permissionPolicy,
+                               UserRepository userRepository,
+                               CourseRepository courseRepository
+    ) {
         this.permissionPolicy = permissionPolicy;
         this.userRepository = userRepository;
         this.courseRepository = courseRepository;
@@ -29,23 +33,21 @@ public class CreateCourseUseCase {
      *
      * <p>
      * The method performs in the following steps:
-     <ol>
-     <li>Find the user by {@code idUser}</li>
-     <li>Valid the user permission</li>
-     <li>Create the course entity</li>
-     <li>Verify if the course is unique</li>
-     <li>Save the **course** in Database</li>
-     </ol>
+     * <ol>
+     * <li>Find the user by {@code idUser}</li>
+     * <li>Valid the user permission</li>
+     * <li>Create the course entity</li>
+     * <li>Verify if the course is unique</li>
+     * <li>Save the **course** in Database</li>
+     * </ol>
      *
      * @param createCourseRequest Request containg the data for create a new course
-     * @param idUser The id of User who wants to create a course
-     *
-     * @throws UserNotFoundDomainException If the user is not found
-     * @throws UserWithoutCreateCoursePermissionException If the user don't have permission to create the course
-     * @throws CourseNotUniqueException If the database alrealdy have a course with the same name or acronym
-     *
+     * @param idUser              The id of User who wants to create a course
      * @return The created and persisted {@link CourseEntity}, including its generated ID.
-     * */
+     * @throws UserNotFoundDomainException                If the user is not found
+     * @throws UserWithoutCreateCoursePermissionException If the user don't have permission to create the course
+     * @throws CourseNotUniqueException                   If the database alrealdy have a course with the same name or acronym
+     */
 
     public CourseEntity execute(CreateCourseRequest createCourseRequest, long idUser) {
         var user = userRepository.findById(idUser).orElseThrow(() -> new UserNotFoundDomainException(idUser));
@@ -58,7 +60,7 @@ public class CreateCourseUseCase {
                 createCourseRequest.description()
         );
 
-        if(courseRepository.existsByNameOrAcronym(course.getName(), course.getAcronym())){
+        if (courseRepository.existsByNameOrAcronym(course.getName(), course.getAcronym())) {
             throw new CourseNotUniqueException();
         }
 
