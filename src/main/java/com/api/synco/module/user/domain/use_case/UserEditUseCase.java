@@ -1,6 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -25,23 +25,23 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0
  * @since 1.0.0
  * @see UserRepository
- * @see PermissionService
+ * @see PermissionPolicy
  */
 @Component
 public class UserEditUseCase {
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     private final UserRepository userRepository;
 
     /**
      * Constructs a new user edit use case.
      *
-     * @param permissionService the service for permission checks
+     * @param permissionPolicy the service for permission checks
      * @param userRepository the repository for user persistence
      */
-    public UserEditUseCase(PermissionService permissionService, UserRepository userRepository) {
-        this.permissionService = permissionService;
+    public UserEditUseCase(PermissionPolicy permissionPolicy, UserRepository userRepository) {
+        this.permissionPolicy = permissionPolicy;
         this.userRepository = userRepository;
     }
 
@@ -95,7 +95,7 @@ public class UserEditUseCase {
      * @return {@code true} if the edit is permitted, {@code false} otherwise
      */
     private boolean canEditUser(UserEntity userAutenticated, UserEntity userEdit) {
-        if(permissionService.canModifyUser(userAutenticated.getRole())) return true;
+        if(permissionPolicy.canEdit(userAutenticated.getRole())) return true;
 
         return userEdit.equals(userAutenticated);
     }

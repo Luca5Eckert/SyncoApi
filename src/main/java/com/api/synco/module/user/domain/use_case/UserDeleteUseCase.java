@@ -1,6 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.application.dto.delete.UserDeleteRequest;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.exception.permission.UserWithoutDeleteUserPermissionException;
@@ -23,23 +23,23 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0
  * @since 1.0.0
  * @see UserRepository
- * @see PermissionService
+ * @see PermissionPolicy
  */
 @Component
 public class UserDeleteUseCase {
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     private final UserRepository userRepository;
 
     /**
      * Constructs a new user deletion use case.
      *
-     * @param permissionService the service for permission checks
+     * @param permissionPolicy the service for permission checks
      * @param userRepository the repository for user persistence
      */
-    public UserDeleteUseCase(PermissionService permissionService, UserRepository userRepository) {
-        this.permissionService = permissionService;
+    public UserDeleteUseCase(PermissionPolicy permissionPolicy, UserRepository userRepository) {
+        this.permissionPolicy = permissionPolicy;
         this.userRepository = userRepository;
     }
 
@@ -61,7 +61,7 @@ public class UserDeleteUseCase {
 
         var userAuthenticated = userRepository.findById(idUserAutenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAutenticated));
 
-        if(!permissionService.canModifyUser(userAuthenticated.getRole())) {
+        if(!permissionPolicy.canDelete(userAuthenticated.getRole())) {
             throw new UserWithoutDeleteUserPermissionException();
         }
 
