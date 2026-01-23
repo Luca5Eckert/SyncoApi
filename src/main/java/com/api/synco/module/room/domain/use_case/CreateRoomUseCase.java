@@ -1,6 +1,6 @@
-package com.api.synco.module.room.domain.use_cases;
+package com.api.synco.module.room.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.room.application.dto.CreateRoomRequest;
 import com.api.synco.module.room.domain.RoomEntity;
 import com.api.synco.module.room.domain.exception.number.RoomNotUniqueNumberException;
@@ -17,19 +17,19 @@ public class CreateRoomUseCase {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
-    public CreateRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, PermissionService permissionService) {
+    public CreateRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, PermissionPolicy permissionPolicy) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
-        this.permissionService = permissionService;
+        this.permissionPolicy = permissionPolicy;
     }
 
     public RoomEntity execute(CreateRoomRequest createRoomRequest, long userAuthenticatedId){
         UserEntity userAuthenticated = userRepository.findById(userAuthenticatedId)
                 .orElseThrow( () -> new UserNotFoundDomainException(userAuthenticatedId));
 
-        if(!permissionService.canModifyRoom(userAuthenticated.getRole())){
+        if(!permissionPolicy.canCreate(userAuthenticated.getRole())){
             throw new UserWithoutCreateRoomPermissionException();
         }
 
