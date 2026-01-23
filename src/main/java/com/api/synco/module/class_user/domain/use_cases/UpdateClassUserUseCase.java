@@ -6,7 +6,7 @@ import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -18,14 +18,14 @@ public class UpdateClassUserUseCase {
 
     private final ClassUserRepository classUserRepository;
     private final UserRepository userRepository;
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     public UpdateClassUserUseCase(ClassUserRepository classUserRepository,
                                   UserRepository userRepository,
-                                  PermissionService permissionService) {
+                                  PermissionPolicy permissionPolicy) {
         this.classUserRepository = classUserRepository;
         this.userRepository = userRepository;
-        this.permissionService = permissionService;
+        this.permissionPolicy = permissionPolicy;
     }
 
     @Transactional
@@ -33,7 +33,7 @@ public class UpdateClassUserUseCase {
         UserEntity userAuthenticated = userRepository.findById(userId)
                 .orElseThrow( () -> new UserNotFoundDomainException(userId));
 
-        if(!permissionService.canModifyClassUser(userAuthenticated.getRole())){
+        if(!permissionPolicy.canEdit(userAuthenticated.getRole())){
             throw new UserWithoutCreateClassUserPermissionException();
         }
 

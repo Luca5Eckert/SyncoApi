@@ -9,7 +9,7 @@ import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -24,13 +24,13 @@ public class CreateClassUserUseCase {
     private final ClassRepository classRepository;
     private final UserRepository userRepository;
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
-    public CreateClassUserUseCase(ClassUserRepository classUserRepository, ClassRepository classRepository, UserRepository userRepository, PermissionService permissionService) {
+    public CreateClassUserUseCase(ClassUserRepository classUserRepository, ClassRepository classRepository, UserRepository userRepository, PermissionPolicy permissionPolicy) {
         this.classUserRepository = classUserRepository;
         this.classRepository = classRepository;
         this.userRepository = userRepository;
-        this.permissionService = permissionService;
+        this.permissionPolicy = permissionPolicy;
     }
 
     @Transactional
@@ -38,7 +38,7 @@ public class CreateClassUserUseCase {
         UserEntity userAuthenticated = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
-        if(!permissionService.canModifyClassUser(userAuthenticated.getRole())){
+        if(!permissionPolicy.canCreate(userAuthenticated.getRole())){
             throw new UserWithoutCreateClassUserPermissionException();
         }
 
