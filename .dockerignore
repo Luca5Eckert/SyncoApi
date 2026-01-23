@@ -1,0 +1,49 @@
+# Ignore files and directories that should not be copied to the Docker image
+
+# Target directory (build artifacts)
+target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.project
+.classpath
+.factorypath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation (optional - remove if you want docs in image)
+docs/
+*.md
+README.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Logs
+*.log
+
+# Test files (optional - remove if you want tests in image)
+src/test/
+
+# Environment files
+.env
+.env.*
