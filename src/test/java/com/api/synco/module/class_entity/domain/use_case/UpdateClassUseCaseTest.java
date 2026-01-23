@@ -8,7 +8,7 @@ import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutUpdateClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 class UpdateClassUseCaseTest {
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @Mock
     private ClassRepository classRepository;
@@ -66,7 +66,7 @@ class UpdateClassUseCaseTest {
     void shouldUpdateClassSuccessfully() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
         when(classRepository.findById(classEntityId)).thenReturn(Optional.of(existingClass));
 
         // act
@@ -104,7 +104,7 @@ class UpdateClassUseCaseTest {
         // arrange
         var regularUser = new UserEntity(userId, null, null, null, RoleUser.USER);
         when(userRepository.findById(userId)).thenReturn(Optional.of(regularUser));
-        when(permissionService.canModifyClass(RoleUser.USER)).thenReturn(false);
+        when(permissionPolicy.canEdit(RoleUser.USER)).thenReturn(false);
 
         // act and assert
         assertThatThrownBy(() -> updateClassUseCase.execute(updateRequest, classEntityId, userId))
@@ -119,7 +119,7 @@ class UpdateClassUseCaseTest {
     void shouldThrowClassNotFoundExceptionWhenClassNotFound() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
         when(classRepository.findById(classEntityId)).thenReturn(Optional.empty());
 
         // act and assert
@@ -135,7 +135,7 @@ class UpdateClassUseCaseTest {
         // arrange
         var updateHoursOnly = new UpdateClassRequest(500, Shift.FIRST_SHIFT);
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
         when(classRepository.findById(classEntityId)).thenReturn(Optional.of(existingClass));
 
         // act

@@ -4,7 +4,7 @@ import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutDeleteClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -35,7 +35,7 @@ class DeleteClassUseCaseTest {
     private ClassRepository classRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @InjectMocks
     private DeleteClassUseCase deleteClassUseCase;
@@ -48,7 +48,7 @@ class DeleteClassUseCaseTest {
         when(userRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
 
-        when(permissionService.canModifyClass(any(RoleUser.class)))
+        when(permissionPolicy.canDelete(any(RoleUser.class)))
                 .thenReturn(true);
 
         when(classRepository.existById(any(ClassEntityId.class)))
@@ -65,7 +65,7 @@ class DeleteClassUseCaseTest {
         when(userRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
 
-        when(permissionService.canModifyClass(any(RoleUser.class)))
+        when(permissionPolicy.canDelete(any(RoleUser.class)))
                 .thenReturn(false);
 
         assertThatThrownBy(() -> deleteClassUseCase.execute(new ClassEntityId(), -1))
@@ -78,7 +78,7 @@ class DeleteClassUseCaseTest {
         when(userRepository.findById(any(Long.class)))
                 .thenReturn(Optional.of(new UserEntity(-1, null, null, null, RoleUser.ADMIN)));
 
-        when(permissionService.canModifyClass(any(RoleUser.class)))
+        when(permissionPolicy.canDelete(any(RoleUser.class)))
                 .thenReturn(true);
 
         when(classRepository.existById(any(ClassEntityId.class)))

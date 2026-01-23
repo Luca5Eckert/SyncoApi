@@ -6,7 +6,7 @@ import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutUpdateClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -22,13 +22,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateClassUseCase {
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     private final ClassRepository classRepository;
     private final UserRepository userRepository;
 
-    public UpdateClassUseCase(PermissionService permissionService, ClassRepository classRepository, UserRepository userRepository) {
-        this.permissionService = permissionService;
+    public UpdateClassUseCase(PermissionPolicy permissionPolicy, ClassRepository classRepository, UserRepository userRepository) {
+        this.permissionPolicy = permissionPolicy;
         this.classRepository = classRepository;
         this.userRepository = userRepository;
     }
@@ -52,7 +52,7 @@ public class UpdateClassUseCase {
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
-        if(!permissionService.canModifyClass(userEntity.getRole()))
+        if(!permissionPolicy.canEdit(userEntity.getRole()))
             throw new UserWithoutUpdateClassPermissionException();
 
         ClassEntity classEntity = classRepository.findById(classEntityId)

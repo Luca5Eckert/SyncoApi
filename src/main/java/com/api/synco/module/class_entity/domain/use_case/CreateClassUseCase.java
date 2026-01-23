@@ -8,7 +8,7 @@ import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.port.CourseRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
@@ -24,14 +24,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CreateClassUseCase {
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     private final ClassRepository classRepository;
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public CreateClassUseCase(PermissionService permissionService, ClassRepository classRepository, CourseRepository courseRepository, UserRepository userRepository) {
-        this.permissionService = permissionService;
+    public CreateClassUseCase(PermissionPolicy permissionPolicy, ClassRepository classRepository, CourseRepository courseRepository, UserRepository userRepository) {
+        this.permissionPolicy = permissionPolicy;
         this.classRepository = classRepository;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
@@ -57,7 +57,7 @@ public class CreateClassUseCase {
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow( () -> new UserNotFoundDomainException(idUser));
 
-        if(!permissionService.canModifyClass(userEntity.getRole())) throw new UserWithoutCreateClassPermissionException();
+        if(!permissionPolicy.canCreate(userEntity.getRole())) throw new UserWithoutCreateClassPermissionException();
 
         CourseEntity course = courseRepository.findById(createClassRequest.courseId())
                 .orElseThrow( () -> new CourseNotFoundException(createClassRequest.courseId()));

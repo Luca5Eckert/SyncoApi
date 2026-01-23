@@ -1,6 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.application.dto.delete.UserDeleteRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
@@ -26,7 +26,7 @@ class UserDeleteUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @InjectMocks
     private UserDeleteUseCase userDeleteUseCase;
@@ -54,7 +54,7 @@ class UserDeleteUseCaseTest {
     public void shouldDeleteUserWhenExists(){
         when(userRepository.existsById(id)).thenReturn(true);
         when(userRepository.findById(idUserAuthentication)).thenReturn(Optional.of(userAuthenticated));
-        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
+        when(permissionPolicy.canDelete(any(RoleUser.class))).thenReturn(true);
 
         userDeleteUseCase.execute(userDeleteRequest, idUserAuthentication);
 

@@ -4,7 +4,7 @@ import com.api.synco.module.course.application.dto.update.UpdateCourseRequest;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.port.CourseRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 class UpdateCourseUseCaseTest {
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @Mock
     private CourseRepository courseRepository;
@@ -61,7 +61,7 @@ class UpdateCourseUseCaseTest {
     void shouldUpdateCourseSuccessfully() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyCourse(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(existingCourse));
 
         // act
@@ -100,7 +100,7 @@ class UpdateCourseUseCaseTest {
         // arrange
         var regularUser = new UserEntity(userId, null, null, null, RoleUser.USER);
         when(userRepository.findById(userId)).thenReturn(Optional.of(regularUser));
-        when(permissionService.canModifyCourse(RoleUser.USER)).thenReturn(false);
+        when(permissionPolicy.canEdit(RoleUser.USER)).thenReturn(false);
 
         // act and assert
         assertThatThrownBy(() -> updateCourseUseCase.execute(updateRequest, courseId, userId))
@@ -115,7 +115,7 @@ class UpdateCourseUseCaseTest {
     void shouldThrowCourseNotFoundExceptionWhenCourseNotFound() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyCourse(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
         when(courseRepository.findById(courseId)).thenReturn(Optional.empty());
 
         // act and assert

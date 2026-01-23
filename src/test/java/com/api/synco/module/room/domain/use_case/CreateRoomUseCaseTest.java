@@ -1,6 +1,6 @@
 package com.api.synco.module.room.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.room.application.dto.CreateRoomRequest;
 import com.api.synco.module.room.domain.RoomEntity;
 import com.api.synco.module.room.domain.enumerator.TypeRoom;
@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt; // Importante para primitivos
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,7 +35,7 @@ class CreateRoomUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @InjectMocks
     private CreateRoomUseCase createRoomUseCase;
@@ -54,7 +54,7 @@ class CreateRoomUseCaseTest {
         user.setRole(USER_ROLE);
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
-        when(permissionService.canModifyRoom(USER_ROLE)).thenReturn(true);
+        when(permissionPolicy.canCreate(USER_ROLE)).thenReturn(true);
         when(roomRepository.existByNumber(ROOM_NUMBER)).thenReturn(false);
 
         RoomEntity result = createRoomUseCase.execute(request, USER_ID);
@@ -79,7 +79,7 @@ class CreateRoomUseCaseTest {
         assertThrows(UserNotFoundDomainException.class,
                 () -> createRoomUseCase.execute(request, USER_ID));
 
-        verifyNoInteractions(permissionService);
+        verifyNoInteractions(permissionPolicy);
         verifyNoInteractions(roomRepository);
     }
 
@@ -91,7 +91,7 @@ class CreateRoomUseCaseTest {
         user.setRole(USER_ROLE);
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
-        when(permissionService.canModifyRoom(USER_ROLE)).thenReturn(false);
+        when(permissionPolicy.canCreate(USER_ROLE)).thenReturn(false);
 
         assertThrows(UserWithoutCreateRoomPermissionException.class,
                 () -> createRoomUseCase.execute(request, USER_ID));
@@ -108,7 +108,7 @@ class CreateRoomUseCaseTest {
         user.setRole(USER_ROLE);
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
-        when(permissionService.canModifyRoom(USER_ROLE)).thenReturn(true);
+        when(permissionPolicy.canCreate(USER_ROLE)).thenReturn(true);
         when(roomRepository.existByNumber(ROOM_NUMBER)).thenReturn(true);
 
         assertThrows(RoomNotUniqueNumberException.class,

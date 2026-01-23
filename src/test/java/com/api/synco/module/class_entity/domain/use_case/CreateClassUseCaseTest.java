@@ -2,14 +2,13 @@ package com.api.synco.module.class_entity.domain.use_case;
 
 import com.api.synco.module.class_entity.application.dto.create.CreateClassRequest;
 import com.api.synco.module.class_entity.domain.ClassEntity;
-import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.class_entity.domain.enumerator.Shift;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutCreateClassPermissionException;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.port.CourseRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -34,7 +33,7 @@ import static org.mockito.Mockito.*;
 class CreateClassUseCaseTest {
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy ;
 
     @Mock
     private ClassRepository classRepository;
@@ -68,7 +67,7 @@ class CreateClassUseCaseTest {
     void shouldCreateClassSuccessfully() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy .canCreate(RoleUser.ADMIN)).thenReturn(true);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(courseEntity));
         when(classRepository.getNextNumberOfCourse(courseEntity)).thenReturn(1);
 
@@ -109,7 +108,7 @@ class CreateClassUseCaseTest {
         // arrange
         var regularUser = new UserEntity(userId, null, null, null, RoleUser.USER);
         when(userRepository.findById(userId)).thenReturn(Optional.of(regularUser));
-        when(permissionService.canModifyClass(RoleUser.USER)).thenReturn(false);
+        when(permissionPolicy .canCreate(RoleUser.USER)).thenReturn(false);
 
         // act and assert
         assertThatThrownBy(() -> createClassUseCase.execute(createClassRequest, userId))
@@ -123,7 +122,7 @@ class CreateClassUseCaseTest {
     void shouldThrowCourseNotFoundExceptionWhenCourseNotFound() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy .canCreate(RoleUser.ADMIN)).thenReturn(true);
         when(courseRepository.findById(courseId)).thenReturn(Optional.empty());
 
         // act and assert
@@ -138,7 +137,7 @@ class CreateClassUseCaseTest {
     void shouldCreateClassWithCorrectSequentialNumber() {
         // arrange
         when(userRepository.findById(userId)).thenReturn(Optional.of(adminUser));
-        when(permissionService.canModifyClass(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy .canCreate(RoleUser.ADMIN)).thenReturn(true);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(courseEntity));
         when(classRepository.getNextNumberOfCourse(courseEntity)).thenReturn(5);
 

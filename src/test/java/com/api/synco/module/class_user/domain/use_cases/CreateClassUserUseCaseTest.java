@@ -9,7 +9,7 @@ import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -40,7 +40,7 @@ class CreateClassUserUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @InjectMocks
     private CreateClassUserUseCase createClassUserUseCase;
@@ -69,8 +69,7 @@ class CreateClassUserUseCaseTest {
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(adminUser));
         when(adminUser.getRole()).thenReturn(ROLE_ADMIN);
 
-        // 2. Mock permission check (MUST BE TRUE)
-        when(permissionService.canModifyClassUser(ROLE_ADMIN)).thenReturn(true);
+        when(permissionPolicy.canCreate(ROLE_ADMIN)).thenReturn(true);
 
         // 3. Mock finding the target user
         when(userRepository.findById(TARGET_USER_ID)).thenReturn(Optional.of(targetUser));
@@ -103,7 +102,7 @@ class CreateClassUserUseCaseTest {
         when(regularUser.getRole()).thenReturn(ROLE_STUDENT);
 
         // CRITICAL: Permission check returns FALSE
-        when(permissionService.canModifyClassUser(ROLE_STUDENT)).thenReturn(false);
+        when(permissionPolicy.canCreate(ROLE_STUDENT)).thenReturn(false);
 
         // WHEN & THEN
         assertThrows(UserWithoutCreateClassUserPermissionException.class, () ->
@@ -142,7 +141,7 @@ class CreateClassUserUseCaseTest {
 
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(adminUser));
         when(adminUser.getRole()).thenReturn(ROLE_ADMIN);
-        when(permissionService.canModifyClassUser(ROLE_ADMIN)).thenReturn(true);
+        when(permissionPolicy.canCreate(ROLE_ADMIN)).thenReturn(true);
         when(userRepository.findById(TARGET_USER_ID)).thenReturn(Optional.of(targetUser));
 
         when(classRepository.findById(any(ClassEntityId.class))).thenReturn(Optional.empty());

@@ -1,6 +1,6 @@
 package com.api.synco.module.user.domain.use_case;
 
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.application.dto.edit.UserEditRequest;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
@@ -31,7 +31,7 @@ class UserEditUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy PermissionPolicy;
 
     @InjectMocks
     private UserEditUseCase userEditUseCase;
@@ -63,7 +63,7 @@ class UserEditUseCaseTest {
         //arrange
         when(userRepository.findById(id)).thenReturn(Optional.of(userToEdit));
         when(userRepository.findById(idAuthenticateUser)).thenReturn(Optional.of(authenticateUser));
-        when(permissionService.canModifyUser(any(RoleUser.class))).thenReturn(true);
+        when(PermissionPolicy.canEdit(any(RoleUser.class))).thenReturn(true);
 
         //act
         var user = userEditUseCase.execute(userEditRequest, idAuthenticateUser);

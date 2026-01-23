@@ -4,7 +4,7 @@ import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.exception.ClassUserNotFoundException;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -31,7 +31,7 @@ class DeleteClassUserUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     @InjectMocks
     private DeleteClassUserUseCase deleteClassUserUseCase;
@@ -50,7 +50,7 @@ class DeleteClassUserUseCaseTest {
         when(admin.getRole()).thenReturn(ROLE_ADMIN);
 
         // Permission granted
-        when(permissionService.canModifyClassUser(ROLE_ADMIN)).thenReturn(true);
+        when(permissionPolicy.canDelete(ROLE_ADMIN)).thenReturn(true);
 
         // Entity exists
         when(classUserRepository.existById(classUserId)).thenReturn(true);
@@ -85,7 +85,7 @@ class DeleteClassUserUseCaseTest {
         when(user.getRole()).thenReturn(RoleUser.USER); // No permission role
 
         // Permission denied
-        when(permissionService.canModifyClassUser(RoleUser.USER)).thenReturn(false);
+        when(permissionPolicy.canDelete(RoleUser.USER)).thenReturn(false);
 
         // WHEN/THEN
         assertThrows(UserWithoutCreateClassUserPermissionException.class, () ->
@@ -102,7 +102,7 @@ class DeleteClassUserUseCaseTest {
         UserEntity admin = mock(UserEntity.class);
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(admin));
         when(admin.getRole()).thenReturn(ROLE_ADMIN);
-        when(permissionService.canModifyClassUser(ROLE_ADMIN)).thenReturn(true);
+        when(permissionPolicy.canDelete(ROLE_ADMIN)).thenReturn(true);
 
         // Entity does NOT exist
         when(classUserRepository.existById(classUserId)).thenReturn(false);

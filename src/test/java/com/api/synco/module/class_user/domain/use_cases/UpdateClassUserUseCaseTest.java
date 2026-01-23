@@ -8,7 +8,7 @@ import com.api.synco.module.class_user.domain.ClassUserId;
 import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
 import com.api.synco.module.class_user.domain.exception.user.UserWithoutCreateClassUserPermissionException;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
@@ -40,7 +40,7 @@ class UpdateClassUserUseCaseTest {
     private UserRepository userRepository;
 
     @Mock
-    private PermissionService permissionService;
+    private PermissionPolicy permissionPolicy;
 
     // Variáveis para compor os cenários
     private final long AUTH_USER_ID = 1L;
@@ -68,7 +68,7 @@ class UpdateClassUserUseCaseTest {
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(mockAdmin));
 
         // 2. Mock da Permissão
-        when(permissionService.canModifyClassUser(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
 
         // 3. Mock do ClassUser alvo (que será atualizado)
         ClassUser mockClassUser = mock(ClassUser.class);
@@ -98,7 +98,7 @@ class UpdateClassUserUseCaseTest {
         assertThatThrownBy(() -> updateClassUserUseCase.execute(request, classUserId, AUTH_USER_ID))
                 .isInstanceOf(UserNotFoundDomainException.class);
 
-        verifyNoInteractions(permissionService);
+        verifyNoInteractions(permissionPolicy);
         verifyNoInteractions(classUserRepository);
     }
 
@@ -112,7 +112,7 @@ class UpdateClassUserUseCaseTest {
         when(mockUser.getRole()).thenReturn(RoleUser.USER);
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(mockUser));
 
-        when(permissionService.canModifyClassUser(RoleUser.USER)).thenReturn(false);
+        when(permissionPolicy.canEdit(RoleUser.USER)).thenReturn(false);
 
         // Act & Assert
         assertThatThrownBy(() -> updateClassUserUseCase.execute(request, classUserId, AUTH_USER_ID))
@@ -131,7 +131,7 @@ class UpdateClassUserUseCaseTest {
         when(mockAdmin.getRole()).thenReturn(RoleUser.ADMIN);
         when(userRepository.findById(AUTH_USER_ID)).thenReturn(Optional.of(mockAdmin));
 
-        when(permissionService.canModifyClassUser(RoleUser.ADMIN)).thenReturn(true);
+        when(permissionPolicy.canEdit(RoleUser.ADMIN)).thenReturn(true);
 
         when(classUserRepository.findById(classUserId)).thenReturn(Optional.empty());
 
