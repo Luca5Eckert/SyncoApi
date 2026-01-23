@@ -4,26 +4,23 @@ import com.api.synco.module.course.application.dto.update.UpdateCourseRequest;
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.course.domain.exception.CourseNotFoundException;
 import com.api.synco.module.course.domain.port.CourseRepository;
-import com.api.synco.module.permission.domain.service.PermissionService;
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.exception.permission.UserWithoutEditUserPermissionException;
 import com.api.synco.module.user.domain.port.UserRepository;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * The class
- */
+
 @Component
 public class UpdateCourseUseCase {
 
-    private final PermissionService permissionService;
+    private final PermissionPolicy permissionPolicy;
 
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
 
-    public UpdateCourseUseCase(PermissionService permissionService, CourseRepository courseRepository, UserRepository userRepository) {
-        this.permissionService = permissionService;
+    public UpdateCourseUseCase(PermissionPolicy permissionPolicy, CourseRepository courseRepository, UserRepository userRepository) {
+        this.permissionPolicy = permissionPolicy;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
     }
@@ -53,7 +50,7 @@ public class UpdateCourseUseCase {
     public CourseEntity execute(UpdateCourseRequest updateCourseRequest, long idCourse, long idUserAuthenticated){
         var user = userRepository.findById(idUserAuthenticated).orElseThrow(() -> new UserNotFoundDomainException(idUserAuthenticated));
 
-        if (!permissionService.canModifyCourse(user.getRole())) throw new UserWithoutEditUserPermissionException();
+        if (!permissionPolicy.canEdit(user.getRole())) throw new UserWithoutEditUserPermissionException();
 
         CourseEntity course = courseRepository.findById(idCourse).orElseThrow( () -> new CourseNotFoundException(idCourse));
 
