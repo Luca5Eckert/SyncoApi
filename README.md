@@ -1,109 +1,113 @@
-# Synco Api
+# Synco API
 
-O Synco Api é uma API REST que atua como o backend de uma plataforma de gestão acadêmica, focada em fortalecer a comunicação e centralizar dados em ambientes de aprendizagem.
+API REST para gestão acadêmica, desenvolvida para centralizar a comunicação institucional e o gerenciamento de dados em ambientes educacionais.
 
-## 🎯 O Problema
-A comunicação entre coordenação e alunos é frequentemente fragmentada. Avisos se perdem em grupos de WhatsApp, e-mails não são lidos e informações cruciais (como horários de laboratório ou controle de faltas) não possuem um local oficial. Isso gera ruído e insegurança para os estudantes.
+## Visão Geral
 
-## 💡 A Solução
-Esta API cria um ponto central de informação (Single Source of Truth) onde todas as interações são registradas e disponibilizadas de forma organizada. Ela supre a necessidade de um canal de comunicação robusto e confiável.
+O Synco API é o backend de uma plataforma de gestão acadêmica que visa solucionar problemas de fragmentação na comunicação entre coordenação, professores e alunos. A API oferece uma fonte única e confiável de informações (Single Source of Truth), eliminando a dispersão de dados em canais não oficiais.
 
-## 🚀 Funcionalidades Planejadas
-* **Gestão de Faltas:** Permite ao professor registrar e ao aluno consultar suas ausências.
-* **Feedback de Ambiente:** Um canal para o representante de turma registrar a qualidade do ambiente de aula.
-* **Mural de Avisos:** Um ponto central para comunicados oficiais da coordenação.
-* **Repositório de Informações:** Local para consulta de horários, intervalos e calendários.
+### Problema
 
-## 📋 Visão Geral
+A comunicação institucional em ambientes acadêmicos frequentemente sofre com:
+- Dispersão de informações em múltiplos canais não oficiais
+- Falta de rastreabilidade de comunicados
+- Ausência de um sistema centralizado para controle de faltas e horários
+- Dificuldade na gestão de turmas e matrículas
 
-Esta API fornece endpoints para:
-- 🔐 Autenticação e registro de usuários
-- 👥 Gerenciamento completo de usuários (CRUD)
-- 📚 Gerenciamento de cursos (CRUD)
-- 🔒 Controle de acesso baseado em roles (USER, ADMIN)
-- 🔑 Autenticação via JWT (JSON Web Token)
+### Solução
 
-## 🛠️ Tecnologias e Dependências
+Esta API fornece infraestrutura para:
+- Registro e autenticação segura de usuários com diferentes perfis
+- Gerenciamento completo de cursos, turmas e matrículas
+- Controle de salas e verificação de ambientes
+- Registro e consulta de frequência (em desenvolvimento)
 
-### Stack Principal
-- **Java**: 21
-- **Spring Boot**: 3.3.0
-- **Spring Security**: Autenticação e autorização
-- **Spring Data JPA**: Persistência de dados
-- **H2 Database**: Banco de dados em memória (desenvolvimento)
-- **MySQL**: Suporte para banco de dados em produção
-- **Lombok**: Redução de código boilerplate
-- **Bean Validation**: Validação de dados
+## Estado Atual do Projeto
 
-### Bibliotecas Adicionais
-- **JWT (jjwt)**: 0.11.5 - Geração e validação de tokens
-- **Commons Validator**: 1.8.0 - Validação de email
-- **Passay**: 1.6.6 - Validação de senha
-- **SpringDoc OpenAPI**: 2.5.0 - Documentação Swagger/OpenAPI
+### Módulos Implementados
 
-### Build
-- **Maven**: Gerenciamento de dependências e build
+| Módulo | Status | Descrição |
+|--------|--------|-----------|
+| **Autenticação** | Completo | Registro, login e redefinição de senha com JWT |
+| **Usuários** | Completo | CRUD completo com controle de permissões |
+| **Cursos** | Completo | Gerenciamento de cursos acadêmicos |
+| **Turmas** | Completo | Gestão de turmas por curso com turnos |
+| **Matrículas** | Completo | Associação de usuários às turmas (alunos, professores, representantes) |
+| **Salas** | Em desenvolvimento | Cadastro e gestão de salas de aula |
+| **Períodos** | Em desenvolvimento | Definição de horários (manhã, tarde, noite) |
+| **Verificação de Salas** | Em desenvolvimento | Feedback sobre condições das salas |
+| **Frequência** | Em desenvolvimento | Registro de presença dos alunos |
 
-## 🏗️ Arquitetura do Projeto
+### Infraestrutura
 
-O projeto segue uma arquitetura em camadas com separação de responsabilidades (Clean Architecture):
+- **Docker**: Containerização com multi-stage build otimizado
+- **Docker Compose**: Orquestração com MySQL para produção
+- **Health Checks**: Monitoramento de disponibilidade
+- **OpenAPI/Swagger**: Documentação interativa da API
+
+## Stack Tecnológica
+
+| Categoria | Tecnologia | Versão |
+|-----------|------------|--------|
+| **Linguagem** | Java | 21 |
+| **Framework** | Spring Boot | 3.3.0 |
+| **Segurança** | Spring Security + JWT | jjwt 0.11.5 |
+| **Persistência** | Spring Data JPA | - |
+| **Banco de Dados (Dev)** | H2 Database | Em memória |
+| **Banco de Dados (Prod)** | MySQL | 8.0 |
+| **Validação** | Bean Validation + Passay | 1.6.6 |
+| **Documentação** | SpringDoc OpenAPI | 2.5.0 |
+| **Build** | Maven | 3.6+ |
+| **Containerização** | Docker | Multi-stage |
+
+## Arquitetura
+
+O projeto adota Clean Architecture com separação clara de responsabilidades:
 
 ```
 src/main/java/com/api/synco/
 ├── core/                            # Interfaces centrais
-├── infrastructure/                  # Infraestrutura transversal
-│   ├── api/                         # Respostas padronizadas da API
-│   ├── config/                      # Configurações (OpenAPI, etc)
+├── infrastructure/                  # Componentes transversais
+│   ├── api/                         # Respostas padronizadas
+│   ├── config/                      # Configurações (OpenAPI, CORS)
 │   ├── exception/                   # Tratamento global de exceções
 │   ├── persistence/                 # Implementações de repositórios
-│   ├── security/                    # Configuração de segurança e JWT
+│   ├── security/                    # JWT e configuração de segurança
 │   └── service/                     # Serviços de infraestrutura
 └── module/                          # Módulos de domínio
-    ├── authentication/              # Módulo de autenticação
-    │   ├── application/             # Controllers e DTOs
-    │   │   ├── controller/          # REST Controllers
-    │   │   └── dto/                 # Request/Response objects
-    │   └── domain/                  # Lógica de negócio
-    │       ├── exception/           # Exceções do domínio
-    │       ├── mapper/              # Mappers de entidades
-    │       ├── service/             # Services
-    │       └── use_case/            # Casos de uso
-    ├── course/                      # Módulo de cursos
-    │   ├── application/             # Controllers e DTOs
-    │   └── domain/                  # Lógica de negócio
-    ├── permission/                  # Módulo de permissões
-    │   └── domain/                  # Políticas de permissão
-    └── user/                        # Módulo de usuários
-        ├── application/             # Controllers e DTOs
-        └── domain/                  # Lógica de negócio
-            ├── enumerator/          # Enums (RoleUser)
-            ├── exception/           # Exceções do domínio
-            ├── filter/              # Filtros de busca
-            ├── mapper/              # Mappers de entidades
-            ├── port/                # Interfaces (Repository)
-            ├── service/             # Services
-            ├── use_case/            # Casos de uso
-            ├── validator/           # Validadores customizados
-            └── vo/                  # Value Objects (Email, Name)
+    ├── authentication/              # Autenticação (registro, login, senha)
+    ├── user/                        # Gestão de usuários
+    ├── course/                      # Gestão de cursos
+    ├── class_entity/                # Gestão de turmas
+    ├── class_user/                  # Matrículas (usuário-turma)
+    ├── period/                      # Períodos (manhã, tarde, noite)
+    ├── room/                        # Gestão de salas
+    ├── room_verification/           # Verificação de ambientes
+    ├── attendance_user/             # Controle de frequência
+    └── permission/                  # Políticas de permissão
 ```
 
-### Padrões Utilizados
-- **Clean Architecture**: Separação entre camadas de aplicação, domínio e infraestrutura
-- **Repository Pattern**: Abstração da camada de persistência
-- **DTO Pattern**: Objetos de transferência de dados
-- **Use Case Pattern**: Encapsulamento da lógica de negócio
-- **Value Objects**: Objetos de valor imutáveis (Email, Name)
+Cada módulo segue a estrutura:
+- **application/**: Controllers e DTOs (Request/Response)
+- **domain/**: Entidades, serviços, use cases e regras de negócio
+
+### Padrões Aplicados
+
+- **Clean Architecture**: Independência entre camadas
+- **Repository Pattern**: Abstração de persistência
+- **Use Case Pattern**: Encapsulamento de lógica de negócio
+- **Value Objects**: Objetos imutáveis para validação (Email, Name)
 - **Policy Pattern**: Políticas de permissão desacopladas
 
-## 🚀 Como Rodar o Projeto
+## Execução
 
 ### Pré-requisitos
-- Java 21 ou superior
+
+- Java 21+
 - Maven 3.6+
+- Docker e Docker Compose (para execução containerizada)
 
 ### Variáveis de Ambiente
-
-Configure as seguintes variáveis antes de executar:
 
 ```bash
 export DB_USERNAME=sa
@@ -111,250 +115,184 @@ export DB_PASSWORD=
 export JWT_SECRET=SuaChaveSecretaDeNoMinimo256BitsParaJWT
 ```
 
-### Instalação e Execução
+### Execução Local
 
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/Luca5Eckert/SyncoApi.git
-   cd SyncoApi
-   ```
+```bash
+# Clonar repositório
+git clone https://github.com/Luca5Eckert/SyncoApi.git
+cd SyncoApi
 
-2. **Build do projeto**:
-   ```bash
-   mvn clean package
-   ```
+# Compilar
+mvn clean package
 
-3. **Executar a aplicação**:
-   ```bash
-   mvn spring-boot:run
-   ```
-   
-   Ou execute o JAR gerado:
-   ```bash
-   java -jar target/syncoapp-0.0.1-SNAPSHOT.jar
-   ```
-
-4. **Acessar a aplicação**:
-   - API: http://localhost:8080
-   - Swagger UI: http://localhost:8080/swagger-ui/index.html
-   - H2 Console: http://localhost:8080/h2-console
-
-### Configuração do Banco de Dados
-
-Por padrão, a aplicação usa H2 (em memória) para desenvolvimento:
-```properties
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.username=sa
-spring.datasource.password=
+# Executar
+mvn spring-boot:run
 ```
 
-Para usar MySQL em produção, atualize `application.properties`:
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/SyncoAppDb
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
+### Execução com Docker
+
+```bash
+# Construir e executar
+docker-compose up -d
+
+# Verificar logs
+docker-compose logs -f syncoapi
 ```
 
-## 📚 Documentação da API
+### Acessos
 
-### Endpoints Principais
+| Recurso | URL |
+|---------|-----|
+| API | http://localhost:8080 |
+| Swagger UI | http://localhost:8080/swagger-ui/index.html |
+| OpenAPI JSON | http://localhost:8080/v3/api-docs |
+| H2 Console (Dev) | http://localhost:8080/h2-console |
+
+## Endpoints da API
+
+### Autenticação
 
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|--------------|
-| POST | `/api/auth/register` | Registrar novo usuário | Não |
+| POST | `/api/auth/register` | Registrar usuário | Não |
 | POST | `/api/auth/login` | Autenticar usuário | Não |
 | PATCH | `/api/auth/password` | Alterar senha | Sim |
+
+### Usuários
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
 | GET | `/api/users` | Listar usuários | Sim |
-| GET | `/api/users/{id}` | Buscar usuário por ID | Sim |
-| POST | `/api/users` | Criar usuário | Sim (ADMIN) |
+| GET | `/api/users/{id}` | Buscar por ID | Sim |
+| POST | `/api/users` | Criar usuário | ADMIN |
 | PATCH | `/api/users` | Editar usuário | Sim |
-| DELETE | `/api/users` | Deletar usuário | Sim (ADMIN) |
+| DELETE | `/api/users` | Deletar usuário | ADMIN |
+
+### Cursos
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
 | GET | `/api/courses` | Listar cursos | Sim |
-| GET | `/api/courses/{id}` | Buscar curso por ID | Sim |
-| POST | `/api/courses` | Criar curso | Sim (ADMIN) |
-| PATCH | `/api/courses/{id}` | Editar curso | Sim (ADMIN) |
-| DELETE | `/api/courses/{id}` | Deletar curso | Sim (ADMIN) |
+| GET | `/api/courses/{id}` | Buscar por ID | Sim |
+| POST | `/api/courses` | Criar curso | ADMIN |
+| PATCH | `/api/courses/{id}` | Editar curso | ADMIN |
+| DELETE | `/api/courses/{id}` | Deletar curso | ADMIN |
 
-### Swagger/OpenAPI
+### Turmas
 
-A documentação interativa está disponível através do Swagger UI:
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| GET | `/api/classes/{idCourse}/{numberClass}` | Buscar turma | Sim |
+| GET | `/api/classes/{idCourse}/{numberClass}/{shift}/{pageNumber}/{pageSize}` | Listar turmas com filtros | Sim |
+| POST | `/api/classes` | Criar turma | Sim |
+| PUT | `/api/classes/{idCourse}/{numberClass}` | Atualizar turma | Sim |
+| DELETE | `/api/classes/{idCourse}/{numberClass}` | Deletar turma | Sim |
 
-- **Swagger UI (interface interativa)**: http://localhost:8080/swagger-ui/index.html
-- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
-- **OpenAPI YAML**: `docs/openapi.yaml` (arquivo local)
+### Matrículas (Class-Users)
 
-### Códigos de Status HTTP
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| GET | `/api/class-users` | Listar matrículas | Sim |
+| GET | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Buscar matrícula | Sim |
+| POST | `/api/class-users` | Criar matrícula | ADMIN |
+| PATCH | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Atualizar matrícula | ADMIN |
+| DELETE | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Remover matrícula | ADMIN |
 
-| Código | Descrição |
-|--------|-----------|
-| 200 | OK - Requisição bem-sucedida |
-| 201 | Created - Recurso criado com sucesso |
-| 202 | Accepted - Requisição aceita |
-| 400 | Bad Request - Dados inválidos |
-| 401 | Unauthorized - Não autenticado |
-| 403 | Forbidden - Sem permissão |
-| 404 | Not Found - Recurso não encontrado |
-| 409 | Conflict - Violação de integridade de dados |
+## Segurança
 
-## 🔒 Autenticação e Segurança
+### Autenticação JWT
 
-### JWT (JSON Web Token)
-
-A API usa JWT para autenticação. Após o login, você recebe um token que deve ser incluído no header `Authorization` de todas as requisições protegidas:
+Todas as requisições a endpoints protegidos devem incluir o token JWT no header:
 
 ```
-Authorization: Bearer {seu_token_jwt}
+Authorization: Bearer {token}
 ```
 
-O token expira após 24 horas (configurável via `jwt.token.validity`).
+Tokens expiram após 24 horas (configurável via `JWT_TOKEN_VALIDITY`).
 
-### Roles e Permissões
+### Perfis de Usuário
 
-- **USER**: Pode visualizar informações e editar/deletar apenas seus próprios dados
-- **ADMIN**: Pode gerenciar todos os usuários e cursos
+| Perfil | Permissões |
+|--------|------------|
+| **USER** | Visualização e edição dos próprios dados |
+| **ADMIN** | Gerenciamento completo de usuários, cursos e turmas |
+
+### Tipos de Usuário em Turmas
+
+| Tipo | Descrição |
+|------|-----------|
+| ADMINISTRATOR | Administrador institucional |
+| SECRETARY | Secretaria acadêmica |
+| TEACHER | Professor da turma |
+| REPRESENTATIVE | Representante de turma |
+| STUDENT | Aluno matriculado |
 
 ### Validações
 
-- **Email**: Deve ser válido e único no sistema (max 150 caracteres)
-- **Senha**: Mínimo 8 caracteres, incluindo: 1 maiúscula, 1 minúscula, 1 número, 1 caractere especial
-- **Nome**: Obrigatório (max 30 caracteres)
+- **Email**: Formato válido, máximo 150 caracteres, único no sistema
+- **Senha**: Mínimo 8 caracteres (1 maiúscula, 1 minúscula, 1 número, 1 especial)
+- **Nome**: Obrigatório, máximo 30 caracteres
 
-## 📋 Plano de Ação para Melhorias Futuras
+## Roadmap
 
-### Alta Prioridade (Segurança)
+### Em Desenvolvimento
 
-1. **Rate Limiting**
-   - Implementar limitação de requisições para prevenir ataques de força bruta
-   - Sugestão: Usar `bucket4j` ou `resilience4j`
-   ```java
-   // Exemplo de configuração
-   @RateLimiter(name = "login", fallbackMethod = "rateLimitFallback")
-   public ResponseEntity<...> login(...) { ... }
-   ```
+- Implementação completa do módulo de Salas
+- Implementação do módulo de Períodos
+- Sistema de Verificação de Salas
+- Módulo de Controle de Frequência
 
-2. **CORS Configuration**
-   - Adicionar configuração de CORS para ambientes de produção
-   ```java
-   @Bean
-   public CorsConfigurationSource corsConfigurationSource() {
-       CorsConfiguration configuration = new CorsConfiguration();
-       configuration.setAllowedOrigins(Arrays.asList("https://seu-frontend.com"));
-       // ...
-   }
-   ```
+### Próximas Funcionalidades
 
-3. **Perfis de Ambiente**
-   - Desabilitar H2 Console em produção
-   - Criar `application-prod.properties` com configurações seguras
+- **Mural de Avisos**: Comunicados oficiais da coordenação
+- **Rate Limiting**: Proteção contra ataques de força bruta
+- **Caching**: Redis para otimização de consultas frequentes
+- **Auditoria**: Logging de ações sensíveis
+- **Métricas**: Integração com Prometheus/Micrometer
 
-4. **Auditoria de Segurança**
-   - Implementar logging de ações sensíveis (login, alteração de senha, deleção)
-
-### Média Prioridade (Performance)
-
-5. **Caching**
-   - Implementar cache para consultas frequentes
-   - Sugestão: Spring Cache com Redis
-   ```java
-   @Cacheable("users")
-   public UserGetResponse get(long id) { ... }
-   ```
-
-6. **Paginação Melhorada**
-   - Retornar metadados de paginação (total de páginas, total de itens)
-   ```java
-   public record PageResponse<T>(
-       List<T> content,
-       int page,
-       int size,
-       long totalElements,
-       int totalPages
-   ) {}
-   ```
-
-### Baixa Prioridade (Qualidade)
-
-7. **Internacionalização**
-   - Externalizar mensagens de erro para suporte a múltiplos idiomas
-
-8. **Health Checks**
-   - Implementar endpoints de health check para monitoramento
-   - Usar Spring Actuator
-
-9. **Métricas**
-   - Adicionar métricas de performance (Micrometer + Prometheus)
-
-10. **Testes de Integração**
-    - Expandir cobertura de testes para controllers
-
-## 🧪 Testes
-
-Para executar os testes:
+## Testes
 
 ```bash
+# Executar testes
 mvn test
-```
 
-Para gerar relatório de cobertura:
-```bash
+# Gerar relatório de cobertura
 mvn jacoco:report
 ```
 
-## 📖 Como Atualizar a Documentação
+## Documentação
 
-### Documentação Manual (OpenAPI YAML)
+### Atualização da Documentação OpenAPI
 
-Edite o arquivo `docs/openapi.yaml` manualmente.
+As anotações nos controllers geram automaticamente a documentação via SpringDoc:
 
-### Documentação Gerada (Swagger)
+- `@Tag`: Agrupamento de endpoints
+- `@Operation`: Descrição de operações
+- `@ApiResponses`: Documentação de respostas
+- `@Parameter`: Documentação de parâmetros
 
-As anotações OpenAPI nos controllers geram automaticamente a documentação. Para atualizar:
+Documentação local disponível em `docs/openapi.yaml`.
 
-1. Adicione/edite anotações nos controllers:
-   - `@Tag`: Agrupar endpoints
-   - `@Operation`: Descrever operação
-   - `@ApiResponses`: Documentar respostas
-   - `@Parameter`: Documentar parâmetros
+## Contribuição
 
-2. Execute a aplicação
-
-3. Acesse http://localhost:8080/v3/api-docs para ver o JSON gerado
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Para contribuir:
-
-1. Crie uma branch com nome descritivo:
+1. Crie uma branch descritiva:
    ```bash
-   git checkout -b feature/minha-feature
-   # ou
-   git checkout -b docs/atualizar-documentacao
+   git checkout -b feature/nova-funcionalidade
    ```
 
-2. Faça suas alterações e commit:
+2. Faça commit das alterações:
    ```bash
    git commit -m "feat: adiciona nova funcionalidade"
    ```
 
-3. Abra um Pull Request referenciando a issue:
-   ```
-   Fixes #25
-   ```
+3. Abra um Pull Request referenciando a issue correspondente.
 
-## 📝 Licença
+## Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+Este projeto está sob a licença MIT.
 
-## 📞 Contato
+## Contato
 
 - **GitHub**: [@Luca5Eckert](https://github.com/Luca5Eckert)
 - **Repositório**: [SyncoApi](https://github.com/Luca5Eckert/SyncoApi)
-
-## 🔗 Links Úteis
-
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [Spring Security](https://spring.io/projects/spring-security)
-- [JWT.io](https://jwt.io/)
-- [SpringDoc OpenAPI](https://springdoc.org/)
-- [OpenAPI Specification](https://swagger.io/specification/)
 
