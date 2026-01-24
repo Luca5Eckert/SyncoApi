@@ -183,7 +183,7 @@ docker-compose logs -f syncoapi
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|--------------|
 | GET | `/api/classes/{idCourse}/{numberClass}` | Buscar turma | Sim |
-| GET | `/api/classes/{...}` | Listar turmas (filtros) | Sim |
+| GET | `/api/classes/{idCourse}/{numberClass}/{shift}/{pageNumber}/{pageSize}` | Listar turmas com filtros | Sim |
 | POST | `/api/classes` | Criar turma | Sim |
 | PUT | `/api/classes/{idCourse}/{numberClass}` | Atualizar turma | Sim |
 | DELETE | `/api/classes/{idCourse}/{numberClass}` | Deletar turma | Sim |
