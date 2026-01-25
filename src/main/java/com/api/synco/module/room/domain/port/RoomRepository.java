@@ -7,4 +7,6 @@ public interface RoomRepository {
     boolean existByNumber(int number);
 
     void save(RoomEntity room);
+
+    void deleteById(long roomId);
 }

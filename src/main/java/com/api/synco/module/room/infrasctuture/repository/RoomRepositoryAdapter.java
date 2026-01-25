@@ -23,4 +23,9 @@ public class RoomRepositoryAdapter implements RoomRepository {
         roomRepositoryJpa.save(room);
     }
 
+    @Override
+    public void deleteById(long roomId) {
+        roomRepositoryJpa.deleteById(roomId);
+    }
+
 }
