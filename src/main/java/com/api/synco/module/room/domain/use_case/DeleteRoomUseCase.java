@@ -8,6 +8,7 @@ import com.api.synco.module.room.domain.port.RoomRepository;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,11 @@ public class DeleteRoomUseCase {
 
     private final PermissionPolicy permitionPolicy;
 
-    public DeleteRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, PermissionPolicy permitionPolicy) {
+    public DeleteRoomUseCase(
+            RoomRepository roomRepository,
+            UserRepository userRepository,
+            @Qualifier("roomPermissionPolicy") PermissionPolicy permitionPolicy
+    ) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
         this.permitionPolicy = permitionPolicy;

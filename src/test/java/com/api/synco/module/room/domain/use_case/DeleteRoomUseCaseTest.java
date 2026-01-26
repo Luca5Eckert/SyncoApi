@@ -44,6 +44,7 @@ class DeleteRoomUseCaseTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(userMock));
         when(roomPermissionPolicy.canDelete(any())).thenReturn(true);
+        when(roomRepository.existsById(any(Long.class))).thenReturn(true);
 
         // Act
         deleteRoomUseCase.execute(roomId, userId);
