@@ -94,4 +94,13 @@ public class RoomEntity {
         this.typeRoom = typeRoom;
     }
 
+    public void update(int number, TypeRoom typeRoom) {
+        if(number > 0) {
+            this.number = number;
+        }
+        if(typeRoom != null) {
+            this.typeRoom = typeRoom;
+        }
+    }
+
 }
