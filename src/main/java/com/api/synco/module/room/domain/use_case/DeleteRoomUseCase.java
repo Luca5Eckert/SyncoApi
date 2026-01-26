@@ -1,5 +1,6 @@
 package com.api.synco.module.room.domain.use_case;
 
+import com.api.synco.module.permission.domain.policies.PermissionPolicy;
 import com.api.synco.module.room.domain.exception.user.UserWithoutDeleteRoomPermissionException;
 import com.api.synco.module.room.domain.permission.RoomPermissionPolicy;
 import com.api.synco.module.room.domain.port.RoomRepository;
@@ -15,20 +16,21 @@ public class DeleteRoomUseCase {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    private final RoomPermissionPolicy roomPermissionPolicy;
+    private final PermissionPolicy permitionPolicy;
 
-    public DeleteRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, RoomPermissionPolicy roomPermissionPolicy) {
+    public DeleteRoomUseCase(RoomRepository roomRepository, UserRepository userRepository, PermissionPolicy permitionPolicy) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
-        this.roomPermissionPolicy = roomPermissionPolicy;
+        this.permitionPolicy = permitionPolicy;
     }
+
 
     @Transactional
     public void execute(long roomId, long userAuthenticatedId){
         UserEntity userEntity = userRepository.findById(userAuthenticatedId)
                 .orElseThrow( () -> new UserNotFoundDomainException(userAuthenticatedId));
 
-        if(!roomPermissionPolicy.canDelete(userEntity.getRole())){
+        if(!permitionPolicy.canDelete(userEntity.getRole())){
             throw new UserWithoutDeleteRoomPermissionException();
         }
 
