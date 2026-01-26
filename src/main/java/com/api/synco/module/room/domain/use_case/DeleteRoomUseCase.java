@@ -1,6 +1,7 @@
 package com.api.synco.module.room.domain.use_case;
 
 import com.api.synco.module.permission.domain.policies.PermissionPolicy;
+import com.api.synco.module.room.domain.exception.RoomNotExistException;
 import com.api.synco.module.room.domain.exception.user.UserWithoutDeleteRoomPermissionException;
 import com.api.synco.module.room.domain.permission.RoomPermissionPolicy;
 import com.api.synco.module.room.domain.port.RoomRepository;
@@ -32,6 +33,10 @@ public class DeleteRoomUseCase {
 
         if(!permitionPolicy.canDelete(userEntity.getRole())){
             throw new UserWithoutDeleteRoomPermissionException();
+        }
+
+        if(!roomRepository.existsById(roomId)){
+            throw new RoomNotExistException(roomId);
         }
 
         roomRepository.deleteById(roomId);

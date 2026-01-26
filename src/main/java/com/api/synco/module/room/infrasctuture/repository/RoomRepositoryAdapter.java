@@ -4,6 +4,8 @@ import com.api.synco.module.room.domain.RoomEntity;
 import com.api.synco.module.room.domain.port.RoomRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class RoomRepositoryAdapter implements RoomRepository {
 
@@ -26,6 +28,16 @@ public class RoomRepositoryAdapter implements RoomRepository {
     @Override
     public void deleteById(long roomId) {
         roomRepositoryJpa.deleteById(roomId);
+    }
+
+    @Override
+    public Optional<RoomEntity> findById(long roomId) {
+        return roomRepositoryJpa.findById(roomId);
+    }
+
+    @Override
+    public boolean existsById(long roomId) {
+        return roomRepositoryJpa.existsById(roomId);
     }
 
 }
