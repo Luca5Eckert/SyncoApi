@@ -9,6 +9,7 @@ import com.api.synco.module.room.domain.command.UpdateRoomCommand;
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.exception.UserNotFoundDomainException;
 import com.api.synco.module.user.domain.port.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,9 @@ public class UpdateRoomUseCase {
     private final PermissionPolicy permissionPolicy;
 
     public UpdateRoomUseCase(
-            RoomRepository roomRepository, UserRepository userRepository,
-            PermissionPolicy permissionPolicy
+            RoomRepository roomRepository,
+            UserRepository userRepository,
+            @Qualifier("roomPermissionPolicy") PermissionPolicy permissionPolicy
     ) {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;

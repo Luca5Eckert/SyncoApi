@@ -43,7 +43,7 @@ class CreateRoomUseCaseTest {
     // Constantes para reutilização e legibilidade
     private static final long USER_ID = 1L;
     private static final int ROOM_NUMBER = 101;
-    private static final TypeRoom ROOM_TYPE = TypeRoom.LAB_iNFORMATICA;
+    private static final TypeRoom ROOM_TYPE = TypeRoom.LAB_INFORMATICA;
     private static final RoleUser USER_ROLE = RoleUser.ADMIN;
 
     @Test

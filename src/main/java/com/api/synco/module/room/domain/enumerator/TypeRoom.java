@@ -14,5 +14,5 @@ public enum TypeRoom {
     /**
      * Computer laboratory room.
      */
-    LAB_iNFORMATICA
+    LAB_INFORMATICA
 }
