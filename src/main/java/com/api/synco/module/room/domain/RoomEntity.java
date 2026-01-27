@@ -103,4 +103,7 @@ public class RoomEntity {
         }
     }
 
+    public long getId() {
+        return id;
+    }
 }

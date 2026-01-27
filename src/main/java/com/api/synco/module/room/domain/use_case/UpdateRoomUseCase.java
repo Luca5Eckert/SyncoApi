@@ -32,7 +32,7 @@ public class UpdateRoomUseCase {
     }
 
     @Transactional
-    public void execute(UpdateRoomCommand updateRoomCommand){
+    public RoomEntity execute(UpdateRoomCommand updateRoomCommand){
         UserEntity userEntity = userRepository.findById(updateRoomCommand.authenticatedUserId())
                 .orElseThrow( () -> new UserNotFoundDomainException(updateRoomCommand.authenticatedUserId()));
 
@@ -49,6 +49,8 @@ public class UpdateRoomUseCase {
         );
 
         roomRepository.save(room);
+
+        return room;
     }
 
 }
