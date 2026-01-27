@@ -33,13 +33,13 @@ public class PeriodEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserEntity teacher;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private RoomEntity room;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ClassEntity classEntity;
 
     private LocalDate date;
@@ -47,24 +47,18 @@ public class PeriodEntity {
     @Enumerated(EnumType.STRING)
     private TypePeriod typePeriod;
 
-    /**
-     * Default constructor required by JPA.
-     */
-    public PeriodEntity() {
+
+    protected PeriodEntity() {
+        // JPA only
     }
 
-    /**
-     * Constructs a new period entity with the specified attributes.
-     *
-     * @param id the period identifier
-     * @param teacher the assigned teacher
-     * @param room the assigned room
-     * @param classEntity the associated class
-     * @param date the period date
-     * @param typePeriod the type of period
-     */
-    public PeriodEntity(Long id, UserEntity teacher, RoomEntity room, ClassEntity classEntity, LocalDate date, TypePeriod typePeriod) {
-        this.id = id;
+    public PeriodEntity(
+            UserEntity teacher,
+            RoomEntity room,
+            ClassEntity classEntity,
+            LocalDate date,
+            TypePeriod typePeriod
+    ) {
         this.teacher = teacher;
         this.room = room;
         this.classEntity = classEntity;
