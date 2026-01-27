@@ -1,49 +1,54 @@
 package com.api.synco.module.room.domain.use_case;
 
 import com.api.synco.module.room.domain.RoomEntity;
+import com.api.synco.module.room.domain.enumerator.TypeRoom;
 import com.api.synco.module.room.domain.filter.RoomFilter;
 import com.api.synco.module.room.domain.filter.RoomPage;
 import com.api.synco.module.room.domain.port.RoomRepository;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.ArgumentCaptor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.List;
 
-@ExtendWith(MockitoExtension.class)
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
 class GetAllRoomUseCaseTest {
 
-    @Mock
-    private RoomRepository roomRepository;
-
-    @InjectMocks
-    private GetAllRoomUseCase getAllRoomUseCase;
-
     @Test
-    @DisplayName("Should return page of rooms when executed with valid filter and page")
-    void shouldReturnPageOfRooms() {
-        // Arrange
-        RoomFilter filterMock = mock(RoomFilter.class);
-        RoomPage pageMock = mock(RoomPage.class);
+    void execute_shouldBuildFilterAndPage_andDelegateToRepository() {
+        RoomRepository roomRepository = mock(RoomRepository.class);
+        GetAllRoomUseCase useCase = new GetAllRoomUseCase(roomRepository);
 
-        @SuppressWarnings("unchecked")
-        Page<RoomEntity> expectedPage = mock(Page.class);
+        TypeRoom typeRoom = TypeRoom.LAB_INFORMATICA;
+        int number = 101;
+        int pageNumber = 0;
+        int pageSize = 10;
 
-        when(roomRepository.findAll(filterMock, pageMock)).thenReturn(expectedPage);
+        Page<RoomEntity> expected = new PageImpl<>(List.of(mock(RoomEntity.class)));
+        when(roomRepository.findAll(any(RoomFilter.class), any(RoomPage.class))).thenReturn(expected);
 
-        // Act
-        Page<RoomEntity> result = getAllRoomUseCase.execute(filterMock, pageMock);
+        Page<RoomEntity> result = useCase.execute(typeRoom, number, pageNumber, pageSize);
 
-        // Assert
-        assertEquals(expectedPage, result);
-        verify(roomRepository).findAll(filterMock, pageMock);
+        assertThat(result).isSameAs(expected);
+
+        ArgumentCaptor<RoomFilter> filterCaptor = ArgumentCaptor.forClass(RoomFilter.class);
+        ArgumentCaptor<RoomPage> pageCaptor = ArgumentCaptor.forClass(RoomPage.class);
+
+        verify(roomRepository).findAll(filterCaptor.capture(), pageCaptor.capture());
+
+        RoomFilter usedFilter = filterCaptor.getValue();
+        RoomPage usedPage = pageCaptor.getValue();
+
+        assertThat(usedFilter.typeRoom()).isEqualTo(typeRoom);
+        assertThat(usedFilter.number()).isEqualTo(number);
+
+        assertThat(usedPage.pageNumber()).isEqualTo(pageNumber);
+        assertThat(usedPage.pageSize()).isEqualTo(pageSize);
+
+        verifyNoMoreInteractions(roomRepository);
     }
 
 }
