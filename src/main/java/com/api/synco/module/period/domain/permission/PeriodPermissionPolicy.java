@@ -5,7 +5,7 @@ import com.api.synco.module.user.domain.enumerator.RoleUser;
 
 public interface PeriodPermissionPolicy {
 
-    boolean canCreate(TypeUserClass typeUserClass, TypeUserClass classUserId, RoleUser roleUser);
+    boolean canCreate(TypeUserClass typeUserClass, RoleUser roleUser);
     boolean canDelete(TypeUserClass typeUserClass, RoleUser roleUser);
 
 }

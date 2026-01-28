@@ -6,10 +6,12 @@ import com.api.synco.module.class_entity.domain.exception.ClassNotFoundException
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;
-import com.api.synco.module.class_user.domain.exception.ClassUserNotFoundException;
+import com.api.synco.module.class_user.domain.enumerator.TypeUserClass;
 import com.api.synco.module.class_user.domain.port.ClassUserRepository;
 import com.api.synco.module.period.domain.PeriodEntity;
 import com.api.synco.module.period.domain.command.CreatePeriodCommand;
+import com.api.synco.module.period.domain.exception.TeacherNotLinkedToClassException;
+import com.api.synco.module.period.domain.exception.UserIsNotTeacherInClassException;
 import com.api.synco.module.period.domain.exception.UserWithoutCreatePeriodPermissionException;
 import com.api.synco.module.period.domain.permission.PeriodPermissionPolicy;
 import com.api.synco.module.period.domain.port.PeriodRepository;
@@ -53,28 +55,37 @@ public class CreatePeriodUseCase {
         UserEntity authenticatedUser = userRepository.findById(command.authenticatedUserId())
                 .orElseThrow(() -> new UserNotFoundDomainException(command.authenticatedUserId()));
 
-        UserEntity teacher = userRepository.findById(command.teacherId())
-                .orElseThrow(() -> new UserNotFoundDomainException(command.teacherId()));
-
         ClassUser authenticatedClassUser = classUserRepository
                 .findById(new ClassUserId(authenticatedUser.getId(), command.classId()))
                 .orElseThrow(UserWithoutCreatePeriodPermissionException::new);
 
-        ClassUser teacherClassUser = classUserRepository.findById(new ClassUserId(teacher.getId(), command.classId()))
-                .orElseThrow( () -> new ClassUserNotFoundException("Teacher is not linked to this class") );
-
         if (!periodPermissionPolicy.canCreate(
                 authenticatedClassUser.getTypeUserClass(),
-                teacherClassUser.getTypeUserClass(),
                 authenticatedUser.getRole()
         )) {
             throw new UserWithoutCreatePeriodPermissionException();
         }
 
+        UserEntity teacher = userRepository.findById(command.teacherId())
+                .orElseThrow(() -> new UserNotFoundDomainException(command.teacherId()));
+
+        ClassUser teacherClassUser = classUserRepository
+                .findById(new ClassUserId(teacher.getId(), command.classId()))
+                .orElseThrow(() -> new TeacherNotLinkedToClassException(teacher.getId(), command.classId()));
+
+        if (teacherClassUser.getTypeUserClass() != TypeUserClass.TEACHER) {
+            throw new UserIsNotTeacherInClassException(
+                    teacher.getId(),
+                    command.classId(),
+                    teacherClassUser.getTypeUserClass()
+            );
+        }
+
         RoomEntity room = roomRepository.findById(command.roomId())
                 .orElseThrow(() -> new RoomNotExistException(command.roomId()));
 
-        ClassEntity classEntity = classRepository.findById(command.classId())
+        ClassEntityId classId = command.classId();
+        ClassEntity classEntity = classRepository.findById(classId)
                 .orElseThrow(ClassNotFoundException::new);
 
         PeriodEntity period = new PeriodEntity(
