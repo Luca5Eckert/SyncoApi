@@ -25,29 +25,48 @@ API REST para gestão acadêmica — Centraliza a comunicação institucional e 
 11. [Licença](#licença)
 
 ---
-
 ## Visão Geral
 
-**Synco API** é o backend de uma plataforma de gestão acadêmica projetada para eliminar a fragmentação na comunicação entre coordenação, professores e alunos. Oferece uma fonte única de informações (*Single Source of Truth*).
+O Synco API é o backend de uma plataforma de gestão acadêmica que visa solucionar problemas de fragmentação na comunicação entre coordenação, professores e alunos. A API oferece uma fonte única e confiável de informações (Single Source of Truth), eliminando a dispersão de dados em canais não oficiais.
 
-### Módulos
+### Problema
+
+A comunicação institucional em ambientes acadêmicos frequentemente sofre com:
+- Dispersão de informações em múltiplos canais não oficiais
+- Falta de rastreabilidade de comunicados
+- Ausência de um sistema centralizado para controle de faltas e horários
+- Dificuldade na gestão de turmas e matrículas
+
+### Solução
+
+Esta API fornece infraestrutura para:
+- Registro e autenticação segura de usuários com diferentes perfis
+- Gerenciamento completo de cursos, turmas e matrículas
+- Controle de salas e verificação de ambientes
+- Registro e consulta de frequência (em desenvolvimento)
+
+## Estado Atual do Projeto
+
+### Módulos Implementados
 
 | Módulo | Status | Descrição |
 |--------|--------|-----------|
-| Autenticação | Completo | Registro, login, redefinição de senha (JWT) |
-| Usuários | Completo | CRUD com controle de permissões |
-| Cursos | Completo | Gerenciamento de cursos acadêmicos |
-| Turmas | Completo | Organização por curso e turnos |
-| Matrículas | Completo | Associação usuário-turma |
-| Salas | Em desenvolvimento | Gestão de ambientes físicos |
-| Frequência | Em desenvolvimento | Registro de presença |
+| **Autenticação** | Completo | Registro, login e redefinição de senha com JWT |
+| **Usuários** | Completo | CRUD completo com controle de permissões |
+| **Cursos** | Completo | Gerenciamento de cursos acadêmicos |
+| **Turmas** | Completo | Gestão de turmas por curso com turnos |
+| **Matrículas** | Completo | Associação de usuários às turmas (alunos, professores, representantes) |
+| **Salas** | Em desenvolvimento | Cadastro e gestão de salas de aula |
+| **Períodos** | Em desenvolvimento | Definição de horários (manhã, tarde, noite) |
+| **Verificação de Salas** | Em desenvolvimento | Feedback sobre condições das salas |
+| **Frequência** | Em desenvolvimento | Registro de presença dos alunos |
 
-### Características
+### Infraestrutura
 
-- **Clean Architecture** — Separação clara de responsabilidades
-- **Segurança** — JWT com políticas de permissão granulares
-- **Documentação** — Swagger/OpenAPI integrado
-- **Infraestrutura** — Docker multi-stage build, CI/CD automatizado
+- **Docker**: Containerização com multi-stage build otimizado
+- **Docker Compose**: Orquestração com MySQL para produção
+- **Health Checks**: Monitoramento de disponibilidade
+- **OpenAPI/Swagger**: Documentação interativa da API
 
 ---
 
