@@ -33,6 +33,10 @@ public class RoomVerificationEntity {
     @Embedded
     private RoomVerificationForm roomVerificationForm;
 
+
+    public RoomVerificationEntity() {
+    }
+
     /**
      * Constructs a new room verification entity.
      *
