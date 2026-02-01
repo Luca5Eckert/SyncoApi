@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: Run Unit Tests and Coverage
     runs-on: ubuntu-latest
 
     steps:
@@ -28,5 +29,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Run tests
-        run: mvn test --batch-mode
+      - name: Run tests with JaCoCo
+        run: mvn clean verify --batch-mode

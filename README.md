@@ -1,7 +1,30 @@
 # Synco API
 
-API REST para gestão acadêmica, desenvolvida para centralizar a comunicação institucional e o gerenciamento de dados em ambientes educacionais.
+API REST para gestão acadêmica — Centraliza a comunicação institucional e o gerenciamento de dados em ambientes educacionais.
 
+![Java 21](https://img.shields.io/badge/Java-21-007396?logo=openjdk&logoColor=white)
+![Spring Boot 3.3.0](https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?logo=spring&logoColor=white)
+![Coverage 68%](https://img.shields.io/badge/Coverage-68.3%25-4CAF50)
+![Tests 152](https://img.shields.io/badge/Tests-152-2196F3)
+![CI](https://img.shields.io/badge/CI-passing-brightgreen)
+
+---
+
+## Sumário
+
+1. [Visão Geral](#visão-geral)
+2. [Métricas de Qualidade](#métricas-de-qualidade)
+3. [Tecnologias](#tecnologias)
+4. [Arquitetura](#arquitetura)
+5. [Instalação e Execução](#instalação-e-execução)
+6. [API Reference](#api-reference)
+7. [Segurança](#segurança)
+8. [Testes](#testes)
+9. [CI/CD](#cicd)
+10. [Contribuição](#contribuição)
+11. [Licença](#licença)
+
+---
 ## Visão Geral
 
 O Synco API é o backend de uma plataforma de gestão acadêmica que visa solucionar problemas de fragmentação na comunicação entre coordenação, professores e alunos. A API oferece uma fonte única e confiável de informações (Single Source of Truth), eliminando a dispersão de dados em canais não oficiais.
@@ -45,67 +68,178 @@ Esta API fornece infraestrutura para:
 - **Health Checks**: Monitoramento de disponibilidade
 - **OpenAPI/Swagger**: Documentação interativa da API
 
-## Stack Tecnológica
+---
+
+## Métricas de Qualidade
+
+### Cobertura de Código (JaCoCo)
+
+| Métrica | Cobertura | Absoluto |
+|---------|:---------:|:--------:|
+| Classes | **81,1%** | 167/206 |
+| Métodos | **64,4%** | 390/606 |
+| Branches | **51,7%** | 139/269 |
+| Linhas | **68,3%** | 960/1.406 |
+
+### Indicadores Gerais
+
+| Indicador | Valor |
+|-----------|:-----:|
+| Total de Testes | 152 |
+| Classes de Teste | 35 |
+| Endpoints | 28 |
+| Controllers | 8 |
+| CI Success Rate | ~87% |
+
+### Cobertura por Módulo
+
+<details>
+<summary><strong>Autenticação</strong> — 100% classes</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `authentication.application.controller` | 100% | 100% | 100% |
+| `authentication.domain.use_case` | 100% | 100% | 100% |
+| `authentication.domain.service` | 100% | 100% | 100% |
+| `authentication.domain.mapper` | 100% | 100% | 100% |
+
+</details>
+
+<details>
+<summary><strong>Usuários</strong> — 100% classes</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `user.application.controller` | 100% | 100% | 100% |
+| `user.domain.use_case` | 100% | 100% | 98,2% |
+| `user.domain.service` | 100% | 100% | 100% |
+| `user.domain.validator` | 100% | 100% | 100% |
+
+</details>
+
+<details>
+<summary><strong>Cursos</strong> — 100% classes</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `course.application.controller` | 100% | 100% | 100% |
+| `course.domain.use_cases` | 100% | 100% | 100% |
+| `course.domain.service` | 100% | 100% | 100% |
+| `course.domain.mapper` | 100% | 100% | 100% |
+
+</details>
+
+<details>
+<summary><strong>Turmas</strong> — 100% use cases</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `class_entity.application.controller` | 100% | 83,3% | 88,9% |
+| `class_entity.domain.use_case` | 100% | 100% | 100% |
+| `class_entity.domain.service` | 100% | 83,3% | 60,7% |
+
+</details>
+
+<details>
+<summary><strong>Matrículas</strong> — 100% use cases</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `class_user.domain.use_cases` | 100% | 100% | 100% |
+| `class_user.domain.enumerator` | 100% | 100% | 100% |
+
+</details>
+
+<details>
+<summary><strong>Salas</strong> — 98% use cases</summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `room.domain.use_case` | 100% | 100% | 98% |
+| `room.domain.filter` | 100% | 100% | 100% |
+| `room.domain.exception` | 100% | 100% | 100% |
+
+</details>
+
+<details>
+<summary><strong>Infraestrutura</strong></summary>
+
+| Package | Classes | Métodos | Linhas |
+|---------|:-------:|:-------:|:------:|
+| `infrastructure.security` | 100% | 100% | 100% |
+| `infrastructure.security.jwt` | 100% | 100% | 77,4% |
+| `infrastructure.security.user_details` | 100% | 100% | 100% |
+| `infrastructure.api` | 100% | 100% | 100% |
+| `infrastructure.config` | 100% | 100% | 100% |
+
+</details>
+
+---
+
+## Tecnologias
 
 | Categoria | Tecnologia | Versão |
-|-----------|------------|--------|
-| **Linguagem** | Java | 21 |
-| **Framework** | Spring Boot | 3.3.0 |
-| **Segurança** | Spring Security + JWT | jjwt 0.11.5 |
-| **Persistência** | Spring Data JPA | - |
-| **Banco de Dados (Dev)** | H2 Database | Em memória |
-| **Banco de Dados (Prod)** | MySQL | 8.0 |
-| **Validação** | Bean Validation + Passay | 1.6.6 |
-| **Documentação** | SpringDoc OpenAPI | 2.5.0 |
-| **Build** | Maven | 3.6+ |
-| **Containerização** | Docker | Multi-stage |
+|-----------|------------|:------:|
+| Linguagem | Java | 21 |
+| Framework | Spring Boot | 3.3.0 |
+| Segurança | Spring Security + JWT | 0.11.5 |
+| ORM | Spring Data JPA | — |
+| Banco (Dev) | H2 Database | — |
+| Banco (Prod) | MySQL | 8.0 |
+| Validação | Bean Validation + Passay | 1.6.6 |
+| Documentação | SpringDoc OpenAPI | 2.5.0 |
+| Cobertura | JaCoCo | 0.8.12 |
+| Container | Docker | — |
+| CI/CD | GitHub Actions | — |
+
+---
 
 ## Arquitetura
 
-O projeto adota Clean Architecture com separação clara de responsabilidades:
+O projeto segue **Clean Architecture**:
 
 ```
 src/main/java/com/api/synco/
-├── core/                            # Interfaces centrais
-├── infrastructure/                  # Componentes transversais
-│   ├── api/                         # Respostas padronizadas
-│   ├── config/                      # Configurações (OpenAPI, CORS)
-│   ├── exception/                   # Tratamento global de exceções
-│   ├── persistence/                 # Implementações de repositórios
-│   ├── security/                    # JWT e configuração de segurança
-│   └── service/                     # Serviços de infraestrutura
-└── module/                          # Módulos de domínio
-    ├── authentication/              # Autenticação (registro, login, senha)
-    ├── user/                        # Gestão de usuários
-    ├── course/                      # Gestão de cursos
-    ├── class_entity/                # Gestão de turmas
-    ├── class_user/                  # Matrículas (usuário-turma)
-    ├── period/                      # Períodos (manhã, tarde, noite)
-    ├── room/                        # Gestão de salas
-    ├── room_verification/           # Verificação de ambientes
-    ├── attendance_user/             # Controle de frequência
-    └── permission/                  # Políticas de permissão
+├── core/                     # Interfaces centrais
+├── infrastructure/           # Componentes transversais
+│   ├── api/                  # Respostas padronizadas
+│   ├── config/               # Configurações
+│   ├── exception/            # Tratamento de exceções
+│   ├── persistence/          # Repositórios
+│   ├── security/             # JWT e segurança
+│   └── service/              # Serviços de infraestrutura
+└── module/                   # Módulos de domínio
+    ├── authentication/       # Autenticação
+    ├── user/                 # Usuários
+    ├── course/               # Cursos
+    ├── class_entity/         # Turmas
+    ├── class_user/           # Matrículas
+    ├── period/               # Períodos
+    ├── room/                 # Salas
+    ├── room_verification/    # Verificação de ambientes
+    ├── attendance_user/      # Frequência
+    └── permission/           # Permissões
 ```
 
-Cada módulo segue a estrutura:
-- **application/**: Controllers e DTOs (Request/Response)
-- **domain/**: Entidades, serviços, use cases e regras de negócio
+### Padrões
 
-### Padrões Aplicados
+| Padrão | Aplicação |
+|--------|-----------|
+| Clean Architecture | Independência entre camadas |
+| Repository Pattern | Abstração de persistência |
+| Use Case Pattern | Lógica de negócio encapsulada |
+| Value Objects | Validação (Email, Name) |
+| Policy Pattern | Permissões desacopladas |
 
-- **Clean Architecture**: Independência entre camadas
-- **Repository Pattern**: Abstração de persistência
-- **Use Case Pattern**: Encapsulamento de lógica de negócio
-- **Value Objects**: Objetos imutáveis para validação (Email, Name)
-- **Policy Pattern**: Políticas de permissão desacopladas
+---
 
-## Execução
+## Instalação e Execução
 
 ### Pré-requisitos
 
 - Java 21+
 - Maven 3.6+
-- Docker e Docker Compose (para execução containerizada)
+- Docker (opcional)
 
 ### Variáveis de Ambiente
 
@@ -118,104 +252,108 @@ export JWT_SECRET=SuaChaveSecretaDeNoMinimo256BitsParaJWT
 ### Execução Local
 
 ```bash
-# Clonar repositório
 git clone https://github.com/Luca5Eckert/SyncoApi.git
 cd SyncoApi
-
-# Compilar
 mvn clean package
-
-# Executar
 mvn spring-boot:run
 ```
 
 ### Execução com Docker
 
 ```bash
-# Construir e executar
 docker-compose up -d
-
-# Verificar logs
 docker-compose logs -f syncoapi
 ```
 
-### Acessos
+### URLs
 
 | Recurso | URL |
 |---------|-----|
 | API | http://localhost:8080 |
 | Swagger UI | http://localhost:8080/swagger-ui/index.html |
-| OpenAPI JSON | http://localhost:8080/v3/api-docs |
-| H2 Console (Dev) | http://localhost:8080/h2-console |
+| OpenAPI | http://localhost:8080/v3/api-docs |
+| H2 Console | http://localhost:8080/h2-console |
 
-## Endpoints da API
+---
 
-### Autenticação
+## API Reference
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| POST | `/api/auth/register` | Registrar usuário | Não |
-| POST | `/api/auth/login` | Autenticar usuário | Não |
-| PATCH | `/api/auth/password` | Alterar senha | Sim |
+### Autenticação `/api/auth`
 
-### Usuários
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| POST | `/register` | Registrar usuário | — |
+| POST | `/login` | Login | — |
+| PATCH | `/password` | Alterar senha | ✓ |
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/users` | Listar usuários | Sim |
-| GET | `/api/users/{id}` | Buscar por ID | Sim |
-| POST | `/api/users` | Criar usuário | ADMIN |
-| PATCH | `/api/users` | Editar usuário | Sim |
-| DELETE | `/api/users` | Deletar usuário | ADMIN |
+### Usuários `/api/users`
 
-### Cursos
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| GET | `/` | Listar | ✓ |
+| GET | `/{id}` | Buscar por ID | ✓ |
+| POST | `/` | Criar | Admin |
+| PATCH | `/` | Editar | ✓ |
+| DELETE | `/` | Deletar | Admin |
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/courses` | Listar cursos | Sim |
-| GET | `/api/courses/{id}` | Buscar por ID | Sim |
-| POST | `/api/courses` | Criar curso | ADMIN |
-| PATCH | `/api/courses/{id}` | Editar curso | ADMIN |
-| DELETE | `/api/courses/{id}` | Deletar curso | ADMIN |
+### Cursos `/api/courses`
 
-### Turmas
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| GET | `/` | Listar | ✓ |
+| GET | `/{id}` | Buscar por ID | ✓ |
+| POST | `/` | Criar | Admin |
+| PATCH | `/{id}` | Editar | Admin |
+| DELETE | `/{id}` | Deletar | Admin |
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/classes/{idCourse}/{numberClass}` | Buscar turma | Sim |
-| GET | `/api/classes/{idCourse}/{numberClass}/{shift}/{pageNumber}/{pageSize}` | Listar turmas com filtros | Sim |
-| POST | `/api/classes` | Criar turma | Sim |
-| PUT | `/api/classes/{idCourse}/{numberClass}` | Atualizar turma | Sim |
-| DELETE | `/api/classes/{idCourse}/{numberClass}` | Deletar turma | Sim |
+### Turmas `/api/classes`
 
-### Matrículas (Class-Users)
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| GET | `/{idCourse}/{numberClass}` | Buscar turma | ✓ |
+| GET | `/{idCourse}/{numberClass}/{shift}/{page}/{size}` | Listar filtrado | ✓ |
+| POST | `/` | Criar | ✓ |
+| PUT | `/{idCourse}/{numberClass}` | Atualizar | ✓ |
+| DELETE | `/{idCourse}/{numberClass}` | Deletar | ✓ |
 
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/class-users` | Listar matrículas | Sim |
-| GET | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Buscar matrícula | Sim |
-| POST | `/api/class-users` | Criar matrícula | ADMIN |
-| PATCH | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Atualizar matrícula | ADMIN |
-| DELETE | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Remover matrícula | ADMIN |
+### Matrículas `/api/class-users`
+
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| GET | `/` | Listar | ✓ |
+| GET | `/courses/{id}/classes/{num}/users/{uid}` | Buscar | ✓ |
+| POST | `/` | Criar | Admin |
+| PATCH | `/courses/{id}/classes/{num}/users/{uid}` | Atualizar | Admin |
+| DELETE | `/courses/{id}/classes/{num}/users/{uid}` | Remover | Admin |
+
+### Salas `/api/rooms`
+
+| Método | Endpoint | Descrição | Auth |
+|--------|----------|-----------|:----:|
+| GET | `/` | Listar | ✓ |
+| GET | `/{id}` | Buscar por ID | ✓ |
+| POST | `/` | Criar | ✓ |
+| PUT | `/{id}` | Atualizar | ✓ |
+| DELETE | `/{id}` | Deletar | ✓ |
+
+---
 
 ## Segurança
 
 ### Autenticação JWT
 
-Todas as requisições a endpoints protegidos devem incluir o token JWT no header:
-
 ```
 Authorization: Bearer {token}
 ```
 
-Tokens expiram após 24 horas (configurável via `JWT_TOKEN_VALIDITY`).
+Tokens expiram em 24h.
 
-### Perfis de Usuário
+### Perfis
 
 | Perfil | Permissões |
 |--------|------------|
-| **USER** | Visualização e edição dos próprios dados |
-| **ADMIN** | Gerenciamento completo de usuários, cursos e turmas |
+| USER | Visualização e edição própria |
+| ADMIN | Gerenciamento completo |
 
 ### Tipos de Usuário em Turmas
 
@@ -223,32 +361,17 @@ Tokens expiram após 24 horas (configurável via `JWT_TOKEN_VALIDITY`).
 |------|-----------|
 | ADMINISTRATOR | Administrador institucional |
 | SECRETARY | Secretaria acadêmica |
-| TEACHER | Professor da turma |
-| REPRESENTATIVE | Representante de turma |
-| STUDENT | Aluno matriculado |
+| TEACHER | Professor |
+| REPRESENTATIVE | Representante |
+| STUDENT | Aluno |
 
 ### Validações
 
-- **Email**: Formato válido, máximo 150 caracteres, único no sistema
-- **Senha**: Mínimo 8 caracteres (1 maiúscula, 1 minúscula, 1 número, 1 especial)
+- **Email**: Formato válido, máximo 150 caracteres, único
+- **Senha**: Mínimo 8 caracteres (maiúscula, minúscula, número, especial)
 - **Nome**: Obrigatório, máximo 30 caracteres
 
-## Roadmap
-
-### Em Desenvolvimento
-
-- Implementação completa do módulo de Salas
-- Implementação do módulo de Períodos
-- Sistema de Verificação de Salas
-- Módulo de Controle de Frequência
-
-### Próximas Funcionalidades
-
-- **Mural de Avisos**: Comunicados oficiais da coordenação
-- **Rate Limiting**: Proteção contra ataques de força bruta
-- **Caching**: Redis para otimização de consultas frequentes
-- **Auditoria**: Logging de ações sensíveis
-- **Métricas**: Integração com Prometheus/Micrometer
+---
 
 ## Testes
 
@@ -256,43 +379,87 @@ Tokens expiram após 24 horas (configurável via `JWT_TOKEN_VALIDITY`).
 # Executar testes
 mvn test
 
-# Gerar relatório de cobertura
+# Relatório de cobertura
 mvn jacoco:report
 ```
 
-## Documentação
+Relatório: `target/site/jacoco/index.html`
 
-### Atualização da Documentação OpenAPI
+| Comando | Descrição |
+|---------|-----------|
+| `mvn test` | Executa os 152 testes |
+| `mvn jacoco:report` | Gera relatório HTML |
+| `mvn test -Dtest=*UseCaseTest` | Apenas Use Cases |
+| `mvn test -Dtest=*IntegrationTest` | Apenas integração |
 
-As anotações nos controllers geram automaticamente a documentação via SpringDoc:
+---
 
-- `@Tag`: Agrupamento de endpoints
-- `@Operation`: Descrição de operações
-- `@ApiResponses`: Documentação de respostas
-- `@Parameter`: Documentação de parâmetros
+## CI/CD
 
-Documentação local disponível em `docs/openapi.yaml`.
+### GitHub Actions
+
+Pipeline executado em push/PR para `main`:
+
+```
+Checkout → Setup JDK 21 → Cache Maven → Run Tests → Coverage Report
+```
+
+### Docker
+
+- **Multi-stage build** otimizado
+- **Docker Compose** com MySQL
+- **Health Checks** integrado
+
+---
 
 ## Contribuição
 
-1. Crie uma branch descritiva:
-   ```bash
-   git checkout -b feature/nova-funcionalidade
-   ```
+### Processo
 
-2. Faça commit das alterações:
-   ```bash
-   git commit -m "feat: adiciona nova funcionalidade"
-   ```
+1. Fork o repositório
+2. Clone: `git clone https://github.com/<user>/SyncoApi.git`
+3. Branch: `git checkout -b feature/nome`
+4. Desenvolva seguindo os padrões
+5. Teste: `mvn test`
+6. Commit: `git commit -m "feat: descrição"`
+7. Push: `git push origin feature/nome`
+8. Abra Pull Request
 
-3. Abra um Pull Request referenciando a issue correspondente.
+### Padrões de Código
+
+- Java 21 com features modernas
+- Clean Architecture
+- CamelCase (classes/métodos), lowercase (pacotes)
+- Testes unitários obrigatórios para use cases
+- Javadoc para APIs públicas
+
+### Conventional Commits
+
+| Tipo | Uso |
+|------|-----|
+| `feat` | Nova funcionalidade |
+| `fix` | Correção de bug |
+| `docs` | Documentação |
+| `refactor` | Refatoração |
+| `test` | Testes |
+| `chore` | Manutenção |
+
+---
+
+## Recursos
+
+| Recurso | Link |
+|---------|------|
+| OpenAPI Spec | [docs/openapi.yaml](docs/openapi.yaml) |
+| Exemplos | [docs/EXEMPLOS.md](docs/EXEMPLOS.md) |
+| CI Builds | [GitHub Actions](https://github.com/Luca5Eckert/SyncoApi/actions) |
+
+---
 
 ## Licença
 
-Este projeto está sob a licença MIT.
+MIT License — Veja [LICENSE](LICENSE) para detalhes.
 
-## Contato
+---
 
-- **GitHub**: [@Luca5Eckert](https://github.com/Luca5Eckert)
-- **Repositório**: [SyncoApi](https://github.com/Luca5Eckert/SyncoApi)
-
+**Mantido por** [Luca Eckert](https://github.com/Luca5Eckert)
