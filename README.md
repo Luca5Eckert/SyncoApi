@@ -2,48 +2,112 @@
 
 API REST para gestão acadêmica, desenvolvida para centralizar a comunicação institucional e o gerenciamento de dados em ambientes educacionais.
 
-## Visão Geral
+---
 
-O Synco API é o backend de uma plataforma de gestão acadêmica que visa solucionar problemas de fragmentação na comunicação entre coordenação, professores e alunos. A API oferece uma fonte única e confiável de informações (Single Source of Truth), eliminando a dispersão de dados em canais não oficiais.
+## Apresentação do Projeto
 
-### Problema
+**Synco API** é o backend de uma plataforma de gestão acadêmica projetada para solucionar problemas de fragmentação na comunicação entre coordenação, professores e alunos. A API oferece uma **fonte única e confiável de informações** (*Single Source of Truth*), eliminando a dispersão de dados em canais não oficiais.
 
-A comunicação institucional em ambientes acadêmicos frequentemente sofre com:
-- Dispersão de informações em múltiplos canais não oficiais
-- Falta de rastreabilidade de comunicados
-- Ausência de um sistema centralizado para controle de faltas e horários
-- Dificuldade na gestão de turmas e matrículas
+### Diferenciais
 
-### Solução
+- **Arquitetura Clean**: Separação clara de responsabilidades, facilitando manutenção e evolução.
+- **Segurança Robusta**: Autenticação JWT com políticas de permissão granulares.
+- **Documentação Completa**: Swagger/OpenAPI integrado para fácil integração.
+- **Infraestrutura Moderna**: Docker com multi-stage build e CI/CD automatizado.
 
-Esta API fornece infraestrutura para:
-- Registro e autenticação segura de usuários com diferentes perfis
-- Gerenciamento completo de cursos, turmas e matrículas
-- Controle de salas e verificação de ambientes
-- Registro e consulta de frequência (em desenvolvimento)
+### Principais Funcionalidades
 
-## Estado Atual do Projeto
+| Funcionalidade | Descrição |
+|----------------|-----------|
+| **Autenticação** | Registro, login e redefinição de senha com JWT |
+| **Gestão de Usuários** | CRUD completo com controle de permissões |
+| **Gestão de Cursos** | Gerenciamento de cursos acadêmicos |
+| **Gestão de Turmas** | Organização de turmas por curso com turnos |
+| **Matrículas** | Associação de usuários às turmas |
+| **Gestão de Salas** | Cadastro e gerenciamento de ambientes físicos |
 
-### Módulos Implementados
+---
 
-| Módulo | Status | Descrição |
-|--------|--------|-----------|
-| **Autenticação** | Completo | Registro, login e redefinição de senha com JWT |
-| **Usuários** | Completo | CRUD completo com controle de permissões |
-| **Cursos** | Completo | Gerenciamento de cursos acadêmicos |
-| **Turmas** | Completo | Gestão de turmas por curso com turnos |
-| **Matrículas** | Completo | Associação de usuários às turmas (alunos, professores, representantes) |
-| **Salas** | Em desenvolvimento | Cadastro e gestão de salas de aula |
-| **Períodos** | Em desenvolvimento | Definição de horários (manhã, tarde, noite) |
-| **Verificação de Salas** | Em desenvolvimento | Feedback sobre condições das salas |
-| **Frequência** | Em desenvolvimento | Registro de presença dos alunos |
+## Métricas de Sucesso
 
-### Infraestrutura
+| Métrica | Valor | Observação |
+|---------|-------|------------|
+| **Cobertura de testes** | Em expansão | Ferramenta: JaCoCo |
+| **Arquivos de teste** | 35 | Testes unitários e de integração |
+| **Endpoints ativos** | 28 | Distribuídos em 8 controllers |
+| **Builds CI (sucesso)** | ~87% | 13 de 15 execuções recentes |
+| **Ferramenta CI** | GitHub Actions | Workflow automatizado |
+| **Linguagem/Framework** | Java 21 + Spring Boot 3.3.0 | Stack moderna e atualizada |
 
-- **Docker**: Containerização com multi-stage build otimizado
-- **Docker Compose**: Orquestração com MySQL para produção
-- **Health Checks**: Monitoramento de disponibilidade
-- **OpenAPI/Swagger**: Documentação interativa da API
+---
+
+## Integração e CI/CD
+
+### Integração Contínua (CI)
+
+A Synco API utiliza **GitHub Actions** para automação de processos de integração contínua.
+
+**Workflow Principal (`ci.yml`):**
+
+| Etapa | Descrição |
+|-------|-----------|
+| **Checkout** | Clona o repositório |
+| **Setup JDK 21** | Configura ambiente Java Temurin 21 |
+| **Cache Maven** | Otimiza builds com cache de dependências |
+| **Run Tests** | Executa testes automatizados via Maven |
+
+**Triggers:**
+- Push na branch `main`
+- Pull Requests para a branch `main`
+
+### Pipeline de Qualidade
+
+```
+┌─────────────┐    ┌──────────────┐    ┌───────────────┐
+│   Commit    │ → │  CI Build    │ → │ Testes Auto.  │
+└─────────────┘    └──────────────┘    └───────────────┘
+                                              ↓
+                          ┌──────────────────────────────┐
+                          │   Relatório JaCoCo Coverage  │
+                          └──────────────────────────────┘
+```
+
+### Containerização
+
+- **Docker**: Multi-stage build otimizado para produção
+- **Docker Compose**: Orquestração com MySQL
+- **Health Checks**: Monitoramento de disponibilidade integrado
+
+---
+
+## Melhorias Recentes
+
+### Implementadas
+
+| Melhoria | Status | Descrição |
+|----------|--------|-----------|
+| ✅ **CI/CD com GitHub Actions** | Concluído | Automação de testes em cada PR e push |
+| ✅ **Cobertura de Testes** | Em expansão | 35 arquivos de testes implementados |
+| ✅ **Documentação OpenAPI** | Concluído | Swagger UI integrado com anotações completas |
+| ✅ **Cache de Build Maven** | Concluído | Otimização de tempo de CI |
+| ✅ **Clean Architecture** | Concluído | Separação clara entre camadas |
+| ✅ **Validação de Senhas** | Concluído | Integração com biblioteca Passay |
+| ✅ **Containerização Docker** | Concluído | Multi-stage build otimizado |
+
+### Em Andamento / Planejadas
+
+| Melhoria | Prioridade | Descrição |
+|----------|------------|-----------|
+| 🔄 **Módulo de Salas** | Alta | Cadastro e gestão completa de ambientes |
+| 🔄 **Módulo de Períodos** | Alta | Definição de horários (manhã, tarde, noite) |
+| 🔄 **Verificação de Salas** | Média | Feedback sobre condições dos ambientes |
+| 🔄 **Controle de Frequência** | Média | Registro de presença de alunos |
+| 📋 **Rate Limiting** | Planejado | Proteção contra ataques de força bruta |
+| 📋 **Caching Redis** | Planejado | Otimização de consultas frequentes |
+| 📋 **Auditoria** | Planejado | Logging de ações sensíveis |
+| 📋 **Métricas Prometheus** | Planejado | Integração com Micrometer |
+
+---
 
 ## Stack Tecnológica
 
@@ -57,12 +121,16 @@ Esta API fornece infraestrutura para:
 | **Banco de Dados (Prod)** | MySQL | 8.0 |
 | **Validação** | Bean Validation + Passay | 1.6.6 |
 | **Documentação** | SpringDoc OpenAPI | 2.5.0 |
+| **Cobertura** | JaCoCo | 0.8.12 |
 | **Build** | Maven | 3.6+ |
 | **Containerização** | Docker | Multi-stage |
+| **CI/CD** | GitHub Actions | - |
+
+---
 
 ## Arquitetura
 
-O projeto adota Clean Architecture com separação clara de responsabilidades:
+O projeto adota **Clean Architecture** com separação clara de responsabilidades:
 
 ```
 src/main/java/com/api/synco/
@@ -87,10 +155,6 @@ src/main/java/com/api/synco/
     └── permission/                  # Políticas de permissão
 ```
 
-Cada módulo segue a estrutura:
-- **application/**: Controllers e DTOs (Request/Response)
-- **domain/**: Entidades, serviços, use cases e regras de negócio
-
 ### Padrões Aplicados
 
 - **Clean Architecture**: Independência entre camadas
@@ -98,6 +162,8 @@ Cada módulo segue a estrutura:
 - **Use Case Pattern**: Encapsulamento de lógica de negócio
 - **Value Objects**: Objetos imutáveis para validação (Email, Name)
 - **Policy Pattern**: Políticas de permissão desacopladas
+
+---
 
 ## Execução
 
@@ -148,55 +214,69 @@ docker-compose logs -f syncoapi
 | OpenAPI JSON | http://localhost:8080/v3/api-docs |
 | H2 Console (Dev) | http://localhost:8080/h2-console |
 
+---
+
 ## Endpoints da API
 
-### Autenticação
+### Autenticação (`/api/auth`)
 
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|--------------|
-| POST | `/api/auth/register` | Registrar usuário | Não |
-| POST | `/api/auth/login` | Autenticar usuário | Não |
-| PATCH | `/api/auth/password` | Alterar senha | Sim |
+| POST | `/register` | Registrar usuário | Não |
+| POST | `/login` | Autenticar usuário | Não |
+| PATCH | `/password` | Alterar senha | Sim |
 
-### Usuários
-
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/users` | Listar usuários | Sim |
-| GET | `/api/users/{id}` | Buscar por ID | Sim |
-| POST | `/api/users` | Criar usuário | ADMIN |
-| PATCH | `/api/users` | Editar usuário | Sim |
-| DELETE | `/api/users` | Deletar usuário | ADMIN |
-
-### Cursos
+### Usuários (`/api/users`)
 
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|--------------|
-| GET | `/api/courses` | Listar cursos | Sim |
-| GET | `/api/courses/{id}` | Buscar por ID | Sim |
-| POST | `/api/courses` | Criar curso | ADMIN |
-| PATCH | `/api/courses/{id}` | Editar curso | ADMIN |
-| DELETE | `/api/courses/{id}` | Deletar curso | ADMIN |
+| GET | `/` | Listar usuários | Sim |
+| GET | `/{id}` | Buscar por ID | Sim |
+| POST | `/` | Criar usuário | ADMIN |
+| PATCH | `/` | Editar usuário | Sim |
+| DELETE | `/` | Deletar usuário | ADMIN |
 
-### Turmas
-
-| Método | Endpoint | Descrição | Autenticação |
-|--------|----------|-----------|--------------|
-| GET | `/api/classes/{idCourse}/{numberClass}` | Buscar turma | Sim |
-| GET | `/api/classes/{idCourse}/{numberClass}/{shift}/{pageNumber}/{pageSize}` | Listar turmas com filtros | Sim |
-| POST | `/api/classes` | Criar turma | Sim |
-| PUT | `/api/classes/{idCourse}/{numberClass}` | Atualizar turma | Sim |
-| DELETE | `/api/classes/{idCourse}/{numberClass}` | Deletar turma | Sim |
-
-### Matrículas (Class-Users)
+### Cursos (`/api/courses`)
 
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|--------------|
-| GET | `/api/class-users` | Listar matrículas | Sim |
-| GET | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Buscar matrícula | Sim |
-| POST | `/api/class-users` | Criar matrícula | ADMIN |
-| PATCH | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Atualizar matrícula | ADMIN |
-| DELETE | `/api/class-users/courses/{courseId}/classes/{classNumber}/users/{userId}` | Remover matrícula | ADMIN |
+| GET | `/` | Listar cursos | Sim |
+| GET | `/{id}` | Buscar por ID | Sim |
+| POST | `/` | Criar curso | ADMIN |
+| PATCH | `/{id}` | Editar curso | ADMIN |
+| DELETE | `/{id}` | Deletar curso | ADMIN |
+
+### Turmas (`/api/classes`)
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| GET | `/{idCourse}/{numberClass}` | Buscar turma | Sim |
+| GET | `/{idCourse}/{numberClass}/{shift}/{pageNumber}/{pageSize}` | Listar com filtros | Sim |
+| POST | `/` | Criar turma | Sim |
+| PUT | `/{idCourse}/{numberClass}` | Atualizar turma | Sim |
+| DELETE | `/{idCourse}/{numberClass}` | Deletar turma | Sim |
+
+### Matrículas (`/api/class-users`)
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| GET | `/` | Listar matrículas | Sim |
+| GET | `/courses/{courseId}/classes/{classNumber}/users/{userId}` | Buscar matrícula | Sim |
+| POST | `/` | Criar matrícula | ADMIN |
+| PATCH | `/courses/{courseId}/classes/{classNumber}/users/{userId}` | Atualizar | ADMIN |
+| DELETE | `/courses/{courseId}/classes/{classNumber}/users/{userId}` | Remover | ADMIN |
+
+### Salas (`/api/rooms`)
+
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| GET | `/` | Listar salas | Sim |
+| GET | `/{id}` | Buscar por ID | Sim |
+| POST | `/` | Criar sala | Sim |
+| PUT | `/{id}` | Atualizar sala | Sim |
+| DELETE | `/{id}` | Deletar sala | Sim |
+
+---
 
 ## Segurança
 
@@ -233,22 +313,7 @@ Tokens expiram após 24 horas (configurável via `JWT_TOKEN_VALIDITY`).
 - **Senha**: Mínimo 8 caracteres (1 maiúscula, 1 minúscula, 1 número, 1 especial)
 - **Nome**: Obrigatório, máximo 30 caracteres
 
-## Roadmap
-
-### Em Desenvolvimento
-
-- Implementação completa do módulo de Salas
-- Implementação do módulo de Períodos
-- Sistema de Verificação de Salas
-- Módulo de Controle de Frequência
-
-### Próximas Funcionalidades
-
-- **Mural de Avisos**: Comunicados oficiais da coordenação
-- **Rate Limiting**: Proteção contra ataques de força bruta
-- **Caching**: Redis para otimização de consultas frequentes
-- **Auditoria**: Logging de ações sensíveis
-- **Métricas**: Integração com Prometheus/Micrometer
+---
 
 ## Testes
 
@@ -260,39 +325,98 @@ mvn test
 mvn jacoco:report
 ```
 
-## Documentação
+O relatório de cobertura é gerado em `target/site/jacoco/index.html`.
 
-### Atualização da Documentação OpenAPI
+---
 
-As anotações nos controllers geram automaticamente a documentação via SpringDoc:
+## Como Contribuir
 
-- `@Tag`: Agrupamento de endpoints
-- `@Operation`: Descrição de operações
-- `@ApiResponses`: Documentação de respostas
-- `@Parameter`: Documentação de parâmetros
+### Guia de Contribuição
 
-Documentação local disponível em `docs/openapi.yaml`.
-
-## Contribuição
-
-1. Crie uma branch descritiva:
+1. **Fork** o repositório
+2. **Clone** seu fork:
+   ```bash
+   git clone https://github.com/<seu-usuario>/SyncoApi.git
+   ```
+3. **Crie uma branch** descritiva:
    ```bash
    git checkout -b feature/nova-funcionalidade
    ```
-
-2. Faça commit das alterações:
+4. **Desenvolva** seguindo os padrões do projeto
+5. **Execute os testes** antes de commitar:
+   ```bash
+   mvn test
+   ```
+6. **Faça commit** seguindo o padrão Conventional Commits:
    ```bash
    git commit -m "feat: adiciona nova funcionalidade"
    ```
+7. **Push** para seu fork:
+   ```bash
+   git push origin feature/nova-funcionalidade
+   ```
+8. Abra um **Pull Request** referenciando a issue correspondente
 
-3. Abra um Pull Request referenciando a issue correspondente.
+### Padrões de Código
+
+- **Linguagem**: Java 21 com features modernas
+- **Arquitetura**: Clean Architecture (respeite a separação de camadas)
+- **Nomenclatura**: CamelCase para classes/métodos, lowercase para pacotes (ex: `com.api.synco.module`)
+- **Testes**: Mínimo de testes unitários para novos use cases
+- **Documentação**: Javadoc para classes e métodos públicos
+
+### Padrões de Commit
+
+Utilizamos [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Tipo | Descrição |
+|------|-----------|
+| `feat` | Nova funcionalidade |
+| `fix` | Correção de bug |
+| `docs` | Documentação |
+| `style` | Formatação (sem alteração de código) |
+| `refactor` | Refatoração |
+| `test` | Testes |
+| `chore` | Tarefas de manutenção |
+
+### Regras de Pull Request
+
+- Referencie a issue relacionada
+- Descreva claramente as alterações
+- Garanta que todos os testes passem
+- Aguarde aprovação de pelo menos um reviewer
+
+---
+
+## Referências Rápidas
+
+| Recurso | Link |
+|---------|------|
+| 📄 **Documentação OpenAPI** | [docs/openapi.yaml](docs/openapi.yaml) |
+| 📖 **Exemplos de Uso** | [docs/EXEMPLOS.md](docs/EXEMPLOS.md) |
+| 🔧 **Swagger UI (Local)** | http://localhost:8080/swagger-ui/index.html |
+| 📊 **Relatório de Cobertura** | `target/site/jacoco/index.html` (após `mvn jacoco:report`) |
+| 🔄 **CI Builds** | [GitHub Actions](https://github.com/Luca5Eckert/SyncoApi/actions) |
+| 📦 **Repositório** | [GitHub - SyncoApi](https://github.com/Luca5Eckert/SyncoApi) |
+
+---
+
+## Contato e Suporte
+
+### Mantenedores
+
+| Nome | GitHub | Papel |
+|------|--------|-------|
+| Luca Eckert | [@Luca5Eckert](https://github.com/Luca5Eckert) | Desenvolvedor Principal |
+
+### Canais de Suporte
+
+- **Issues**: [Abrir Issue](https://github.com/Luca5Eckert/SyncoApi/issues) — Para bugs, dúvidas ou sugestões
+- **Discussões**: Utilize as Issues para discussões técnicas
+- **Pull Requests**: Contribuições são bem-vindas seguindo o guia acima
+
+---
 
 ## Licença
 
-Este projeto está sob a licença MIT.
-
-## Contato
-
-- **GitHub**: [@Luca5Eckert](https://github.com/Luca5Eckert)
-- **Repositório**: [SyncoApi](https://github.com/Luca5Eckert/SyncoApi)
-
+Este projeto está sob a licença **MIT**. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
