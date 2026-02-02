@@ -11,7 +11,6 @@ import com.api.synco.module.period.domain.enumerator.TypePeriod;
 import com.api.synco.module.period.domain.use_case.CreatePeriodUseCase;
 import com.api.synco.module.period.domain.use_case.GetAllPeriodUseCase;
 import com.api.synco.module.period.domain.use_case.GetPeriodUseCase;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
