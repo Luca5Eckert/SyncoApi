@@ -3,6 +3,7 @@ package com.api.synco.module.period.application.service;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
 import com.api.synco.module.period.application.dto.CreatePeriodRequest;
 import com.api.synco.module.period.application.dto.CreatePeriodResponse;
+import com.api.synco.module.period.application.dto.GetPeriodResponse;
 import com.api.synco.module.period.application.mapper.PeriodMapper;
 import com.api.synco.module.period.domain.PeriodEntity;
 import com.api.synco.module.period.domain.command.CreatePeriodCommand;
@@ -15,14 +16,14 @@ import org.springframework.stereotype.Service;
 public class PeriodApplicationService {
 
     private final CreatePeriodUseCase createPeriodUseCase;
-    private final GetPeriodUseCase periodUseCase;
+    private final GetPeriodUseCase getPeriodUseCase;
     private final GetAllPeriodUseCase getAllPeriodUseCase;
 
     private final PeriodMapper periodMapper;
 
-    public PeriodApplicationService(CreatePeriodUseCase createPeriodUseCase, GetPeriodUseCase periodUseCase, GetAllPeriodUseCase getAllPeriodUseCase, PeriodMapper periodMapper) {
+    public PeriodApplicationService(CreatePeriodUseCase createPeriodUseCase, GetPeriodUseCase getPeriodUseCase, GetAllPeriodUseCase getAllPeriodUseCase, PeriodMapper periodMapper) {
         this.createPeriodUseCase = createPeriodUseCase;
-        this.periodUseCase = periodUseCase;
+        this.getPeriodUseCase = getPeriodUseCase;
         this.getAllPeriodUseCase = getAllPeriodUseCase;
         this.periodMapper = periodMapper;
     }
@@ -45,6 +46,12 @@ public class PeriodApplicationService {
         PeriodEntity period = createPeriodUseCase.execute(createPeriodCommand);
 
         return periodMapper.toCreateResponse(period);
+    }
+
+    public GetPeriodResponse get(long periodId){
+        PeriodEntity period = getPeriodUseCase.execute(periodId);
+
+        return periodMapper.toGetResponse(period);
     }
 
 }
