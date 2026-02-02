@@ -53,6 +53,22 @@ public class PeriodEntity {
     }
 
     public PeriodEntity(
+            long id,
+            UserEntity teacher,
+            RoomEntity room,
+            ClassEntity classEntity,
+            LocalDate date,
+            TypePeriod typePeriod
+    ) {
+        this.id = id;
+        this.teacher = teacher;
+        this.room = room;
+        this.classEntity = classEntity;
+        this.date = date;
+        this.typePeriod = typePeriod;
+    }
+
+    public PeriodEntity(
             UserEntity teacher,
             RoomEntity room,
             ClassEntity classEntity,

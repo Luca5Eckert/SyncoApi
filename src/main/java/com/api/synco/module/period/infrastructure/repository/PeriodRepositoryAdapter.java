@@ -4,6 +4,8 @@ import com.api.synco.module.period.domain.PeriodEntity;
 import com.api.synco.module.period.domain.port.PeriodRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class PeriodRepositoryAdapter implements PeriodRepository {
 
@@ -16,5 +18,10 @@ public class PeriodRepositoryAdapter implements PeriodRepository {
     @Override
     public PeriodEntity save(PeriodEntity period) {
         return periodRepositoryJpa.save(period);
+    }
+
+    @Override
+    public Optional<PeriodEntity> findById(long periodId) {
+        return periodRepositoryJpa.findById(periodId);
     }
 }
