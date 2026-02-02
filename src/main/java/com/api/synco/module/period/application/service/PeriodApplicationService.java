@@ -7,10 +7,14 @@ import com.api.synco.module.period.application.dto.GetPeriodResponse;
 import com.api.synco.module.period.application.mapper.PeriodMapper;
 import com.api.synco.module.period.domain.PeriodEntity;
 import com.api.synco.module.period.domain.command.CreatePeriodCommand;
+import com.api.synco.module.period.domain.enumerator.TypePeriod;
 import com.api.synco.module.period.domain.use_case.CreatePeriodUseCase;
 import com.api.synco.module.period.domain.use_case.GetAllPeriodUseCase;
 import com.api.synco.module.period.domain.use_case.GetPeriodUseCase;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PeriodApplicationService {
@@ -28,8 +32,8 @@ public class PeriodApplicationService {
         this.periodMapper = periodMapper;
     }
 
-    public CreatePeriodResponse create(CreatePeriodRequest createPeriodRequest, long userAuthenticatedId){
-        ClassEntityId classEntityId  = new ClassEntityId(
+    public CreatePeriodResponse create(CreatePeriodRequest createPeriodRequest, long userAuthenticatedId) {
+        ClassEntityId classEntityId = new ClassEntityId(
                 createPeriodRequest.classEntity().courseId(),
                 createPeriodRequest.classEntity().number()
         );
@@ -48,10 +52,32 @@ public class PeriodApplicationService {
         return periodMapper.toCreateResponse(period);
     }
 
-    public GetPeriodResponse get(long periodId){
+    public GetPeriodResponse get(long periodId) {
         PeriodEntity period = getPeriodUseCase.execute(periodId);
 
         return periodMapper.toGetResponse(period);
+    }
+
+    public List<GetPeriodResponse> getAll(
+            long teacherId,
+            long roomId,
+            long classId,
+            TypePeriod typePeriod,
+            int pageNumber,
+            int pageSize
+    ) {
+        var periods = getAllPeriodUseCase.execute(
+                teacherId,
+                roomId,
+                classId,
+                typePeriod,
+                pageNumber,
+                pageSize
+        );
+
+        return periods.stream()
+                .map(periodMapper::toGetResponse)
+                .toList();
     }
 
 }
