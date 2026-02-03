@@ -534,11 +534,4 @@ MIT License — Veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
-## Checklist de pendências (TODO)
-
-- [ ] Criar `.env.example` com todas as variáveis necessárias (incluindo `SPRING_DATASOURCE_URL`).
-- [ ] Confirmar contrato da listagem de turmas (`GET /api/classes/...`) e ajustar a documentação.
-- [ ] Fornecer exemplos reais de erro padrão (400/401) para substituir o exemplo com TODO.
-- [ ] Confirmar se existe fluxo de refresh token (não há endpoint no contexto atual).
-
 **Mantido por** [Luca Eckert](https://github.com/Luca5Eckert)
