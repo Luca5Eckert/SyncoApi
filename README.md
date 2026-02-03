@@ -16,7 +16,7 @@ API REST para gestão acadêmica — Centraliza a comunicação institucional e 
 
 1. [Visão Geral](#visão-geral)
 2. [Estado Atual do Projeto](#estado-atual-do-projeto)
-3. [🚀 Quickstart (2 minutos)](#-quickstart-2-minutos)
+3. [Quickstart (2 minutos)](#-quickstart-2-minutos)
 4. [URLs úteis](#urls-úteis)
 5. [Variáveis de Ambiente](#variáveis-de-ambiente)
 6. [API Reference](#api-reference)
@@ -78,7 +78,7 @@ Esta API fornece infraestrutura para:
 
 ---
 
-## 🚀 Quickstart (2 minutos)
+## Quickstart (2 minutos)
 
 ### Local (H2, em memória)
 
