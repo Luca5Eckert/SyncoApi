@@ -52,6 +52,14 @@ public class RoomVerificationEntity {
         this.roomVerificationForm = roomVerificationForm;
     }
 
+    public RoomVerificationEntity(PeriodEntity period, LocalDate dateRegister, RoomVerificationForm roomVerificationForm) {
+        this.id = id;
+        this.period = period;
+        this.dateRegister = dateRegister;
+        this.roomVerificationForm = roomVerificationForm;
+    }
+
+
     /**
      * Returns the verification ID.
      *

@@ -1,4 +1,4 @@
-package com.api.synco.module.room.infrasctuture.repository;
+package com.api.synco.module.room.infrastructure.repository;
 
 import com.api.synco.module.room.domain.RoomEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
