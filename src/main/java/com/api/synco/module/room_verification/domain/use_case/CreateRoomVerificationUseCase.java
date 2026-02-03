@@ -44,7 +44,9 @@ public class CreateRoomVerificationUseCase {
         validateUserPermissions(command.userAuthenticatedId(), period.getClassEntity().getId());
 
         RoomVerificationEntity entity = mapToEntity(command, period);
-        return roomVerificationRepository.save(entity);
+        roomVerificationRepository.save(entity);
+
+        return entity;
     }
 
     private void validateUserPermissions(long userId, ClassEntityId classEntityId) {
