@@ -64,8 +64,8 @@ Esta API fornece infraestrutura para:
 | **Cursos** | Completo | Gerenciamento de cursos acadêmicos |
 | **Turmas** | Completo | Gestão de turmas por curso com turnos |
 | **Matrículas** | Completo | Associação de usuários às turmas (alunos, professores, representantes) |
-| **Salas** | Em desenvolvimento | Cadastro e gestão de salas de aula |
-| **Períodos** | Em desenvolvimento | Definição de horários (manhã, tarde, noite) |
+| **Salas** | Completo | Cadastro e gestão de salas de aula |
+| **Períodos** | Completo | Definição de horários (manhã, tarde, noite) |
 | **Verificação de Salas** | Em desenvolvimento | Feedback sobre condições das salas |
 | **Frequência** | Em desenvolvimento | Registro de presença dos alunos |
 
