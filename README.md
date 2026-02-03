@@ -27,7 +27,6 @@ API REST para gestão acadêmica — Centraliza a comunicação institucional e 
 11. [Métricas](#métricas)
 12. [Contribuição](#contribuição)
 13. [Licença](#licença)
-14. [Checklist de pendências (TODO)](#checklist-de-pendências-todo)
 
 ---
 
