@@ -6,6 +6,8 @@ API REST para gestão acadêmica — Centraliza a comunicação institucional e 
 ![Spring Boot 3.3.0](https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?logo=spring&logoColor=white)
 ![Coverage 68%](https://img.shields.io/badge/Coverage-68.3%25-4CAF50)
 ![Tests 152](https://img.shields.io/badge/Tests-152-2196F3)
+![Java LOC](https://img.shields.io/badge/Java%20LOC-15.9k-9C27B0)
+![Java Types](https://img.shields.io/badge/Java%20Tipos-277-673AB7)
 ![CI](https://img.shields.io/badge/CI-passing-brightgreen)
 
 ---
@@ -86,10 +88,22 @@ Esta API fornece infraestrutura para:
 | Indicador | Valor |
 |-----------|:-----:|
 | Total de Testes | 152 |
-| Classes de Teste | 35 |
+| Classes de Teste | 41 |
 | Endpoints | 28 |
 | Controllers | 8 |
 | CI Success Rate | ~87% |
+
+### Estatísticas do Código
+
+| Indicador | Valor |
+|-----------|:-----:|
+| Linhas Java (main/test) | 15.938 (11.204 / 4.734) |
+| Arquivos Java (main/test) | 277 (236 / 41) |
+| Tipos Java declarados | 277 (154 classes, 60 records, 17 interfaces, 5 enums, 41 classes de teste) |
+| Pacotes Java únicos (main/test) | 139 (139 / 19) |
+| Módulos de domínio | 10 |
+
+_Fonte: análise estática do repositório._
 
 ### Cobertura por Módulo
 
