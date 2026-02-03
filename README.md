@@ -214,7 +214,7 @@ curl -X POST http://localhost:8080/api/auth/login \
 
 | Método | Endpoint | Auth | Descrição |
 |--------|----------|:----:|-----------|
-| GET | `/` | ✓ | Lista cursos (name, acronym; query param `acroym`, page, size) |
+| GET | `/` | ✓ | Lista cursos (name, acrônimo; query param `acroym`, page, size) |
 | GET | `/{id}` | ✓ | Busca por ID |
 | POST | `/` | Admin | Cria curso |
 | PATCH | `/{id}` | Admin | Atualiza curso |
