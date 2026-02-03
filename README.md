@@ -220,7 +220,7 @@ curl -X POST http://localhost:8080/api/auth/login \
 | PATCH | `/{id}` | Admin | Atualiza curso |
 | DELETE | `/{id}` | Admin | Remove curso |
 
-> **Nota**: o filtro de acrônimo usa o parâmetro `acroym` (sic) conforme controller.
+> **Nota**: o filtro de acrônimo usa o parâmetro `acroym` (sic) conforme controller. **TODO**: alinhar para `acronym` no código e documentação.
 
 ### Turmas `/api/classes`
 
