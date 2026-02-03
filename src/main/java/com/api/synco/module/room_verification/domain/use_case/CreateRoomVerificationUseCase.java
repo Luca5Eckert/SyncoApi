@@ -16,6 +16,7 @@ import com.api.synco.module.room_verification.domain.permission.RoomVerification
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
 import com.api.synco.module.room_verification.domain.value_object.RoomVerificationForm;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,7 @@ public class CreateRoomVerificationUseCase {
         this.permissionPolicy = permissionPolicy;
     }
 
+    @Transactional
     public RoomVerificationEntity execute(CreateRoomVerificationCommand command) {
         PeriodEntity period = periodRepository.findById(command.periodId())
                 .orElseThrow(PeriodNotFoundException::new);

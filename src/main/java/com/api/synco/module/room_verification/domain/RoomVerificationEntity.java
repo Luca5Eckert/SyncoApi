@@ -122,4 +122,19 @@ public class RoomVerificationEntity {
     public void setRoomVerificationForm(RoomVerificationForm roomVerificationForm) {
         this.roomVerificationForm = roomVerificationForm;
     }
+
+    public void update(Boolean allOrganized, String description, String observations, String ticket) {
+        if(allOrganized != null){
+            this.roomVerificationForm.setAllOrganized(allOrganized);
+        }
+        if (description != null) {
+            this.roomVerificationForm.setDescription(description);
+        }
+        if (observations != null) {
+            this.roomVerificationForm.setObservations(observations);
+        }
+        if(ticket != null){
+            this.roomVerificationForm.setTicket(ticket);
+        }
+    }
 }

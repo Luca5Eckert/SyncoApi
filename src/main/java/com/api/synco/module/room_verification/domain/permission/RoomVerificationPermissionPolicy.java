@@ -16,4 +16,13 @@ public class RoomVerificationPermissionPolicy {
         };
     }
 
+    public boolean canUpdate(RoleUser roleUser, TypeUserClass typeUserClass) {
+        if(roleUser == RoleUser.ADMIN) return true;
+
+        return switch(typeUserClass){
+            case REPRESENTATIVE, TEACHER, ADMINISTRATOR, SECRETARY -> true;
+            case STUDENT -> false;
+        };
+    }
+
 }
