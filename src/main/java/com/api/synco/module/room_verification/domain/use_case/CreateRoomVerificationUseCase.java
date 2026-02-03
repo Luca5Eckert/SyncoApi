@@ -62,6 +62,7 @@ public class CreateRoomVerificationUseCase {
     private RoomVerificationEntity mapToEntity(CreateRoomVerificationCommand command, PeriodEntity period) {
         RoomVerificationForm form = RoomVerificationForm.builder()
                 .allOrganized(command.allOrganized())
+                .description(command.description())
                 .observations(command.observations())
                 .ticket(command.ticket())
                 .build();
