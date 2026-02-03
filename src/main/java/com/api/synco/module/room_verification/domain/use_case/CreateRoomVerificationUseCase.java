@@ -38,7 +38,7 @@ public class CreateRoomVerificationUseCase {
         PeriodEntity period = periodRepository.findById(command.periodId())
                 .orElseThrow(PeriodNotFoundException::new);
 
-        if (roomVerificationRepository.existByPeriodId(period.getId())) {
+        if (roomVerificationRepository.existsByPeriodId(period.getId())) {
             throw new RoomVerificationAlreadyExistException();
         }
         validateUserPermissions(command.userAuthenticatedId(), period.getClassEntity().getId());

@@ -17,7 +17,6 @@ import com.api.synco.module.room_verification.domain.permission.RoomVerification
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
 import com.api.synco.module.user.domain.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -65,7 +64,7 @@ class CreateRoomVerificationUseCaseTest {
         // Arrange
         setupFullPeriodChain();
         when(periodRepository.findById(command.periodId())).thenReturn(Optional.of(period));
-        when(roomVerificationRepository.existByPeriodId(1L)).thenReturn(false);
+        when(roomVerificationRepository.existsByPeriodId(1L)).thenReturn(false);
 
         ClassUser classUser = mock(ClassUser.class);
         UserEntity user = mock(UserEntity.class);
@@ -96,7 +95,7 @@ class CreateRoomVerificationUseCaseTest {
         // Arrange
         when(period.getId()).thenReturn(1L); // Só precisamos do ID para este passo
         when(periodRepository.findById(command.periodId())).thenReturn(Optional.of(period));
-        when(roomVerificationRepository.existByPeriodId(1L)).thenReturn(true);
+        when(roomVerificationRepository.existsByPeriodId(1L)).thenReturn(true);
 
         // Act & Assert
         assertThrows(RoomVerificationAlreadyExistException.class, () -> useCase.execute(command));
@@ -107,7 +106,7 @@ class CreateRoomVerificationUseCaseTest {
         // Arrange
         setupFullPeriodChain();
         when(periodRepository.findById(command.periodId())).thenReturn(Optional.of(period));
-        when(roomVerificationRepository.existByPeriodId(1L)).thenReturn(false);
+        when(roomVerificationRepository.existsByPeriodId(1L)).thenReturn(false);
         when(classUserRepository.findById(any(ClassUserId.class))).thenReturn(Optional.empty());
 
         // Act & Assert
@@ -119,7 +118,7 @@ class CreateRoomVerificationUseCaseTest {
         // Arrange
         setupFullPeriodChain();
         when(periodRepository.findById(command.periodId())).thenReturn(Optional.of(period));
-        when(roomVerificationRepository.existByPeriodId(1L)).thenReturn(false);
+        when(roomVerificationRepository.existsByPeriodId(1L)).thenReturn(false);
 
         ClassUser classUser = mock(ClassUser.class);
         UserEntity user = mock(UserEntity.class);
