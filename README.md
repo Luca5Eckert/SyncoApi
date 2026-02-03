@@ -7,7 +7,7 @@ API REST para gestão acadêmica — Centraliza a comunicação institucional e 
 ![Coverage 68%](https://img.shields.io/badge/Coverage-68.3%25-4CAF50)
 ![Tests 152](https://img.shields.io/badge/Tests-152-2196F3)
 ![Java LOC](https://img.shields.io/badge/Java%20LOC-15.9k-9C27B0)
-![Java Types](https://img.shields.io/badge/Java%20Tipos-277-673AB7)
+![Java Types](https://img.shields.io/badge/Java%20Types-277-673AB7)
 ![CI](https://img.shields.io/badge/CI-passing-brightgreen)
 
 ---
