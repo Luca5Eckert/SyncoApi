@@ -19,6 +19,7 @@ import com.api.synco.module.user.domain.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -72,12 +73,22 @@ class CreateRoomVerificationUseCaseTest {
         when(classUser.getUserEntity()).thenReturn(user);
         when(permissionPolicy.canCreate(any(), any())).thenReturn(true);
 
+        ArgumentCaptor<RoomVerificationEntity> captor = ArgumentCaptor.forClass(RoomVerificationEntity.class);
+
         // Act
-        RoomVerificationEntity result = useCase.execute(command);
+        useCase.execute(command);
 
         // Assert
-        assertNotNull(result);
-        verify(roomVerificationRepository, times(1)).save(any(RoomVerificationEntity.class));
+        verify(roomVerificationRepository).save(captor.capture());
+        RoomVerificationEntity savedEntity = captor.getValue();
+
+        // Verify Mapping Logic
+        assertAll("Verify RoomVerification mapping",
+                () -> assertEquals(command.observations(), savedEntity.getRoomVerificationForm().getObservations()),
+                () -> assertEquals(command.ticket(), savedEntity.getRoomVerificationForm().getTicket()),
+                () -> assertEquals(command.allOrganized(), savedEntity.getRoomVerificationForm().isAllOrganized()),
+                () -> assertEquals(period, savedEntity.getPeriod())
+        );
     }
 
     @Test
