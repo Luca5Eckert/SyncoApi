@@ -4,6 +4,8 @@ import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class RoomVerificationRepositoryAdapter implements RoomVerificationRepository {
 
@@ -21,5 +23,10 @@ public class RoomVerificationRepositoryAdapter implements RoomVerificationReposi
     @Override
     public void save(RoomVerificationEntity roomVerificationEntity) {
         roomVerificationRepositoryJpa.save(roomVerificationEntity);
+    }
+
+    @Override
+    public Optional<RoomVerificationEntity> findById(long roomVerificationId) {
+        return roomVerificationRepositoryJpa.findById(roomVerificationId);
     }
 }
