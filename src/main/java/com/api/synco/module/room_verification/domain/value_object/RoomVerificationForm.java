@@ -18,6 +18,13 @@ public class RoomVerificationForm {
     private RoomVerificationForm() {
     }
 
+    public RoomVerificationForm(boolean allOrganized, String description, String observations, String ticket) {
+        this.allOrganized = allOrganized;
+        this.description = description;
+        this.observations = observations;
+        this.ticket = ticket;
+    }
+
 
     public boolean isAllOrganized() {
         return allOrganized;
@@ -50,8 +57,6 @@ public class RoomVerificationForm {
     public void setTicket(String ticket) {
         this.ticket = ticket;
     }
-
-
 
 
 }
