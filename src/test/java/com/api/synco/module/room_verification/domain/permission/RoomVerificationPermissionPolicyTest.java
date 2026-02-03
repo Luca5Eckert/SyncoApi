@@ -17,7 +17,6 @@ class RoomVerificationPermissionPolicyTest {
 
     @ParameterizedTest
     @EnumSource(TypeUserClass.class)
-    @DisplayName("Deve permitir acesso se o usuário for ADMIN, independente do tipo na classe")
     void adminShouldAlwaysHaveAccess(TypeUserClass typeUserClass) {
         assertTrue(policy.canCreate(RoleUser.ADMIN, typeUserClass));
     }
@@ -30,10 +29,29 @@ class RoomVerificationPermissionPolicyTest {
             "SECRETARY, true",
             "STUDENT, false"
     })
-    @DisplayName("Deve validar permissões baseadas no tipo de usuário na classe para usuários comuns")
-    void shouldValidatePermissionsForCommonUsers(TypeUserClass typeUserClass, boolean expectedResult) {
+    void shouldValidatePermissionsForCommonUserWhenCreate(TypeUserClass typeUserClass, boolean expectedResult) {
         // Arrange & Act
         boolean result = policy.canCreate(RoleUser.USER, typeUserClass);
+
+        // Assert
+        if (expectedResult) {
+            assertTrue(result, "Deveria permitir acesso para: " + typeUserClass);
+        } else {
+            assertFalse(result, "Não deveria permitir acesso para: " + typeUserClass);
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "REPRESENTATIVE, true",
+            "TEACHER, true",
+            "ADMINISTRATOR, true",
+            "SECRETARY, true",
+            "STUDENT, false"
+    })
+    void shouldValidatePermissionsForCommonUserWhenUpdate(TypeUserClass typeUserClass, boolean expectedResult) {
+        // Arrange & Act
+        boolean result = policy.canUpdate(RoleUser.USER, typeUserClass);
 
         // Assert
         if (expectedResult) {
