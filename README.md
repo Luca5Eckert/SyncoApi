@@ -88,7 +88,7 @@ Esta API fornece infraestrutura para:
 | Indicador | Valor |
 |-----------|:-----:|
 | Total de Testes | 152 |
-| Arquivos de Teste (JUnit) | 41 (contagem atual do repositório) |
+| Arquivos de Teste (JUnit) | 41 |
 | Endpoints | 28 |
 | Controllers | 8 |
 | CI Success Rate | ~87% |
