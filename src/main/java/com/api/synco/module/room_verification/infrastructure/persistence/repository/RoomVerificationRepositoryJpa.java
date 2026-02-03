@@ -1,4 +1,4 @@
-package com.api.synco.module.room_verification.infrasctuture.persistence.repository;
+package com.api.synco.module.room_verification.infrastructure.persistence.repository;
 
 import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

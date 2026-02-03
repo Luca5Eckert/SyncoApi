@@ -1,10 +1,10 @@
-package com.api.synco.module.room.infrasctuture.repository;
+package com.api.synco.module.room.infrastructure.repository;
 
 import com.api.synco.module.room.domain.RoomEntity;
 import com.api.synco.module.room.domain.filter.RoomFilter;
 import com.api.synco.module.room.domain.filter.RoomPage;
 import com.api.synco.module.room.domain.port.RoomRepository;
-import com.api.synco.module.room.infrasctuture.specification.RoomFilterProvider;
+import com.api.synco.module.room.infrastructure.specification.RoomFilterProvider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;

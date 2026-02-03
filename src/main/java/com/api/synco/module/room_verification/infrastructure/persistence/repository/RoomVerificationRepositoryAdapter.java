@@ -1,4 +1,4 @@
-package com.api.synco.module.room_verification.infrasctuture.persistence.repository;
+package com.api.synco.module.room_verification.infrastructure.persistence.repository;
 
 import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
@@ -14,7 +14,7 @@ public class RoomVerificationRepositoryAdapter implements RoomVerificationReposi
     }
 
     @Override
-    public boolean existByPeriodId(long periodId) {
+    public boolean existsByPeriodId(long periodId) {
         return roomVerificationRepositoryJpa.existsByPeriodId(periodId);
     }
 

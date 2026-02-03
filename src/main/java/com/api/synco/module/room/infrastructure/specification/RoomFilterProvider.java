@@ -1,4 +1,4 @@
-package com.api.synco.module.room.infrasctuture.specification;
+package com.api.synco.module.room.infrastructure.specification;
 
 import com.api.synco.module.room.domain.RoomEntity;
 import com.api.synco.module.room.domain.filter.RoomFilter;
