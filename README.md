@@ -97,10 +97,10 @@ Esta API fornece infraestrutura para:
 
 | Indicador | Valor |
 |-----------|:-----:|
-| Linhas Java (main/test) | 15.938 (11.204 / 4.734) |
+| Linhas Java (main/test) | 15,938 (11,204 / 4,734) |
 | Arquivos Java (main/test) | 277 (236 / 41) |
 | Tipos Java declarados | 277 (154 classes, 60 records, 17 interfaces, 5 enums, 41 classes de teste) |
-| Pacotes Java únicos | 139 (main 139; test 19, todos compartilhados) |
+| Pacotes Java únicos | 139 (main 139; test 19, todos compartilhados com main) |
 | Módulos de domínio | 10 |
 
 _Fonte: análise estática do repositório._
