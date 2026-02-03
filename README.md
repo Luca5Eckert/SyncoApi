@@ -101,7 +101,7 @@ Esta API fornece infraestrutura para:
 1. Crie um arquivo `.env` (baseie-se em um futuro `.env.example`):
    ```bash
    # TODO: criar .env.example no repositório
-   SPRING_DATASOURCE_URL=<TODO: informar a JDBC URL do MySQL>
+   SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/synco_db
    DB_USERNAME=<seu-usuario>
    DB_PASSWORD=<sua-senha>
    MYSQL_ROOT_PASSWORD=<senha-root>
@@ -189,11 +189,11 @@ Esta API fornece infraestrutura para:
 
 **Exemplo (login e obtenção de token)**
 ```bash
-TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
+curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"SenhaForte123!"}' \
-  | jq -r '.data.token')
+  -d '{"email":"user@example.com","password":"SenhaForte123!"}'
 ```
+> Copie o valor de `data.token` da resposta para usar nos endpoints protegidos.
 
 ### Usuários `/api/users`
 
@@ -268,7 +268,7 @@ TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
 
 ```bash
 curl -X GET http://localhost:8080/api/users \
-  -H "Authorization: Bearer ${TOKEN}"
+  -H "Authorization: Bearer <TOKEN>"
 ```
 
 ### Exemplo de erro padrão (TODO)
