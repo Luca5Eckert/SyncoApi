@@ -76,12 +76,6 @@ public class SecurityConfig {
      *   <li>JWT authentication filter placement in the filter chain</li>
      * </ul>
      *
-     * <p>Protected endpoints:</p>
-     * <ul>
-     *   <li>{@code /api/users/**} - Requires authentication</li>
-     *   <li>{@code /api/courses/**} - Requires authentication</li>
-     *   <li>{@code /api/auth/password} - Requires authentication</li>
-     * </ul>
      *
      * @param http the {@link HttpSecurity} to configure
      * @param authenticationFilter the JWT authentication filter

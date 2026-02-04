@@ -165,7 +165,6 @@ class UpdateRoomVerificationUseCaseTest {
 
         when(classUser.getUserEntity()).thenReturn(userEntity);
 
-        // TODO: usar enums reais do projeto se existirem
         when(userEntity.getRole()).thenReturn(mock(RoleUser.class));
         when(classUser.getTypeUserClass()).thenReturn(mock(TypeUserClass.class));
 
