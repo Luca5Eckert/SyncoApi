@@ -1,7 +1,7 @@
-package com.api.synco.infrastructure.service;
+package com.api.synco.core.service;
 
-import com.api.synco.core.UserAuthenticationService;
-import com.api.synco.infrastructure.security.user_details.UserDetailsImpl;
+import com.api.synco.module.authentication.domain.port.UserAuthenticationService;
+import com.api.synco.core.security.user_details.UserDetailsImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

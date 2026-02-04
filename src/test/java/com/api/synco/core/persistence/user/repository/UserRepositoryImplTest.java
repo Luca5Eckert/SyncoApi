@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.user.repository;
+package com.api.synco.core.persistence.user.repository;
 
 import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;

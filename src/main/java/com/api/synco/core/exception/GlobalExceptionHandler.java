@@ -1,7 +1,7 @@
-package com.api.synco.infrastructure.exception;
+package com.api.synco.core.exception;
 
-import com.api.synco.infrastructure.api.CustomApiResponse;
-import com.api.synco.infrastructure.exception.token.TokenException;
+import com.api.synco.core.api.CustomApiResponse;
+import com.api.synco.core.exception.token.TokenException;
 import com.api.synco.module.authentication.domain.exception.AuthenticationException;
 import com.api.synco.module.class_entity.domain.exception.ClassDomainException;
 import com.api.synco.module.class_entity.domain.exception.user.UserWithoutClassPermisionException;

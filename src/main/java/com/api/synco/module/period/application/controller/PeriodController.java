@@ -1,7 +1,7 @@
 package com.api.synco.module.period.application.controller;
 
-import com.api.synco.core.UserAuthenticationService;
-import com.api.synco.infrastructure.api.CustomApiResponse;
+import com.api.synco.module.authentication.domain.port.UserAuthenticationService;
+import com.api.synco.core.api.CustomApiResponse;
 import com.api.synco.module.period.application.dto.CreatePeriodRequest;
 import com.api.synco.module.period.application.dto.CreatePeriodResponse;
 import com.api.synco.module.period.application.dto.GetPeriodResponse;

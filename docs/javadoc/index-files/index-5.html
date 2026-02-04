@@ -120,15 +120,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="../com/api/synco/module/user/domain/filter/UserFilter.html#param-emailContains"><code>emailContains</code></a> record component.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/specification/UserSpecifications.html#emailContains(java.lang.String)" class="member-name-link">emailContains(String)</a> - Static method in class com.api.synco.infrastructure.persistence.user.specification.<a href="../com/api/synco/infrastructure/persistence/user/specification/UserSpecifications.html" title="class in com.api.synco.infrastructure.persistence.user.specification">UserSpecifications</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/specification/UserSpecifications.html#emailContains(java.lang.String)" class="member-name-link">emailContains(String)</a> - Static method in class com.api.synco.core.persistence.user.specification.<a href="../com/api/synco/infrastructure/persistence/user/specification/UserSpecifications.html" title="class in com.api.synco.core.persistence.user.specification">UserSpecifications</a></dt>
 <dd>
 <div class="block">Creates a specification to filter users by email containing the given value.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html" class="type-name-link" title="class in com.api.synco.infrastructure.persistence.user.converter">EmailConverter</a> - Class in <a href="../com/api/synco/infrastructure/persistence/user/converter/package-summary.html">com.api.synco.infrastructure.persistence.user.converter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html" class="type-name-link" title="class in com.api.synco.core.persistence.user.converter">EmailConverter</a> - Class in <a href="../com/api/synco/infrastructure/persistence/user/converter/package-summary.html">com.api.synco.core.persistence.user.converter</a></dt>
 <dd>
 <div class="block">JPA attribute converter for the <a href="../com/api/synco/module/user/domain/vo/Email.html" title="class in com.api.synco.module.user.domain.vo"><code>Email</code></a> value object.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html#%3Cinit%3E()" class="member-name-link">EmailConverter()</a> - Constructor for class com.api.synco.infrastructure.persistence.user.converter.<a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html" title="class in com.api.synco.infrastructure.persistence.user.converter">EmailConverter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html#%3Cinit%3E()" class="member-name-link">EmailConverter()</a> - Constructor for class com.api.synco.core.persistence.user.converter.<a href="../com/api/synco/infrastructure/persistence/user/converter/EmailConverter.html" title="class in com.api.synco.core.persistence.user.converter">EmailConverter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../com/api/synco/module/user/domain/exception/email/EmailInvalidDomainException.html" class="type-name-link" title="class in com.api.synco.module.user.domain.exception.email">EmailInvalidDomainException</a> - Exception Class in <a href="../com/api/synco/module/user/domain/exception/email/package-summary.html">com.api.synco.module.user.domain.exception.email</a></dt>
 <dd>
@@ -166,7 +166,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a new exception with a custom message.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.api.synco.infrastructure.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.infrastructure.api">CustomApiResponse</a></dt>
+<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.api.synco.core.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.core.api">CustomApiResponse</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
@@ -328,11 +328,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#error()" class="member-name-link">error()</a> - Method in record class com.api.synco.infrastructure.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.infrastructure.api">CustomApiResponse</a></dt>
+<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#error()" class="member-name-link">error()</a> - Method in record class com.api.synco.core.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.core.api">CustomApiResponse</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#param-error"><code>error</code></a> record component.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#error(int,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">error(int, String, String, String)</a> - Static method in record class com.api.synco.infrastructure.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.infrastructure.api">CustomApiResponse</a></dt>
+<dt><a href="../com/api/synco/infrastructure/api/CustomApiResponse.html#error(int,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">error(int, String, String, String)</a> - Static method in record class com.api.synco.core.api.<a href="../com/api/synco/infrastructure/api/CustomApiResponse.html" title="class in com.api.synco.core.api">CustomApiResponse</a></dt>
 <dd>
 <div class="block">Creates an error response without data payload.</div>
 </dd>
@@ -420,23 +420,23 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Executes the paginated user retrieval use case.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html#existById(long)" class="member-name-link">existById(long)</a> - Method in class com.api.synco.infrastructure.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html" title="class in com.api.synco.infrastructure.persistence.course.repository">CourseRepositoryAdapter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html#existById(long)" class="member-name-link">existById(long)</a> - Method in class com.api.synco.core.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html" title="class in com.api.synco.core.persistence.course.repository">CourseRepositoryAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../com/api/synco/module/course/domain/port/CourseRepository.html#existById(long)" class="member-name-link">existById(long)</a> - Method in interface com.api.synco.module.course.domain.port.<a href="../com/api/synco/module/course/domain/port/CourseRepository.html" title="interface in com.api.synco.module.course.domain.port">CourseRepository</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/class_entity/repository/ClassRepositoryAdapter.html#existById(com.api.synco.module.class_entity.domain.ClassEntityId)" class="member-name-link">existById(ClassEntityId)</a> - Method in class com.api.synco.infrastructure.persistence.class_entity.repository.<a href="../com/api/synco/infrastructure/persistence/class_entity/repository/ClassRepositoryAdapter.html" title="class in com.api.synco.infrastructure.persistence.class_entity.repository">ClassRepositoryAdapter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/class_entity/repository/ClassRepositoryAdapter.html#existById(com.api.synco.module.class_entity.domain.ClassEntityId)" class="member-name-link">existById(ClassEntityId)</a> - Method in class com.api.synco.core.persistence.class_entity.repository.<a href="../com/api/synco/infrastructure/persistence/class_entity/repository/ClassRepositoryAdapter.html" title="class in com.api.synco.core.persistence.class_entity.repository">ClassRepositoryAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../com/api/synco/module/class_entity/domain/port/ClassRepository.html#existById(com.api.synco.module.class_entity.domain.ClassEntityId)" class="member-name-link">existById(ClassEntityId)</a> - Method in interface com.api.synco.module.class_entity.domain.port.<a href="../com/api/synco/module/class_entity/domain/port/ClassRepository.html" title="interface in com.api.synco.module.class_entity.domain.port">ClassRepository</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/class_user/repository/ClassUserRepositoryAdapter.html#existById(com.api.synco.module.class_user.domain.ClassUserId)" class="member-name-link">existById(ClassUserId)</a> - Method in class com.api.synco.infrastructure.persistence.class_user.repository.<a href="../com/api/synco/infrastructure/persistence/class_user/repository/ClassUserRepositoryAdapter.html" title="class in com.api.synco.infrastructure.persistence.class_user.repository">ClassUserRepositoryAdapter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/class_user/repository/ClassUserRepositoryAdapter.html#existById(com.api.synco.module.class_user.domain.ClassUserId)" class="member-name-link">existById(ClassUserId)</a> - Method in class com.api.synco.core.persistence.class_user.repository.<a href="../com/api/synco/infrastructure/persistence/class_user/repository/ClassUserRepositoryAdapter.html" title="class in com.api.synco.core.persistence.class_user.repository">ClassUserRepositoryAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../com/api/synco/module/class_user/domain/port/ClassUserRepository.html#existById(com.api.synco.module.class_user.domain.ClassUserId)" class="member-name-link">existById(ClassUserId)</a> - Method in interface com.api.synco.module.class_user.domain.port.<a href="../com/api/synco/module/class_user/domain/port/ClassUserRepository.html" title="interface in com.api.synco.module.class_user.domain.port">ClassUserRepository</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/JpaUserRepository.html#existsByEmail(com.api.synco.module.user.domain.vo.Email)" class="member-name-link">existsByEmail(Email)</a> - Method in interface com.api.synco.infrastructure.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/JpaUserRepository.html" title="interface in com.api.synco.infrastructure.persistence.user.repository">JpaUserRepository</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/JpaUserRepository.html#existsByEmail(com.api.synco.module.user.domain.vo.Email)" class="member-name-link">existsByEmail(Email)</a> - Method in interface com.api.synco.core.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/JpaUserRepository.html" title="interface in com.api.synco.core.persistence.user.repository">JpaUserRepository</a></dt>
 <dd>
 <div class="block">Checks if a user exists with the specified email address.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html#existsByEmail(com.api.synco.module.user.domain.vo.Email)" class="member-name-link">existsByEmail(Email)</a> - Method in class com.api.synco.infrastructure.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html" title="class in com.api.synco.infrastructure.persistence.user.repository">UserRepositoryImpl</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html#existsByEmail(com.api.synco.module.user.domain.vo.Email)" class="member-name-link">existsByEmail(Email)</a> - Method in class com.api.synco.core.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html" title="class in com.api.synco.core.persistence.user.repository">UserRepositoryImpl</a></dt>
 <dd>
 <div class="block">Checks if a user exists with the specified email address.</div>
 </dd>
@@ -444,7 +444,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Checks if a user exists with the specified email address.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html#existsById(long)" class="member-name-link">existsById(long)</a> - Method in class com.api.synco.infrastructure.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html" title="class in com.api.synco.infrastructure.persistence.user.repository">UserRepositoryImpl</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html#existsById(long)" class="member-name-link">existsById(long)</a> - Method in class com.api.synco.core.persistence.user.repository.<a href="../com/api/synco/infrastructure/persistence/user/repository/UserRepositoryImpl.html" title="class in com.api.synco.core.persistence.user.repository">UserRepositoryImpl</a></dt>
 <dd>
 <div class="block">Checks if a user exists with the specified identifier.</div>
 </dd>
@@ -452,9 +452,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Checks if a user exists with the specified identifier.</div>
 </dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html#existsByNameOrAcronym(java.lang.String,java.lang.String)" class="member-name-link">existsByNameOrAcronym(String, String)</a> - Method in class com.api.synco.infrastructure.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html" title="class in com.api.synco.infrastructure.persistence.course.repository">CourseRepositoryAdapter</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html#existsByNameOrAcronym(java.lang.String,java.lang.String)" class="member-name-link">existsByNameOrAcronym(String, String)</a> - Method in class com.api.synco.core.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryAdapter.html" title="class in com.api.synco.core.persistence.course.repository">CourseRepositoryAdapter</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryJpa.html#existsByNameOrAcronym(java.lang.String,java.lang.String)" class="member-name-link">existsByNameOrAcronym(String, String)</a> - Method in interface com.api.synco.infrastructure.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryJpa.html" title="interface in com.api.synco.infrastructure.persistence.course.repository">CourseRepositoryJpa</a></dt>
+<dt><a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryJpa.html#existsByNameOrAcronym(java.lang.String,java.lang.String)" class="member-name-link">existsByNameOrAcronym(String, String)</a> - Method in interface com.api.synco.core.persistence.course.repository.<a href="../com/api/synco/infrastructure/persistence/course/repository/CourseRepositoryJpa.html" title="interface in com.api.synco.core.persistence.course.repository">CourseRepositoryJpa</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="../com/api/synco/module/course/domain/port/CourseRepository.html#existsByNameOrAcronym(java.lang.String,java.lang.String)" class="member-name-link">existsByNameOrAcronym(String, String)</a> - Method in interface com.api.synco.module.course.domain.port.<a href="../com/api/synco/module/course/domain/port/CourseRepository.html" title="interface in com.api.synco.module.course.domain.port">CourseRepository</a></dt>
 <dd>&nbsp;</dd>

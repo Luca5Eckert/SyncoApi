@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-12-03">
-<meta name="description" content="declaration: package: com.api.synco.infrastructure.security.jwt, class: JwtTokenProvider">
+<meta name="description" content="declaration: package: com.api.synco.core.security.jwt, class: JwtTokenProvider">
 <meta name="generator" content="javadoc/ClassWriter">
 <link rel="stylesheet" type="text/css" href="../../../../../../resource-files/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../../resource-files/stylesheet.css" title="Style">
@@ -81,11 +81,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.infrastructure.security.jwt</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.core.security.jwt</a></div>
 <h1 title="Class JwtTokenProvider" class="title">Class JwtTokenProvider</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">com.api.synco.infrastructure.security.jwt.JwtTokenProvider</div>
+<div class="inheritance">com.api.synco.core.security.jwt.JwtTokenProvider</div>
 </div>
 <section class="class-description" id="class-description">
 <div class="horizontal-scroll">
@@ -121,7 +121,7 @@ loadScripts(document, 'script');</script>
 <dt>See Also:</dt>
 <dd>
 <ul class="tag-list">
-<li><a href="JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt"><code>JwtTokenAuthenticationFilter</code></a></li>
+<li><a href="JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt"><code>JwtTokenAuthenticationFilter</code></a></li>
 </ul>
 </dd>
 </dl>
@@ -276,7 +276,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the <code>Claims</code> extracted from the token</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../../exception/token/TokenInvalidException.html" title="class in com.api.synco.infrastructure.exception.token">TokenInvalidException</a></code> - if the token is null, empty, expired, malformed,
+<dd><code><a href="../../exception/token/TokenInvalidException.html" title="class in com.api.synco.core.exception.token">TokenInvalidException</a></code> - if the token is null, empty, expired, malformed,
                                has an invalid signature, or is unsupported</dd>
 </dl>
 </div>
@@ -296,7 +296,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the user's email extracted from the token</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../../exception/token/TokenInvalidException.html" title="class in com.api.synco.infrastructure.exception.token">TokenInvalidException</a></code> - if the token is invalid or does not contain an email</dd>
+<dd><code><a href="../../exception/token/TokenInvalidException.html" title="class in com.api.synco.core.exception.token">TokenInvalidException</a></code> - if the token is invalid or does not contain an email</dd>
 </dl>
 </div>
 </section>

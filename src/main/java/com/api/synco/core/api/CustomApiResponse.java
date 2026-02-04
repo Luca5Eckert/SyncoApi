@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.api;
+package com.api.synco.core.api;
 
 import java.time.Instant;
 

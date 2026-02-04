@@ -1,7 +1,7 @@
 package com.api.synco.module.course.application.controller;
 
-import com.api.synco.core.UserAuthenticationService;
-import com.api.synco.infrastructure.api.CustomApiResponse;
+import com.api.synco.module.authentication.domain.port.UserAuthenticationService;
+import com.api.synco.core.api.CustomApiResponse;
 import com.api.synco.module.course.application.dto.create.CreateCourseRequest;
 import com.api.synco.module.course.application.dto.create.CreateCourseResponse;
 import com.api.synco.module.course.application.dto.delete.DeleteCourseRequest;

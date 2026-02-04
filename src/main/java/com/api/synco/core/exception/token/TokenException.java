@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.exception.token;
+package com.api.synco.core.exception.token;
 
 /**
  * Base exception class for JWT token-related errors.

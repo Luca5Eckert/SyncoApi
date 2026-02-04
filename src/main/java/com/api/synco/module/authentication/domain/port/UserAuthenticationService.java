@@ -1,4 +1,4 @@
-package com.api.synco.core;
+package com.api.synco.module.authentication.domain.port;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.security.user_details;
+package com.api.synco.core.security.user_details;
 
 import com.api.synco.module.user.domain.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,6 @@
-package com.api.synco.infrastructure.security.jwt;
+package com.api.synco.core.security.jwt;
 
-import com.api.synco.infrastructure.exception.token.TokenInvalidException;
+import com.api.synco.core.exception.token.TokenInvalidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

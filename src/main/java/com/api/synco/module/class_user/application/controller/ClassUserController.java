@@ -1,7 +1,7 @@
 package com.api.synco.module.class_user.application.controller;
 
-import com.api.synco.core.UserAuthenticationService;
-import com.api.synco.infrastructure.api.CustomApiResponse;
+import com.api.synco.module.authentication.domain.port.UserAuthenticationService;
+import com.api.synco.core.api.CustomApiResponse;
 import com.api.synco.module.class_user.application.dto.create.CreateClassUserRequest;
 import com.api.synco.module.class_user.application.dto.create.CreateClassUserResponse;
 import com.api.synco.module.class_user.application.dto.get.GetAllClassUserResponse;

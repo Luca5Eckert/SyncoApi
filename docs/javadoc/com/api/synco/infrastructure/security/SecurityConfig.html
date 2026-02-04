@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-12-03">
-<meta name="description" content="declaration: package: com.api.synco.infrastructure.security, class: SecurityConfig">
+<meta name="description" content="declaration: package: com.api.synco.core.security, class: SecurityConfig">
 <meta name="generator" content="javadoc/ClassWriter">
 <link rel="stylesheet" type="text/css" href="../../../../../resource-files/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../resource-files/stylesheet.css" title="Style">
@@ -81,11 +81,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.infrastructure.security</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.core.security</a></div>
 <h1 title="Class SecurityConfig" class="title">Class SecurityConfig</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">com.api.synco.infrastructure.security.SecurityConfig</div>
+<div class="inheritance">com.api.synco.core.security.SecurityConfig</div>
 </div>
 <section class="class-description" id="class-description">
 <div class="horizontal-scroll">
@@ -116,8 +116,8 @@ loadScripts(document, 'script');</script>
 <dt>See Also:</dt>
 <dd>
 <ul class="tag-list">
-<li><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt"><code>JwtTokenAuthenticationFilter</code></a></li>
-<li><a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.infrastructure.security.jwt"><code>JwtTokenProvider</code></a></li>
+<li><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt"><code>JwtTokenAuthenticationFilter</code></a></li>
+<li><a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.core.security.jwt"><code>JwtTokenProvider</code></a></li>
 </ul>
 </dd>
 </dl>
@@ -154,8 +154,8 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates the authentication manager bean.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenAuthenticationFilter</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#jwtTokenAuthenticationFilter(com.api.synco.infrastructure.security.jwt.JwtTokenProvider,org.springframework.security.core.userdetails.UserDetailsService)" class="member-name-link">jwtTokenAuthenticationFilter</a><wbr>(<a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenProvider</a>&nbsp;jwtTokenProvider,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt">JwtTokenAuthenticationFilter</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#jwtTokenAuthenticationFilter(com.api.synco.infrastructure.security.jwt.JwtTokenProvider,org.springframework.security.core.userdetails.UserDetailsService)" class="member-name-link">jwtTokenAuthenticationFilter</a><wbr>(<a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.core.security.jwt">JwtTokenProvider</a>&nbsp;jwtTokenProvider,
  org.springframework.security.core.userdetails.UserDetailsService&nbsp;userDetailsService)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates the JWT token authentication filter bean.</div>
@@ -167,7 +167,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.springframework.security.web.SecurityFilterChain</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity,com.api.synco.infrastructure.security.jwt.JwtTokenAuthenticationFilter)" class="member-name-link">securityFilterChain</a><wbr>(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
- <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenAuthenticationFilter</a>&nbsp;authenticationFilter)</code></div>
+ <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt">JwtTokenAuthenticationFilter</a>&nbsp;authenticationFilter)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Configures the security filter chain.</div>
 </div>
@@ -209,7 +209,7 @@ loadScripts(document, 'script');</script>
 <h3>jwtTokenAuthenticationFilter</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenAuthenticationFilter</a></span>&nbsp;<span class="element-name">jwtTokenAuthenticationFilter</span><wbr><span class="parameters">(<a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenProvider</a>&nbsp;jwtTokenProvider,
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt">JwtTokenAuthenticationFilter</a></span>&nbsp;<span class="element-name">jwtTokenAuthenticationFilter</span><wbr><span class="parameters">(<a href="jwt/JwtTokenProvider.html" title="class in com.api.synco.core.security.jwt">JwtTokenProvider</a>&nbsp;jwtTokenProvider,
  org.springframework.security.core.userdetails.UserDetailsService&nbsp;userDetailsService)</span></div>
 <div class="block">Creates the JWT token authentication filter bean.
 
@@ -220,7 +220,7 @@ loadScripts(document, 'script');</script>
 <dd><code>jwtTokenProvider</code> - the JWT token provider for token operations</dd>
 <dd><code>userDetailsService</code> - the service for loading user details</dd>
 <dt>Returns:</dt>
-<dd>a configured <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt"><code>JwtTokenAuthenticationFilter</code></a> instance</dd>
+<dd>a configured <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt"><code>JwtTokenAuthenticationFilter</code></a> instance</dd>
 </dl>
 </div>
 </section>
@@ -231,7 +231,7 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="annotations">@Bean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.security.web.SecurityFilterChain</span>&nbsp;<span class="element-name">securityFilterChain</span><wbr><span class="parameters">(org.springframework.security.config.annotation.web.builders.HttpSecurity&nbsp;http,
- <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.infrastructure.security.jwt">JwtTokenAuthenticationFilter</a>&nbsp;authenticationFilter)</span>
+ <a href="jwt/JwtTokenAuthenticationFilter.html" title="class in com.api.synco.core.security.jwt">JwtTokenAuthenticationFilter</a>&nbsp;authenticationFilter)</span>
                                                                          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a></span></div>
 <div class="block">Configures the security filter chain.
 

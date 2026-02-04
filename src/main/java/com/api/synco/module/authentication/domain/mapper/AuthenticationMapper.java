@@ -1,6 +1,6 @@
 package com.api.synco.module.authentication.domain.mapper;
 
-import com.api.synco.infrastructure.security.user_details.UserDetailsImpl;
+import com.api.synco.core.security.user_details.UserDetailsImpl;
 import com.api.synco.module.authentication.application.dto.login.UserLoginResponse;
 import com.api.synco.module.authentication.application.dto.register.UserRegisterResponse;
 import com.api.synco.module.user.domain.UserEntity;

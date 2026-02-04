@@ -1,7 +1,7 @@
-package com.api.synco.infrastructure.security;
+package com.api.synco.core.security;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenAuthenticationFilter;
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
+import com.api.synco.core.security.jwt.JwtTokenAuthenticationFilter;
+import com.api.synco.core.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

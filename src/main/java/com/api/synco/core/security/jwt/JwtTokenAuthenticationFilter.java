@@ -1,7 +1,6 @@
-package com.api.synco.infrastructure.security.jwt;
+package com.api.synco.core.security.jwt;
 
-import com.api.synco.infrastructure.exception.token.TokenException;
-import com.api.synco.infrastructure.exception.token.TokenInvalidException;
+import com.api.synco.core.exception.token.TokenInvalidException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

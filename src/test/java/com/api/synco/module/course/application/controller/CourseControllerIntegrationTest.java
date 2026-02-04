@@ -1,6 +1,6 @@
 package com.api.synco.module.course.application.controller;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
+import com.api.synco.core.security.jwt.JwtTokenProvider;
 import com.api.synco.module.course.application.dto.create.CreateCourseRequest;
 import com.api.synco.module.course.application.dto.update.UpdateCourseRequest;
 import com.api.synco.module.course.domain.CourseEntity;

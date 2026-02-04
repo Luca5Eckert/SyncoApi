@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="dc.created" content="2025-12-03">
-<meta name="description" content="declaration: package: com.api.synco.infrastructure.service, class: UserAuthenticationServiceImpl">
+<meta name="description" content="declaration: package: com.api.synco.core.service, class: UserAuthenticationServiceImpl">
 <meta name="generator" content="javadoc/ClassWriter">
 <link rel="stylesheet" type="text/css" href="../../../../../resource-files/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../../resource-files/stylesheet.css" title="Style">
@@ -81,11 +81,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.infrastructure.service</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">com.api.synco.core.service</a></div>
 <h1 title="Class UserAuthenticationServiceImpl" class="title">Class UserAuthenticationServiceImpl</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">com.api.synco.infrastructure.service.UserAuthenticationServiceImpl</div>
+<div class="inheritance">com.api.synco.core.service.UserAuthenticationServiceImpl</div>
 </div>
 <section class="class-description" id="class-description">
 <div class="horizontal-scroll">
@@ -200,7 +200,7 @@ implements <a href="../../core/UserAuthenticationService.html" title="interface 
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getAuthenticatedUserId</span>()</div>
 <div class="block">Retrieves the unique identifier of the currently authenticated user.
 
- <p>This method extracts the user ID from the <a href="../security/user_details/UserDetailsImpl.html" title="class in com.api.synco.infrastructure.security.user_details"><code>UserDetailsImpl</code></a>
+ <p>This method extracts the user ID from the <a href="../security/user_details/UserDetailsImpl.html" title="class in com.api.synco.core.security.user_details"><code>UserDetailsImpl</code></a>
  stored in the security context.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
@@ -208,7 +208,7 @@ implements <a href="../../core/UserAuthenticationService.html" title="interface 
 <dt>Returns:</dt>
 <dd>the unique identifier of the authenticated user</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/ClassCastException.html" title="class or interface in java.lang" class="external-link">ClassCastException</a></code> - if the principal is not an instance of <a href="../security/user_details/UserDetailsImpl.html" title="class in com.api.synco.infrastructure.security.user_details"><code>UserDetailsImpl</code></a></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/ClassCastException.html" title="class or interface in java.lang" class="external-link">ClassCastException</a></code> - if the principal is not an instance of <a href="../security/user_details/UserDetailsImpl.html" title="class in com.api.synco.core.security.user_details"><code>UserDetailsImpl</code></a></dd>
 </dl>
 </div>
 </section>

@@ -3,8 +3,8 @@ package com.api.synco.module.authentication.domain.use_case;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.api.synco.infrastructure.security.jwt.JwtTokenProvider;
-import com.api.synco.infrastructure.security.user_details.UserDetailsImpl;
+import com.api.synco.core.security.jwt.JwtTokenProvider;
+import com.api.synco.core.security.user_details.UserDetailsImpl;
 import com.api.synco.module.authentication.application.dto.login.UserLoginRequest;
 import com.api.synco.module.authentication.domain.exception.AuthenticationValidationException;
 import com.api.synco.module.authentication.domain.mapper.AuthenticationMapper;
