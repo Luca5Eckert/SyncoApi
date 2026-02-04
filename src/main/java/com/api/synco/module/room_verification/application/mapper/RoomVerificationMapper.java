@@ -2,8 +2,10 @@ package com.api.synco.module.room_verification.application.mapper;
 
 import com.api.synco.module.room_verification.application.dto.RoomVerificationResponse;
 import com.api.synco.module.room_verification.application.dto.create.CreateRoomVerificationRequest;
+import com.api.synco.module.room_verification.application.dto.update.UpdateRoomVerificationRequest;
 import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import com.api.synco.module.room_verification.domain.command.CreateRoomVerificationCommand;
+import com.api.synco.module.room_verification.domain.command.UpdateRoomVerificationCommand;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,6 +34,17 @@ public class RoomVerificationMapper {
                 roomVerificationEntity.getRoomVerificationForm().getDescription(),
                 roomVerificationEntity.getRoomVerificationForm().getObservations(),
                 roomVerificationEntity.getRoomVerificationForm().getTicket()
+        );
+    }
+
+    public UpdateRoomVerificationCommand toUpdateCommand(UpdateRoomVerificationRequest request, long roomVerificationId, long userAuthenticatedId) {
+        return new UpdateRoomVerificationCommand(
+                roomVerificationId,
+                userAuthenticatedId,
+                request.allOrganized(),
+                request.description(),
+                request.observations(),
+                request.ticket()
         );
     }
 }
