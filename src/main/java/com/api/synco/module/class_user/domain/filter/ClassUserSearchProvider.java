@@ -1,9 +1,7 @@
 package com.api.synco.module.class_user.domain.filter;
 
-import com.api.synco.infrastructure.persistence.class_user.specification.ClassUserSpecifications;
-import com.api.synco.infrastructure.persistence.course.specification.CourseSpecifications;
+import com.api.synco.module.class_user.infrastructure.specification.ClassUserSpecifications;
 import com.api.synco.module.class_user.domain.ClassUser;
-import com.api.synco.module.course.domain.CourseEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ClassUserSearchProvider {

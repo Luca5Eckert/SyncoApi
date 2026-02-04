@@ -1,6 +1,6 @@
 package com.api.synco.module.user.domain.filter;
 
-import com.api.synco.infrastructure.persistence.user.specification.UserSpecifications;
+import com.api.synco.module.user.infrastructure.specification.UserSpecifications;
 import com.api.synco.module.user.domain.UserEntity;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

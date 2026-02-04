@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.class_user.repository;
+package com.api.synco.module.class_user.infrastructure.repository;
 
 import com.api.synco.module.class_user.domain.ClassUser;
 import com.api.synco.module.class_user.domain.ClassUserId;

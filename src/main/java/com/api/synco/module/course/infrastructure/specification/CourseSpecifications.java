@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.course.specification;
+package com.api.synco.module.course.infrastructure.specification;
 
 import com.api.synco.module.course.domain.CourseEntity;
 import org.springframework.data.jpa.domain.Specification;

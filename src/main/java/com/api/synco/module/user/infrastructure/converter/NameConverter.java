@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.user.converter;
+package com.api.synco.module.user.infrastructure.converter;
 
 import com.api.synco.module.user.domain.vo.Name;
 import jakarta.persistence.AttributeConverter;

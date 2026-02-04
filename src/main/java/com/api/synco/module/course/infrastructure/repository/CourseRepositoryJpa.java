@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.course.repository;
+package com.api.synco.module.course.infrastructure.repository;
 
 import com.api.synco.module.course.domain.CourseEntity;
 import com.api.synco.module.user.domain.UserEntity;

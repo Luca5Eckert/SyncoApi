@@ -1,10 +1,7 @@
-package com.api.synco.infrastructure.persistence.class_entity.repository;
+package com.api.synco.module.class_entity.infrastructure.repository;
 
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;
-import com.api.synco.module.class_entity.domain.filter.ClassFilter;
-import com.api.synco.module.class_entity.domain.filter.ClassSearchProvider;
-import com.api.synco.module.class_entity.domain.filter.PageClass;
 import com.api.synco.module.class_entity.domain.port.ClassRepository;
 import com.api.synco.module.course.domain.CourseEntity;
 import org.springframework.data.domain.Page;

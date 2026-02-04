@@ -1,4 +1,4 @@
-package com.api.synco.infrastructure.persistence.class_entity.repository;
+package com.api.synco.module.class_entity.infrastructure.repository;
 
 import com.api.synco.module.class_entity.domain.ClassEntity;
 import com.api.synco.module.class_entity.domain.ClassEntityId;

@@ -4,6 +4,7 @@ import com.api.synco.module.user.domain.UserEntity;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.vo.Email;
 import com.api.synco.module.user.domain.vo.Name;
+import com.api.synco.module.user.infrastructure.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

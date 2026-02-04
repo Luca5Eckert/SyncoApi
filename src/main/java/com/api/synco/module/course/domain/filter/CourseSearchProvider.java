@@ -1,7 +1,6 @@
 package com.api.synco.module.course.domain.filter;
 
-import com.api.synco.infrastructure.persistence.course.specification.CourseSpecifications;
-import com.api.synco.infrastructure.persistence.user.specification.UserSpecifications;
+import com.api.synco.module.course.infrastructure.specification.CourseSpecifications;
 import com.api.synco.module.course.domain.CourseEntity;
 import org.springframework.data.jpa.domain.Specification;
 
