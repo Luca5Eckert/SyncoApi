@@ -1,4 +1,4 @@
-package com.api.synco.module.room_verification.domain.exception;
+package com.api.synco.module.room_verification.domain.exception.user;
 
 public class UserNotHavePermissionToCreateRoomVerificationException extends RuntimeException {
     public UserNotHavePermissionToCreateRoomVerificationException(String message) {
