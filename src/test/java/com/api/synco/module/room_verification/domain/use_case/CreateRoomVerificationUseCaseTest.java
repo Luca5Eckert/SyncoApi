@@ -12,7 +12,7 @@ import com.api.synco.module.period.domain.port.PeriodRepository;
 import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import com.api.synco.module.room_verification.domain.command.CreateRoomVerificationCommand;
 import com.api.synco.module.room_verification.domain.exception.RoomVerificationAlreadyExistException;
-import com.api.synco.module.room_verification.domain.exception.UserNotHavePermissionToCreateRoomVerificationException;
+import com.api.synco.module.room_verification.domain.exception.user.UserNotHavePermissionToCreateRoomVerificationException;
 import com.api.synco.module.room_verification.domain.permission.RoomVerificationPermissionPolicy;
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
 import com.api.synco.module.user.domain.UserEntity;

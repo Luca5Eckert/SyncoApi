@@ -8,7 +8,7 @@ import com.api.synco.module.class_user.domain.port.ClassUserRepository;
 import com.api.synco.module.room_verification.domain.RoomVerificationEntity;
 import com.api.synco.module.room_verification.domain.command.UpdateRoomVerificationCommand;
 import com.api.synco.module.room_verification.domain.exception.RoomVerificationNotFound;
-import com.api.synco.module.room_verification.domain.exception.UserNotHavePermissionToCreateRoomVerificationException;
+import com.api.synco.module.room_verification.domain.exception.user.UserNotHavePermissionToCreateRoomVerificationException;
 import com.api.synco.module.room_verification.domain.permission.RoomVerificationPermissionPolicy;
 import com.api.synco.module.room_verification.domain.port.RoomVerificationRepository;
 import org.springframework.stereotype.Component;
