@@ -25,4 +25,12 @@ public class RoomVerificationPermissionPolicy {
         };
     }
 
+    public boolean canGet(RoleUser roleUser, TypeUserClass typeUserClass) {
+        if(roleUser == RoleUser.ADMIN) return true;
+
+        return switch(typeUserClass){
+            case REPRESENTATIVE, TEACHER, ADMINISTRATOR, SECRETARY -> true;
+            case STUDENT -> false;
+        };
+    }
 }

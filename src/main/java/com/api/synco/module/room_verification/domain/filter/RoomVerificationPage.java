@@ -14,4 +14,7 @@ public record RoomVerificationPage(
         }
     }
 
+    public static RoomVerificationPage of(int pageNumber, int pageSize) {
+        return new RoomVerificationPage(pageNumber, pageSize);
+    }
 }
