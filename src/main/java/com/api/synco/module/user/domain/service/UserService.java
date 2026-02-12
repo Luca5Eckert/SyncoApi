@@ -9,6 +9,9 @@ import com.api.synco.module.user.application.dto.get.UserGetResponse;
 import com.api.synco.module.user.domain.enumerator.RoleUser;
 import com.api.synco.module.user.domain.mapper.UserMapper;
 import com.api.synco.module.user.domain.use_case.*;
+import com.api.synco.module.user.infrastructure.aspects.logging.ToLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -44,7 +47,7 @@ import java.util.List;
 public class UserService {
 
     private final UserMapper userMapper;
-
+    private final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserCreateUseCase userCreateUseCase;
     private final UserDeleteUseCase userDeleteUseCase;
     private final UserEditUseCase userEditUseCase;
@@ -77,9 +80,10 @@ public class UserService {
      * @param userId the ID of the authenticated user performing the creation
      * @return the created user's data
      */
+    @ToLog
     public UserCreateResponse create(UserCreateRequest userCreateRequest, long userId) {
         var user = userCreateUseCase.execute(userCreateRequest, userId);
-
+        logger.info("User created successfully, id: {}", user.getId());
         return userMapper.toCreateResponse(user);
     }
 
@@ -89,8 +93,10 @@ public class UserService {
      * @param userDeleteRequest the request containing the user ID to delete
      * @param idUserAutenticated the ID of the authenticated user performing the deletion
      */
+    @ToLog
     public void delete(UserDeleteRequest userDeleteRequest, long idUserAutenticated) {
         userDeleteUseCase.execute(userDeleteRequest, idUserAutenticated);
+        logger.info("User deleted successfully, id: {}", userDeleteRequest.id());
     }
 
     /**
@@ -100,8 +106,10 @@ public class UserService {
      * @param idUserAutenticated the ID of the authenticated user performing the edit
      * @return the updated user's data
      */
+    @ToLog
     public UserEditResponse edit(UserEditRequest userEditRequest, long idUserAutenticated) {
         var user = userEditUseCase.execute(userEditRequest, idUserAutenticated);
+        logger.info("User edited successfully, id: {}", userEditRequest.id());
 
         return userMapper.toEditResponse(user);
     }
@@ -112,8 +120,11 @@ public class UserService {
      * @param id the unique identifier of the user
      * @return the user's data
      */
+    @ToLog
     public UserGetResponse get(long id) {
         var user = userGetUseCase.execute(id);
+        logger.info("User retrieved successfully, id: {}", id);
+
         return userMapper.toGetResponse(user);
     }
 
@@ -129,13 +140,14 @@ public class UserService {
      * @param pageSize the number of users per page
      * @return a list of users matching the criteria
      */
+    @ToLog
     public List<UserGetResponse> getAll(String name, String email, RoleUser roleUser, Instant createAt, Instant updateAt, int pageNumber, int pageSize) {
         var users = userGetAllUseCase.execute(name, email, roleUser, createAt, updateAt, pageNumber, pageSize);
+        logger.info("Fetched {} users successfully",users.getTotalElements());
 
         return users.stream()
                 .map(userMapper::toGetResponse)
                 .toList();
 
     }
-
 }
