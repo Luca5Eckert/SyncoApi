@@ -1,12 +1,17 @@
 # Synco API
 
-API REST para gestão acadêmica — Centraliza a comunicação institucional e o gerenciamento de dados em ambientes educacionais.
+**Backend Java/Spring para explorar a autoridade dos dados acadêmicos e contratos HTTP entre perfis diferentes.**
+
+O desafio do Synco API é concentrar identidade, cursos, turmas e matrículas em um modelo consistente, sem confundir o papel global do usuário com seus vínculos em cada turma. As regras de autenticação e autorização precisam permanecer compreensíveis enquanto novos módulos — salas, períodos e frequência — são incorporados.
+
+**Decisões de engenharia:** modelagem explícita de entidades e vínculos; JWT e validações nas fronteiras HTTP; persistência relacional; testes automatizados e cobertura por módulo. O custo é evoluir contratos e regras de acesso conjuntamente, sem tratar cada endpoint como um CRUD isolado.
+
+**Maturidade e evidência:** projeto de desenvolvimento/estudo. Os números de testes e cobertura abaixo representam um **registro histórico**, não a cobertura garantida no HEAD atual ou uma execução recente da CI.
 
 ![Java 21](https://img.shields.io/badge/Java-21-007396?logo=openjdk&logoColor=white)
 ![Spring Boot 3.3.0](https://img.shields.io/badge/Spring_Boot-3.3.0-6DB33F?logo=spring&logoColor=white)
-![Coverage 68%](https://img.shields.io/badge/Coverage-68.3%25-4CAF50)
-![Tests 152](https://img.shields.io/badge/Tests-152-2196F3)
-![CI](https://img.shields.io/badge/CI-passing-brightgreen)
+![Cobertura histórica: 68,3%](https://img.shields.io/badge/Cobertura_hist%C3%B3rica-68.3%25-4CAF50)
+![Testes registrados: 152](https://img.shields.io/badge/Testes_registrados-152-2196F3)
 
 ---
 
@@ -64,13 +69,15 @@ Esta API fornece infraestrutura para:
 ### Infraestrutura
 
 - **Docker**: Containerização com multi-stage build otimizado
-- **Docker Compose**: Orquestração com MySQL para produção
+- **Docker Compose**: Ambiente reproduzível para executar a aplicação com MySQL
 - **Health Checks**: Monitoramento de disponibilidade
 - **OpenAPI/Swagger**: Documentação interativa da API
 
 ---
 
 ## Métricas de Qualidade
+
+> Fotografia histórica de uma execução registrada; reexecutar a suíte e o JaCoCo antes de citar estes valores como indicadores atuais.
 
 ### Cobertura de Código (JaCoCo)
 
@@ -89,7 +96,7 @@ Esta API fornece infraestrutura para:
 | Classes de Teste | 35 |
 | Endpoints | 28 |
 | Controllers | 8 |
-| CI Success Rate | ~87% |
+| CI Success Rate | Não aferida para o estado atual |
 
 ### Cobertura por Módulo
 
